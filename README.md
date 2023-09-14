@@ -2,9 +2,9 @@
 
 Figma: https://www.figma.com/file/etvXd825IzwNOwa2KrFLnh/
 
-The aim of this challenge is to build **a standalone web application that can be cloned and run locally**. You can use your favorite build pipeline and tools, set up linting, code formatting and type checking in any way you feel comfortable.
+The aim of this challenge is to build **a standalone web application that can be cloned and run locally**. You can use your favorite build pipeline and tools, set up linting, code formatting and type checking in any way you feel comfortable.
 
-Note that although it's welcome, **a sophisticated build is not required for the completion of the challenge and the focus while reviewing will be on the code itself**: a balanced architecture that can be extended, but it's not thrown out of the proportion in relation to the subject of the challenge.
+Note that although it's welcome, **a sophisticated build is not required for the completion of the challenge and the focus while reviewing will be on the code itself**: a balanced architecture that can be extended, but it's not thrown out of the proportion in relation to the subject of the challenge.
 
 Using the provided designs in the Figma file, please build the page including the form split into multiple steps. The challenge contains required and optional tasks as well as some general requirements, which are all outlined below.
 
@@ -20,12 +20,12 @@ Using the provided designs in the Figma file, please build the page including th
 
 - The application has to be created using modern ReactJS (functional components, hooks, etc.)
 - The styling and UI can be implemented using any technology you are comfortable with, but it has to provide some degree of customization. The main colors and sizing of the text should be defined in a separate place to provide a single source of truth.
-- **Assume the code you create will be used by people unfamiliar with it at the time of the implementation** - make sure it's clean and well readable.
+- **Assume the code you create will be used by people unfamiliar with it at the time of the implementation** - make sure it's clean and well readable.
 
 ## CSS styling
 
-- For the styling, use [Tailwind CSS](https://tailwindcss.com/) framework. You can also use [Tailwind UI](https://tailwindui.com/) components as needed (login provided in email), but make sure the React code is clean, and it becomes apparent what each HTML element does for a person unfamiliar with the technology. Tip: See [Tailwind CSS Core Concepts](https://tailwindcss.com/docs) section of its documentation for more information.
-- Provide a basic implementation of type checking for React components. Note: **the goal should be to provide in-context IDE suggestions more than a robust compile-level safety net**.
+- For the styling, use [Tailwind CSS](https://tailwindcss.com/) framework. You can also use [Tailwind UI](https://tailwindui.com/) components as needed (login provided in email), but make sure the React code is clean, and it becomes apparent what each HTML element does for a person unfamiliar with the technology. Tip: See [Tailwind CSS Core Concepts](https://tailwindcss.com/docs) section of its documentation for more information.
+- Provide a basic implementation of type checking for React components. Note: **the goal should be to provide in-context IDE suggestions more than a robust compile-level safety net**.
 
 ### General Notes
 
@@ -33,8 +33,7 @@ We suggest that you break this project up into multiple GitHub issues (i.e., 'co
 
 Break down the task into smaller features and send PRs for review when ready. Don’t open more than 3 PRs at once and don’t wait for the entire project to be done before sending out the PRs
 
-This is a paid assignment. Upon completion of the assignment, you'll be compensated $1,000 regardless of whether we proceed with an offer. 
-
+This is a paid assignment. Upon completion of the assignment, you'll be compensated $1,000 regardless of whether we proceed with an offer.
 
 **Things we're looking for in this project**
 
