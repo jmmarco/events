@@ -4,6 +4,7 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Layout from './components/MainLayout'
 import ErrorPage from './components/ErrorPage'
+import NewEvent from './pages/NewEvent'
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: `/events/new`,
-        element: <div>New Event</div>,
+        element: <NewEvent />,
       },
       {
         path: `/events/:eventId`,
