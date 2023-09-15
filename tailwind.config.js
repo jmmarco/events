@@ -5,7 +5,7 @@ export default {
     extend: {
       backgroundColor: {
         alert: '#FFF4F4',
-        blue: '#506CF0',
+        'circle-blue': '#506CF0',
         primary: '#1C2226',
         secondary: '#E6E8EC',
         grey: {
