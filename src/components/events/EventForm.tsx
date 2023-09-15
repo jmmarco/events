@@ -16,6 +16,11 @@ export default function EventForm() {
   const onSubmit: SubmitHandler<FormValues> = (data: unknown) =>
     console.log(data)
 
+  const possibleLocations = [
+    { id: 'virtual', title: 'Virtual' },
+    { id: 'inPerson', title: 'In Person' },
+  ]
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -29,8 +34,30 @@ export default function EventForm() {
           {...register('eventName')}
         />
       </div>
-
       <div className="space-y-2">
+        <h2 className="font-semibold text-[20px] tracking-[0.3px]">Where</h2>
+        <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
+          {possibleLocations.map((location) => (
+            <div key={location.id} className="flex items-center">
+              <input
+                id={location.id}
+                name="notification-method"
+                type="radio"
+                defaultChecked={location.id === 'virtual'}
+                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+              />
+              <label
+                htmlFor={location.id}
+                className="ml-3 block text-sm font-medium leading-6 text-gray-900"
+              >
+                {location.title}
+              </label>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="space-y-2">
+        <h2 className="font-semibold text-[20px] tracking-[0.3px]">Where</h2>
         <label>Set date and time</label>
         <div className="grid grid-cols-2 gap-x-4">
           <input
