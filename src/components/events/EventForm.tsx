@@ -29,19 +29,19 @@ export default function EventForm() {
       <div className="space-y-2">
         <label className="block">Event name</label>
         <input
-          className="border w-full  border-secondary px-3 py-2 rounded-md placeholder:text-grey-shade-placeholder placeholder:text-[15px] placeholder:font-normal"
+          className="w-full rounded-md  border border-secondary px-3 py-2 text-input placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder"
           placeholder="Event name"
           {...register('eventName')}
         />
       </div>
       <div className="space-y-2">
-        <h2 className="font-semibold text-[20px] tracking-[0.3px]">Where</h2>
+        <h2 className="text-[20px] font-semibold tracking-[0.3px]">Where</h2>
         <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
           {possibleLocations.map((location) => (
             <div key={location.id} className="flex items-center">
               <input
                 id={location.id}
-                name="notification-method"
+                name="location"
                 type="radio"
                 defaultChecked={location.id === 'virtual'}
                 className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -57,16 +57,16 @@ export default function EventForm() {
         </div>
       </div>
       <div className="space-y-2">
-        <h2 className="font-semibold text-[20px] tracking-[0.3px]">Where</h2>
+        <h2 className="text-[20px] font-semibold tracking-[0.3px]">Where</h2>
         <label>Set date and time</label>
         <div className="grid grid-cols-2 gap-x-4">
           <input
             type="date"
-            className="border border-secondary px-3 py-2 rounded-md placeholder:text-grey-shade-placeholder placeholder:text-[15px] placeholder:font-normal"
+            className="rounded-md border border-secondary px-3 py-2 placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder"
             {...register('eventDateAndTime')}
           />
           <select
-            className="border border-secondary px-3 py-2 rounded-md placeholder:text-grey-shade-placeholder placeholder:text-[15px] placeholder:font-normal"
+            className="rounded-md border border-secondary px-3 py-2 placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder"
             placeholder="Duration"
             {...register('eventDuration')}
           >
@@ -82,28 +82,30 @@ export default function EventForm() {
       <div className="space-y-2">
         <label>Event description</label>
         <textarea
-          className="border w-full border-secondary px-3 py-2 rounded-md resize-none placeholder:text-grey-shade-placeholder placeholder:text-[15px] placeholder:font-normal"
+          className="w-full resize-none rounded-md border border-secondary px-3 py-2 placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder focus:ring-2 focus:ring-inset focus:ring-circle-blue"
           placeholder="Write a summary about your event"
           {...register('eventDescription')}
         />
       </div>
-      <div className="space-y-2">
-        <label>Slug</label>
+      <fieldset className="space-y-2">
+        <legend>Slug</legend>
         <div className="flex">
+          <label className="sr-only">Event Domain</label>
           <input
-            className="basis-1/4 border border-secondary px-3 py-2 rounded-md rounded-r-none placeholder:text-grey-shade-placeholder placeholder:text-[15px] placeholder:font-normal"
+            className="basis-1/4 rounded-md rounded-r-none border-secondary px-3 py-2 placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder focus:ring-2 focus:ring-inset focus:ring-circle-blue"
             placeholder="yourdomain.com"
             {...register('eventDomain')}
           />
+          <label className="sr-only">Event URL</label>
           <input
-            className="basis-3/4 border border-secondary px-3 py-2 rounded-md rounded-l-none placeholder:text-grey-shade-placeholder placeholder:text-[15px] placeholder:font-normal"
+            className="basis-3/4 rounded-md rounded-l-none border border-secondary px-3 py-2 placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder focus:ring-2 focus:ring-inset focus:ring-circle-blue"
             placeholder="custom URL"
-            {...register('eventDomain')}
+            {...register('eventUrl')}
           />
         </div>
-      </div>
+      </fieldset>
       <Button
-        className="bg-circle-blue text-white font-bold text-[16px] leading-[19.09px] tracking-wide rounded-md place-self-start py-2.5 px-[18px]"
+        className="text-circle-button place-self-start rounded-md bg-circle-blue px-[18px] py-2.5 font-bold leading-[19.09px] tracking-wide text-white"
         type="submit"
       >
         Create event
