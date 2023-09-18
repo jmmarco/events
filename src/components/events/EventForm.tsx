@@ -1,5 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import Button from '../buttons/Button'
+import Input from '../inputs/Input'
+import Textarea from '../inputs/Textarea'
 
 type FormValues = {
   eventName: string
@@ -27,12 +29,7 @@ export default function EventForm() {
       className="flex flex-col gap-y-12 py-14"
     >
       <div className="space-y-2">
-        <label className="block">Event name</label>
-        <input
-          className="text-input placeholder:text-input  placeholder:text-grey-shade-placeholder w-full rounded-md border border-secondary px-3 py-2 placeholder:font-normal"
-          placeholder="Event name"
-          {...register('eventName')}
-        />
+        <Input name="event-name" type="text" label="Event Name" />
       </div>
       <div className="space-y-2">
         <h2 className="text-[20px] font-semibold tracking-[0.3px]">Where</h2>
@@ -57,49 +54,55 @@ export default function EventForm() {
         </div>
       </div>
       <div className="space-y-2">
-        <h2 className="text-[20px] font-semibold tracking-[0.3px]">Where</h2>
-        <label>Set date and time</label>
-        <div className="grid grid-cols-2 gap-x-4">
-          <input
+        <h2 className="text-[20px] font-semibold tracking-[0.3px]">When</h2>
+        <div className="grid grid-cols-2 gap-x-2">
+          <Input
             type="date"
-            className="placeholder:text-input placeholder:text-grey-shade-placeholder rounded-md border border-secondary px-3 py-2 placeholder:font-normal"
+            label="Set date and time"
             {...register('eventDateAndTime')}
           />
-          <select
-            className="placeholder:text-input placeholder:text-grey-shade-placeholder rounded-md border border-secondary px-3 py-2 placeholder:font-normal"
-            placeholder="Duration"
-            {...register('eventDuration')}
-          >
-            <option value="">Duration</option>
-            {Array.from({ length: 24 }, (_, i) => (
-              <option key={i + 1} value={i + 1}>
-                {i + 1}
-              </option>
-            ))}
-          </select>
+          <div className="self-end">
+            <label className="sr-only block">Duration (hours)</label>
+            <select
+              className="placeholder:text-input placeholder:text-grey-shade-placeholder block w-full rounded-md border border-secondary px-3 py-2.5 font-normal text-circle-grey-shade-medium placeholder:font-normal"
+              placeholder="Duration"
+              {...register('eventDuration')}
+            >
+              <option value="">Duration (hours)</option>
+              {Array.from({ length: 6 }, (_, i) => (
+                <option key={i + 1} value={i + 1}>
+                  {i + 1}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
       <div className="space-y-2">
-        <label>Event description</label>
-        <textarea
-          className="placeholder:text-input placeholder:text-grey-shade-placeholder focus:ring-circle-blue w-full resize-none rounded-md border border-secondary px-3 py-2 placeholder:font-normal focus:ring-2 focus:ring-inset"
+        <Textarea
+          label="Event Description"
+          name="event-description"
           placeholder="Write a summary about your event"
-          {...register('eventDescription')}
+          className="h-40 resize-none"
         />
       </div>
-      <fieldset className="space-y-2">
-        <legend>Slug</legend>
-        <div className="flex">
-          <label className="sr-only">Event Domain</label>
-          <input
-            className="placeholder:text-input placeholder:text-grey-shade-placeholder focus:ring-circle-blue basis-1/4 rounded-md rounded-r-none border-secondary px-3 py-2 placeholder:font-normal focus:ring-2 focus:ring-inset"
-            placeholder="yourdomain.com"
-            {...register('eventDomain')}
+      <fieldset>
+        <legend className="block text-sm font-medium text-circle-grey-shade-medium">
+          Slug
+        </legend>
+        <div className="flex flex-row">
+          <Input
+            type="text"
+            name="domain-url"
+            disabled
+            value="yourdomain.com"
+            className="basis-1/4 rounded-r-none"
           />
-          <label className="sr-only">Event URL</label>
-          <input
-            className="placeholder:text-input placeholder:text-grey-shade-placeholder focus:ring-circle-blue basis-3/4 rounded-md rounded-l-none border border-secondary px-3 py-2 placeholder:font-normal focus:ring-2 focus:ring-inset"
+          <Input
+            type="text"
+            className="basis-3/4 rounded-l-none"
             placeholder="custom URL"
+            grow={true}
             {...register('eventUrl')}
           />
         </div>
