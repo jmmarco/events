@@ -21,37 +21,22 @@ interface InputProps {
 export type Ref = HTMLInputElement
 
 export const Input = forwardRef<Ref, InputProps>(
-  (
-    {
-      className,
-      error,
-      grow,
-      intent,
-      label,
-      name,
-      placeholder,
-      size,
-      type,
-      ...props
-    },
-    ref,
-  ) => (
-    <div className={cn(grow && 'grow')}>
+  ({ className, intent, size, ...props }, ref) => (
+    <div className={cn(props.grow && 'grow')}>
       <label
-        htmlFor={name}
+        htmlFor={props.name}
         className="block text-sm font-medium text-circle-grey-shade-medium"
       >
-        {label}
+        {props.label}
       </label>
       <div className="relative mt-2">
         <input
           {...props}
           className={cn(inputStyles({ intent, size, className }))}
-          placeholder={label || placeholder}
-          type={type}
+          placeholder={props.label || props.placeholder}
           ref={ref}
         />
-        {error && (
+        {props.error && (
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
             <ExclamationCircleIcon
               className="h-5 w-5 text-red-500"
@@ -60,7 +45,9 @@ export const Input = forwardRef<Ref, InputProps>(
           </div>
         )}
       </div>
-      {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+      {props.error && (
+        <p className="mt-2 text-sm text-red-600">{props.error}</p>
+      )}
     </div>
   ),
 )

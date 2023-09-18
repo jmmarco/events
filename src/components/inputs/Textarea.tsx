@@ -18,25 +18,22 @@ interface TextareaProps {
 export type Ref = HTMLTextAreaElement
 
 export const Textarea = forwardRef<Ref, TextareaProps>(
-  (
-    { className, error, intent, label, name, placeholder, size, ...props },
-    ref,
-  ) => (
+  ({ className, intent, size, ...props }, ref) => (
     <div>
       <label
-        htmlFor={name}
+        htmlFor={props.name}
         className="block text-sm font-medium text-circle-grey-shade-medium"
       >
-        {label}
+        {props.label}
       </label>
       <div className="relative mt-2">
         <textarea
           {...props}
           className={cn(inputStyles({ intent, size, className }))}
-          placeholder={placeholder || label}
+          placeholder={props.placeholder || props.label}
           ref={ref}
         />
-        {error && (
+        {props.error && (
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
             <ExclamationCircleIcon
               className="h-5 w-5 text-red-500"
@@ -45,7 +42,9 @@ export const Textarea = forwardRef<Ref, TextareaProps>(
           </div>
         )}
       </div>
-      {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+      {props.error && (
+        <p className="mt-2 text-sm text-red-600">{props.error}</p>
+      )}
     </div>
   ),
 )
