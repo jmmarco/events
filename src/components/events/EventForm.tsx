@@ -29,7 +29,7 @@ export default function EventForm() {
       <div className="space-y-2">
         <label className="block">Event name</label>
         <input
-          className="w-full rounded-md  border border-secondary px-3 py-2 text-input placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder"
+          className="text-input placeholder:text-input  placeholder:text-grey-shade-placeholder w-full rounded-md border border-secondary px-3 py-2 placeholder:font-normal"
           placeholder="Event name"
           {...register('eventName')}
         />
@@ -44,7 +44,7 @@ export default function EventForm() {
                 name="location"
                 type="radio"
                 defaultChecked={location.id === 'virtual'}
-                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                className="h-4 w-4 border-gray-300 text-circle-blue-900 focus:ring-circle-blue-900"
               />
               <label
                 htmlFor={location.id}
@@ -62,11 +62,11 @@ export default function EventForm() {
         <div className="grid grid-cols-2 gap-x-4">
           <input
             type="date"
-            className="rounded-md border border-secondary px-3 py-2 placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder"
+            className="placeholder:text-input placeholder:text-grey-shade-placeholder rounded-md border border-secondary px-3 py-2 placeholder:font-normal"
             {...register('eventDateAndTime')}
           />
           <select
-            className="rounded-md border border-secondary px-3 py-2 placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder"
+            className="placeholder:text-input placeholder:text-grey-shade-placeholder rounded-md border border-secondary px-3 py-2 placeholder:font-normal"
             placeholder="Duration"
             {...register('eventDuration')}
           >
@@ -82,7 +82,7 @@ export default function EventForm() {
       <div className="space-y-2">
         <label>Event description</label>
         <textarea
-          className="w-full resize-none rounded-md border border-secondary px-3 py-2 placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder focus:ring-2 focus:ring-inset focus:ring-circle-blue"
+          className="placeholder:text-input placeholder:text-grey-shade-placeholder focus:ring-circle-blue w-full resize-none rounded-md border border-secondary px-3 py-2 placeholder:font-normal focus:ring-2 focus:ring-inset"
           placeholder="Write a summary about your event"
           {...register('eventDescription')}
         />
@@ -92,20 +92,20 @@ export default function EventForm() {
         <div className="flex">
           <label className="sr-only">Event Domain</label>
           <input
-            className="basis-1/4 rounded-md rounded-r-none border-secondary px-3 py-2 placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder focus:ring-2 focus:ring-inset focus:ring-circle-blue"
+            className="placeholder:text-input placeholder:text-grey-shade-placeholder focus:ring-circle-blue basis-1/4 rounded-md rounded-r-none border-secondary px-3 py-2 placeholder:font-normal focus:ring-2 focus:ring-inset"
             placeholder="yourdomain.com"
             {...register('eventDomain')}
           />
           <label className="sr-only">Event URL</label>
           <input
-            className="basis-3/4 rounded-md rounded-l-none border border-secondary px-3 py-2 placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder focus:ring-2 focus:ring-inset focus:ring-circle-blue"
+            className="placeholder:text-input placeholder:text-grey-shade-placeholder focus:ring-circle-blue basis-3/4 rounded-md rounded-l-none border border-secondary px-3 py-2 placeholder:font-normal focus:ring-2 focus:ring-inset"
             placeholder="custom URL"
             {...register('eventUrl')}
           />
         </div>
       </fieldset>
       <Button
-        className="text-circle-button place-self-start rounded-md bg-circle-blue px-[18px] py-2.5 font-bold leading-[19.09px] tracking-wide text-white"
+        className=" place-self-start rounded-md bg-circle-blue-900  leading-[19.09px] tracking-wide"
         type="submit"
       >
         Create event
