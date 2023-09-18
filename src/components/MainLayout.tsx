@@ -3,7 +3,7 @@ import { ChildrenProps } from '../types/global'
 
 export default function Layout({ children }: ChildrenProps) {
   return (
-    <div className="text-circle-grey-shade-dark h-screen">
+    <div className="h-screen text-circle-grey-shade-dark">
       {children}
       <Outlet />
     </div>

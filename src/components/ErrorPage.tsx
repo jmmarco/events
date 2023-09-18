@@ -8,7 +8,7 @@ export default function ErrorPage() {
 
   return (
     <Layout>
-      <div className="rounded-md bg-red-50 p-4 mt-10">
+      <div className="mt-10 rounded-md bg-red-50 p-4">
         <div className="flex">
           <div className="flex-shrink-0">
             <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />

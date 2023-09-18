@@ -22,7 +22,7 @@ export const Input = forwardRef<Ref, InputProps>((props, ref) => (
     <div className="relative mt-2 rounded-md shadow-sm">
       <input
         {...props}
-        className="block w-full rounded-md border-0 px-3 py-2 pr-10 text-red-900 ring-1 ring-inset ring-red-300 placeholder:text-red-300 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6"
+        className="ring-red-300 focus:ring-red-500 block w-full rounded-md border-0 px-3 py-2 pr-10 text-red-900 ring-1 ring-inset placeholder:text-red-300 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
         type={props.type}
         ref={ref}
       />
