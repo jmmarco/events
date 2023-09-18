@@ -18,8 +18,6 @@ const inputStyles = cva(
     variants: {
       intent: {
         primary: ['text-circle-grey-shade-medium'],
-        // **or**
-        // primary: "bg-blue-500 text-white border-transparent hover:bg-blue-600",
         secondary: [
           'bg-white',
           'text-secondary',
