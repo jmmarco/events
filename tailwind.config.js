@@ -19,6 +19,7 @@ const circle = {
     50: '#ecf1ff',
   },
   grey: {
+    background: '#F7F9FB',
     shade: {
       dark: '#1D2839',
       medium: '#687387',
@@ -36,11 +37,6 @@ export default {
         circle,
         primary: '#1C2226',
         secondary: '#E6E8EC',
-        grey: {
-          light: '#E3E5E9',
-          medium: '#F4F4F7',
-          dark: '#F7F9FB',
-        },
       },
       borderColor: {
         circle,
@@ -48,7 +44,6 @@ export default {
         secondary: '#E6E8EC',
       },
       colors: {
-        alert: '#D72C0D',
         primary: '#8A94A6',
         secondary: '#404F5E',
         circle,
