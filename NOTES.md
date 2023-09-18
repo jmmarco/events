@@ -10,6 +10,9 @@ Here you will find the reasoning and logic for choosing packages/patterns for th
 - Headless UI
 - Heroicons
 - React Hook Form
+- Class Variance Authority
+- tailwind-merge
+- clsx
 
 ## How to run
 
