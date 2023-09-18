@@ -1,43 +1,69 @@
 import { ExclamationCircleIcon } from '@heroicons/react/20/solid'
 
 import { forwardRef } from 'react'
+import { cn } from '../../helpers/utils'
+import { inputStyles } from './inputStyles'
 
 interface InputProps {
   className?: string
+  disabled?: boolean
   error?: string
+  grow?: boolean
+  intent?: 'primary' | 'secondary' | null | undefined
   label?: string
-  type: 'submit' | 'text'
+  name: string
+  placeholder?: string
+  size?: 'small' | 'medium'
+  type: 'text' | 'email' | 'date'
+  value?: string
 }
 
 export type Ref = HTMLInputElement
 
-export const Input = forwardRef<Ref, InputProps>((props, ref) => (
-  <div>
-    <label
-      htmlFor="email"
-      className="block text-sm font-medium leading-6 text-gray-900"
-    >
-      {props.label}
-    </label>
-    <div className="relative mt-2 rounded-md shadow-sm">
-      <input
-        {...props}
-        className="ring-red-300 focus:ring-red-500 block w-full rounded-md border-0 px-3 py-2 pr-10 text-red-900 ring-1 ring-inset placeholder:text-red-300 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
-        type={props.type}
-        ref={ref}
-      />
-      {props.error && (
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-          <ExclamationCircleIcon
-            className="h-5 w-5 text-red-500"
-            aria-hidden="true"
-          />
-        </div>
-      )}
+export const Input = forwardRef<Ref, InputProps>(
+  (
+    {
+      className,
+      error,
+      grow,
+      intent,
+      label,
+      name,
+      placeholder,
+      size,
+      type,
+      ...props
+    },
+    ref,
+  ) => (
+    <div className={cn(grow && 'grow')}>
+      <label
+        htmlFor={name}
+        className="block text-sm font-medium text-circle-grey-shade-medium"
+      >
+        {label}
+      </label>
+      <div className="relative mt-2">
+        <input
+          {...props}
+          className={cn(inputStyles({ intent, size, className }))}
+          placeholder={label || placeholder}
+          type={type}
+          ref={ref}
+        />
+        {error && (
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+            <ExclamationCircleIcon
+              className="h-5 w-5 text-red-500"
+              aria-hidden="true"
+            />
+          </div>
+        )}
+      </div>
+      {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
     </div>
-    {props.error && <p className="mt-2 text-sm text-red-600">{props.error}</p>}
-  </div>
-))
+  ),
+)
 
 Input.displayName = 'Input'
 
