@@ -8,7 +8,7 @@ interface InputProps {
   className?: string
   disabled?: boolean
   error?: string
-  grow?: boolean
+  grow?: string
   intent?: 'primary' | 'secondary' | null | undefined
   label?: string
   name: string
@@ -33,7 +33,7 @@ export const Input = forwardRef<Ref, InputProps>(
         <input
           {...props}
           className={cn(inputStyles({ intent, size, className }))}
-          placeholder={props.label || props.placeholder}
+          placeholder={props.placeholder || props.label}
           ref={ref}
         />
         {props.error && (
