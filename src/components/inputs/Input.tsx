@@ -9,8 +9,9 @@ interface InputProps {
   disabled?: boolean
   error?: string
   grow?: string
+  hideLabel?: string
   intent?: 'primary' | 'secondary' | null | undefined
-  label?: string
+  label: string
   name: string
   placeholder?: string
   size?: 'small' | 'medium'
@@ -25,13 +26,17 @@ export const Input = forwardRef<Ref, InputProps>(
     <div className={cn(props.grow && 'grow')}>
       <label
         htmlFor={props.name}
-        className="block text-sm font-medium text-circle-grey-shade-medium"
+        className={cn(
+          'block text-sm font-medium text-circle-grey-shade-medium',
+          props.hideLabel && 'sr-only',
+        )}
       >
         {props.label}
       </label>
       <div className="relative mt-2">
         <input
           {...props}
+          id={props.name}
           className={cn(inputStyles({ intent, size, className }))}
           placeholder={props.placeholder || props.label}
           ref={ref}
