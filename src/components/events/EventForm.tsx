@@ -2,21 +2,55 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import Button from '../buttons/Button'
 import Input from '../inputs/Input'
 import Textarea from '../inputs/Textarea'
+import { EventProps } from '../../types/events'
+import { useCallback, useEffect } from 'react'
 
 type FormValues = {
   eventName: string
   eventLocation: string
   eventDateAndTime: string
-  eventDuration: string
+  eventDuration: number
   eventDescription: string
   eventDomain: string
   eventUrl: string
 }
 
-export default function EventForm() {
-  const { register, handleSubmit } = useForm<FormValues>()
+interface EventFormProps {
+  event?: EventProps | null
+}
+
+export default function EventForm({ event }: EventFormProps) {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    // formState: { errors },
+  } = useForm<FormValues>()
+
+  const getEventObject = useCallback(
+    (event: EventProps) => ({
+      eventName: event.name,
+      eventLocation: event.location,
+      eventDateAndTime: event.dateAndTime,
+      eventDuration: event.duration,
+      eventDescription: event.description,
+      eventUrl: event.customUrl,
+    }),
+
+    [],
+  )
+
+  useEffect(() => {
+    if (event) {
+      reset({ ...getEventObject(event) })
+    }
+    return () => {
+      reset({})
+    }
+  }, [event, getEventObject, reset])
+
   const onSubmit: SubmitHandler<FormValues> = (data: unknown) =>
-    console.log(data)
+    console.log('onSubmit', data)
 
   const possibleLocations = [
     { id: 'virtual', title: 'Virtual' },
@@ -41,7 +75,7 @@ export default function EventForm() {
                 name="location"
                 type="radio"
                 defaultChecked={location.id === 'virtual'}
-                className="h-4 w-4 border-gray-300 text-circle-blue-900 focus:ring-circle-blue-900"
+                className="text-circle-blue-900 focus:ring-circle-blue-900 h-4 w-4 border-gray-300"
               />
               <label
                 htmlFor={location.id}
@@ -64,7 +98,7 @@ export default function EventForm() {
           <div className="self-end">
             <label className="sr-only block">Duration (hours)</label>
             <select
-              className="placeholder:text-input placeholder:text-grey-shade-placeholder block w-full rounded-md border border-secondary px-3 py-2.5 font-normal text-circle-grey-shade-medium placeholder:font-normal"
+              className="text-circle-grey-shade-medium block w-full rounded-md border border-secondary px-3 py-2.5 font-normal placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder"
               placeholder="Duration"
               {...register('eventDuration')}
             >
@@ -87,7 +121,7 @@ export default function EventForm() {
         />
       </div>
       <fieldset>
-        <legend className="block text-sm font-medium text-circle-grey-shade-medium">
+        <legend className="text-circle-grey-shade-medium block text-sm font-medium">
           Slug
         </legend>
         <div className="flex flex-row">
