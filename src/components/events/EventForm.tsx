@@ -94,7 +94,7 @@ export default function EventForm() {
           <Input
             type="text"
             label="Event domain"
-            hideLabel="true"
+            hideLabel
             disabled
             value="yourdomain.com"
             className="basis-1/4 rounded-r-none"
@@ -103,10 +103,10 @@ export default function EventForm() {
           <Input
             type="text"
             label="Event URL"
-            hideLabel="true"
+            hideLabel
             className="basis-3/4 rounded-l-none"
             placeholder="custom URL"
-            grow="true"
+            grow
             {...register('eventUrl')}
           />
         </div>

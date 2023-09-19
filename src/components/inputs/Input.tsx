@@ -8,8 +8,8 @@ interface InputProps {
   className?: string
   disabled?: boolean
   error?: string
-  grow?: string
-  hideLabel?: string
+  grow?: boolean
+  hideLabel?: boolean
   intent?: 'primary' | 'secondary' | null | undefined
   label: string
   name: string
@@ -22,13 +22,13 @@ interface InputProps {
 export type Ref = HTMLInputElement
 
 export const Input = forwardRef<Ref, InputProps>(
-  ({ className, intent, size, ...props }, ref) => (
-    <div className={cn(props.grow && 'grow')}>
+  ({ className, grow, hideLabel, intent, size, ...props }, ref) => (
+    <div className={cn(grow && 'grow')}>
       <label
         htmlFor={props.name}
         className={cn(
           'block text-sm font-medium text-circle-grey-shade-medium',
-          props.hideLabel && 'sr-only',
+          hideLabel && 'sr-only',
         )}
       >
         {props.label}
