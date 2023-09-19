@@ -41,7 +41,7 @@ export default function EventForm() {
                 name="location"
                 type="radio"
                 defaultChecked={location.id === 'virtual'}
-                className="text-circle-blue-900 focus:ring-circle-blue-900 h-4 w-4 border-gray-300"
+                className="h-4 w-4 border-gray-300 text-circle-blue-900 focus:ring-circle-blue-900"
               />
               <label
                 htmlFor={location.id}
@@ -64,7 +64,7 @@ export default function EventForm() {
           <div className="self-end">
             <label className="sr-only block">Duration (hours)</label>
             <select
-              className="text-circle-grey-shade-medium block w-full rounded-md border border-secondary px-3 py-2.5 font-normal placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder"
+              className="placeholder:text-input placeholder:text-grey-shade-placeholder block w-full rounded-md border border-secondary px-3 py-2.5 font-normal text-circle-grey-shade-medium placeholder:font-normal"
               placeholder="Duration"
               {...register('eventDuration')}
             >
@@ -87,7 +87,7 @@ export default function EventForm() {
         />
       </div>
       <fieldset>
-        <legend className="text-circle-grey-shade-medium block text-sm font-medium">
+        <legend className="block text-sm font-medium text-circle-grey-shade-medium">
           Slug
         </legend>
         <div className="flex flex-row">
@@ -102,7 +102,7 @@ export default function EventForm() {
             type="text"
             className="basis-3/4 rounded-l-none"
             placeholder="custom URL"
-            grow={true}
+            grow="true"
             {...register('eventUrl')}
           />
         </div>
