@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "name": "Rails Intro",
+      "location": "Virtual",
+      "dateAndTime": "",
+      "duration": 4,
+      "description": "DHH shows us how to install Rails",
+      "customUrl": "something/something.html"
+    },
+    {
+      "id": 2,
+      "name": "Redis Intro",
+      "location": "Virtual",
+      "dateAndTime": "",
+      "duration": 4,
+      "description": "DHH shows us how to use Redis",
+      "customUrl": "something/something.html"
+    }
+  ]
+}
