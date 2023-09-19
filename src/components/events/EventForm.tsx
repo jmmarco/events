@@ -29,7 +29,7 @@ export default function EventForm() {
       className="flex flex-col gap-y-12 py-14"
     >
       <div className="space-y-2">
-        <Input name="event-name" type="text" label="Event Name" />
+        <Input type="text" label="Event Name" {...register('eventName')} />
       </div>
       <div className="space-y-2">
         <h2 className="text-[20px] font-semibold tracking-[0.3px]">Where</h2>
@@ -81,9 +81,9 @@ export default function EventForm() {
       <div className="space-y-2">
         <Textarea
           label="Event Description"
-          name="event-description"
           placeholder="Write a summary about your event"
           className="h-40 resize-none"
+          {...register('eventDescription')}
         />
       </div>
       <fieldset>
@@ -93,13 +93,17 @@ export default function EventForm() {
         <div className="flex flex-row">
           <Input
             type="text"
-            name="domain-url"
+            label="Event domain"
+            hideLabel="true"
             disabled
             value="yourdomain.com"
             className="basis-1/4 rounded-r-none"
+            {...register('eventDomain')}
           />
           <Input
             type="text"
+            label="Event URL"
+            hideLabel="true"
             className="basis-3/4 rounded-l-none"
             placeholder="custom URL"
             grow="true"
