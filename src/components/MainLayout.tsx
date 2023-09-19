@@ -1,12 +1,9 @@
 import { Outlet } from 'react-router'
+import { ChildrenProps } from '../types/global'
 
-interface LayoutProps {
-  children?: React.ReactNode
-}
-
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children }: ChildrenProps) {
   return (
-    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div className="h-screen text-circle-grey-shade-dark">
       {children}
       <Outlet />
     </div>
