@@ -5,9 +5,9 @@ import EventMain from '../components/events/EventMain'
 export default function NewEvent() {
   return (
     <div className="bg-circle-grey-background">
-      <EventHeader />
+      <EventHeader headingTitle="New Event" />
       <EventMain>
-        <EventForm />
+        <EventForm action="create" />
       </EventMain>
     </div>
   )
