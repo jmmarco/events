@@ -16,7 +16,6 @@ export default function EventCard({ event }: EventCardProps) {
     <div
       className="flex max-w-xs cursor-pointer items-center space-x-4 rounded-xl bg-white p-6 shadow-lg"
       onClick={() => {
-        console.log('fired')
         navigate(`/events/${event.id}`)
       }}
     >
