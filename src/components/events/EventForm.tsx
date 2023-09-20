@@ -4,6 +4,7 @@ import Input from '../inputs/Input'
 import Textarea from '../inputs/Textarea'
 import { EventProps } from '../../types/events'
 import { useCallback, useEffect } from 'react'
+import { useNavigate } from 'react-router'
 
 type FormValues = {
   eventName: string
@@ -17,10 +18,13 @@ type FormValues = {
 
 interface EventFormProps {
   event?: EventProps | null
+  action: 'create' | 'edit' | 'view'
 }
 
-export default function EventForm({ event }: EventFormProps) {
+export default function EventForm({ event, action }: EventFormProps) {
+  const navigate = useNavigate()
   const {
+    getValues,
     register,
     handleSubmit,
     reset,
@@ -57,13 +61,25 @@ export default function EventForm({ event }: EventFormProps) {
     { id: 'inPerson', title: 'In Person' },
   ]
 
+  const buttonText =
+    action === 'edit'
+      ? 'Save Event'
+      : action === 'create'
+      ? 'Create Event'
+      : 'Edit Event'
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-y-12 py-14"
     >
       <div className="space-y-2">
-        <Input type="text" label="Event Name" {...register('eventName')} />
+        <Input
+          type="text"
+          label="Event Name"
+          {...register('eventName')}
+          disabled={action === 'view'}
+        />
       </div>
       <div className="space-y-2">
         <h2 className="text-[20px] font-semibold tracking-[0.3px]">Where</h2>
@@ -72,10 +88,11 @@ export default function EventForm({ event }: EventFormProps) {
             <div key={location.id} className="flex items-center">
               <input
                 id={location.id}
-                name="location"
                 type="radio"
-                defaultChecked={location.id === 'virtual'}
-                className="text-circle-blue-900 focus:ring-circle-blue-900 h-4 w-4 border-gray-300"
+                defaultChecked={getValues('eventLocation') === location.title}
+                className="disabled:ring-gray-200 h-4 w-4 border-gray-300 text-circle-blue-900 focus:ring-circle-blue-900 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
+                disabled={action === 'view'}
+                {...register('eventLocation')}
               />
               <label
                 htmlFor={location.id}
@@ -94,13 +111,15 @@ export default function EventForm({ event }: EventFormProps) {
             type="date"
             label="Set date and time"
             {...register('eventDateAndTime')}
+            disabled={action === 'view'}
           />
           <div className="self-end">
             <label className="sr-only block">Duration (hours)</label>
             <select
-              className="text-circle-grey-shade-medium block w-full rounded-md border border-secondary px-3 py-2.5 font-normal placeholder:text-input placeholder:font-normal placeholder:text-grey-shade-placeholder"
+              className="placeholder:text-input placeholder:text-grey-shade-placeholder block w-full rounded-md border border-secondary px-3 py-2.5 font-normal text-circle-grey-shade-medium placeholder:font-normal"
               placeholder="Duration"
               {...register('eventDuration')}
+              disabled={action === 'view'}
             >
               <option value="">Duration (hours)</option>
               {Array.from({ length: 6 }, (_, i) => (
@@ -118,10 +137,11 @@ export default function EventForm({ event }: EventFormProps) {
           placeholder="Write a summary about your event"
           className="h-40 resize-none"
           {...register('eventDescription')}
+          disabled={action === 'view'}
         />
       </div>
       <fieldset>
-        <legend className="text-circle-grey-shade-medium block text-sm font-medium">
+        <legend className="block text-sm font-medium text-circle-grey-shade-medium">
           Slug
         </legend>
         <div className="flex flex-row">
@@ -142,12 +162,28 @@ export default function EventForm({ event }: EventFormProps) {
             placeholder="custom URL"
             grow
             {...register('eventUrl')}
+            disabled={action === 'view'}
           />
         </div>
       </fieldset>
-      <Button className="place-self-start" type="submit">
-        Create event
-      </Button>
+
+      <div className="inline-flex gap-x-2">
+        <Button
+          className="place-self-start capitalize"
+          type="submit"
+          disabled={action !== 'edit' && action !== 'create'}
+        >
+          {buttonText}
+        </Button>
+
+        <Button
+          className="place-self-start capitalize"
+          onClick={() => navigate(-1)}
+          type="button"
+        >
+          cancel
+        </Button>
+      </div>
     </form>
   )
 }
