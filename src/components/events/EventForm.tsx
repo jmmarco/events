@@ -68,6 +68,8 @@ export default function EventForm({ event, action }: EventFormProps) {
       ? 'Create Event'
       : 'Edit Event'
 
+  const isDisabled = action === 'view'
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -78,7 +80,7 @@ export default function EventForm({ event, action }: EventFormProps) {
           type="text"
           label="Event Name"
           {...register('eventName')}
-          disabled={action === 'view'}
+          disabled={isDisabled}
         />
       </div>
       <div className="space-y-2">
@@ -91,7 +93,7 @@ export default function EventForm({ event, action }: EventFormProps) {
                 type="radio"
                 defaultChecked={getValues('eventLocation') === location.title}
                 className="disabled:ring-gray-200 h-4 w-4 border-gray-300 text-circle-blue-900 focus:ring-circle-blue-900 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
-                disabled={action === 'view'}
+                disabled={isDisabled}
                 {...register('eventLocation')}
               />
               <label
@@ -111,7 +113,7 @@ export default function EventForm({ event, action }: EventFormProps) {
             type="date"
             label="Set date and time"
             {...register('eventDateAndTime')}
-            disabled={action === 'view'}
+            disabled={isDisabled}
           />
           <div className="self-end">
             <label className="sr-only block">Duration (hours)</label>
@@ -119,7 +121,7 @@ export default function EventForm({ event, action }: EventFormProps) {
               className="placeholder:text-input placeholder:text-grey-shade-placeholder block w-full rounded-md border border-secondary px-3 py-2.5 font-normal text-circle-grey-shade-medium placeholder:font-normal"
               placeholder="Duration"
               {...register('eventDuration')}
-              disabled={action === 'view'}
+              disabled={isDisabled}
             >
               <option value="">Duration (hours)</option>
               {Array.from({ length: 6 }, (_, i) => (
@@ -137,7 +139,7 @@ export default function EventForm({ event, action }: EventFormProps) {
           placeholder="Write a summary about your event"
           className="h-40 resize-none"
           {...register('eventDescription')}
-          disabled={action === 'view'}
+          disabled={isDisabled}
         />
       </div>
       <fieldset>
@@ -162,7 +164,7 @@ export default function EventForm({ event, action }: EventFormProps) {
             placeholder="custom URL"
             grow
             {...register('eventUrl')}
-            disabled={action === 'view'}
+            disabled={isDisabled}
           />
         </div>
       </fieldset>
