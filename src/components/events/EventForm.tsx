@@ -180,7 +180,7 @@ export default function EventForm({ event, action }: EventFormProps) {
 
         <Button
           className="place-self-start capitalize"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate(0)}
           type="button"
         >
           cancel
