@@ -17,7 +17,7 @@ export default function EventHeader({
   return (
     <header className="mx-auto border-b border-secondary bg-white px-4 sm:px-6 lg:px-8">
       <div className="flex h-[66px] items-center">
-        {buttonActionText && (
+        {buttonCloseHandleClick && (
           <Button
             type="button"
             intent="secondary"
