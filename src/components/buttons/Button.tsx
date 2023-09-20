@@ -4,10 +4,12 @@ import { buttonStyles } from './buttonStyles'
 
 interface ButtonProps {
   className?: string
-  children?: React.ReactNode
+  children: React.ReactNode
+  disabled?: boolean
   intent?: 'primary' | 'secondary' | null | undefined
   size?: 'small' | 'medium'
   type: 'submit' | 'button' | 'reset'
+  onClick?: (() => void) | undefined
 }
 
 export type Ref = HTMLButtonElement
