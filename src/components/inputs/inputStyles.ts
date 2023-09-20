@@ -13,6 +13,10 @@ const inputStyles = cva(
     'focus:ring-1',
     'focus:ring-inset',
     'focus:ring-circle-blue-900',
+    'disabled:cursor-not-allowed',
+    'disabled:bg-gray-50',
+    'disabled:text-gray-500',
+    'disabled:ring-gray-200',
   ],
   {
     variants: {

@@ -6,6 +6,10 @@ const buttonStyles = cva(
     'border',
     'rounded-md',
     'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-circle-blue-900',
+    'disabled:cursor-not-allowed',
+    'disabled:bg-circle-blue-100',
+    'disabled:text-circle-blue-500',
+    'disabled:ring-circle-blue-200',
   ],
   {
     variants: {
