@@ -110,6 +110,7 @@ export default function EventForm({ event, action }: EventFormProps) {
         </div>
       </div>
       <div className="space-y-2">
+        <h2 className="text-[20px] font-semibold tracking-[0.3px]">When</h2>
         <div className="grid grid-cols-2 gap-x-2">
           <Input
             type="date"
@@ -179,10 +180,10 @@ export default function EventForm({ event, action }: EventFormProps) {
         >
           {buttonText}
         </Button>
-
         <Button
           className="place-self-start capitalize"
           onClick={() => navigate(0)}
+          intent="secondary"
           type="button"
         >
           cancel
