@@ -1,4 +1,4 @@
-import { Fragment, forwardRef, useState } from 'react'
+import { Fragment, forwardRef, useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { cn } from '../../helpers/utils'
@@ -6,16 +6,21 @@ import { cn } from '../../helpers/utils'
 interface SelectMenuProps<T> {
   disabled?: boolean
   hideLabel?: boolean
-  label: string
-  value?: string
   items: Array<T>
+  label: string
+  onChange: (selection: string | number) => void
+  value?: number | string
 }
 
 export type Ref = HTMLSelectElement
 
 const SelectMenu = forwardRef<Ref, SelectMenuProps<number | string>>(
   ({ disabled, ...props }, ref) => {
-    const [selected, setSelected] = useState(null)
+    const [selected, setSelected] = useState(props.value)
+
+    useEffect(() => {
+      setSelected(props.value)
+    }, [props.value])
 
     return (
       <Listbox
@@ -28,8 +33,8 @@ const SelectMenu = forwardRef<Ref, SelectMenuProps<number | string>>(
           <>
             <Listbox.Label
               className={cn(
-                'sr-only block text-sm font-medium text-circle-grey-shade-medium',
-                props.hideLabel && 'sr-only',
+                'block text-sm font-medium text-circle-grey-shade-medium',
+                !!props.hideLabel && 'sr-only',
               )}
             >
               {props.label}
@@ -65,6 +70,7 @@ const SelectMenu = forwardRef<Ref, SelectMenuProps<number | string>>(
                 <Listbox.Options className=" absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-white py-1 text-[15px] shadow-lg focus:outline-none sm:text-sm">
                   {props.items.map((item) => (
                     <Listbox.Option
+                      onClick={() => props.onChange(item)}
                       key={item}
                       className={({ active }) =>
                         cn(

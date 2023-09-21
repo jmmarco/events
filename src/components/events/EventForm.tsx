@@ -119,10 +119,21 @@ export default function EventForm({ event, action }: EventFormProps) {
             disabled={isDisabled}
           />
           <div className="self-end">
-            <SelectMenu
-              label="Duration"
-              disabled={isDisabled}
-              items={[1, 2, 3, 4, 5, 6]}
+            <Controller
+              render={({ field }) => (
+                <SelectMenu
+                  {...field}
+                  label="Duration"
+                  disabled={isDisabled}
+                  onChange={(value) => {
+                    // Using a type assertion here because because the items collection are numbers
+                    setValue('eventDuration', value as number)
+                  }}
+                  items={[1, 2, 3, 4, 5, 6]}
+                />
+              )}
+              control={control}
+              name="eventDuration"
             />
           </div>
         </div>
