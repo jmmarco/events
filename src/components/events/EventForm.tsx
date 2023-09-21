@@ -5,7 +5,7 @@ import Textarea from '../inputs/Textarea'
 import { EventProps } from '../../types/events'
 import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import RadioInputGroup from '../inputs/RadioGroup'
+import LocationRadioGroup from '../inputs/LocationRadioGroup'
 import SelectMenu from '../inputs/SelectMenu'
 
 type FormValues = {
@@ -95,18 +95,17 @@ export default function EventForm({ event, action }: EventFormProps) {
         <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
           <Controller
             render={({ field }) => (
-              <RadioInputGroup
+              <LocationRadioGroup
                 {...field}
                 disabled={isDisabled}
                 onChange={(name) => {
-                  field.onChange(name)
+                  // field.onChange(name)
                   setValue('eventLocation', name)
                 }}
               />
             )}
             control={control}
             name="eventLocation"
-            defaultValue="Virtual"
           />
         </div>
       </div>
