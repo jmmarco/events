@@ -52,7 +52,6 @@ const LocationRadioGroup = forwardRef<Ref, LocationRadioGroupProps>(
         <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 ">
           {possibleLocations.map((location) => (
             <RadioGroup.Option
-              // onClick={() => callback(location.title)}
               onClick={() => props.onChange(location.title)}
               key={location.id}
               value={location}

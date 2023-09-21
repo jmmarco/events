@@ -28,7 +28,6 @@ export default function EventForm({ event, action }: EventFormProps) {
   const {
     control,
     // getValues,
-    setValue,
     register,
     handleSubmit,
     reset,
@@ -95,14 +94,7 @@ export default function EventForm({ event, action }: EventFormProps) {
         <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
           <Controller
             render={({ field }) => (
-              <LocationRadioGroup
-                {...field}
-                disabled={isDisabled}
-                onChange={(name) => {
-                  // field.onChange(name)
-                  setValue('eventLocation', name)
-                }}
-              />
+              <LocationRadioGroup {...field} disabled={isDisabled} />
             )}
             control={control}
             name="eventLocation"
@@ -125,10 +117,6 @@ export default function EventForm({ event, action }: EventFormProps) {
                   {...field}
                   label="Duration"
                   disabled={isDisabled}
-                  onChange={(value) => {
-                    // Using a type assertion here because because the items collection are numbers
-                    setValue('eventDuration', value as number)
-                  }}
                   items={[1, 2, 3, 4, 5, 6]}
                 />
               )}
