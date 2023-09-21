@@ -3,19 +3,19 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { cn } from '../../helpers/utils'
 
-const hours = [1, 2, 3, 4, 5, 6]
-
-interface SelectMenuProps {
+interface SelectMenuProps<T> {
   disabled?: boolean
+  hideLabel?: boolean
   label: string
   value?: string
+  items: Array<T>
 }
 
 export type Ref = HTMLSelectElement
 
-const SelectMenu = forwardRef<Ref, SelectMenuProps>(
+const SelectMenu = forwardRef<Ref, SelectMenuProps<number | string>>(
   ({ disabled, ...props }, ref) => {
-    const [selected, setSelected] = useState(1)
+    const [selected, setSelected] = useState(null)
 
     return (
       <Listbox
@@ -26,7 +26,12 @@ const SelectMenu = forwardRef<Ref, SelectMenuProps>(
       >
         {({ open }) => (
           <>
-            <Listbox.Label className="block text-sm font-medium text-circle-grey-shade-medium">
+            <Listbox.Label
+              className={cn(
+                'sr-only block text-sm font-medium text-circle-grey-shade-medium',
+                props.hideLabel && 'sr-only',
+              )}
+            >
               {props.label}
             </Listbox.Label>
             <div className="relative mt-2">
@@ -34,8 +39,13 @@ const SelectMenu = forwardRef<Ref, SelectMenuProps>(
                 className="disabled:ring-gray-200 relative w-full cursor-default rounded-md border border-secondary bg-white px-3 py-2.5 text-left focus:ring-2 focus:ring-inset focus:ring-circle-blue-900
     disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
               >
-                <span className="block truncate text-[15px] text-secondary">
-                  {selected}
+                <span
+                  className={cn(
+                    'block truncate',
+                    selected ? 'text-secondary' : 'text-circle-placeholder',
+                  )}
+                >
+                  {selected || props.label}
                 </span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                   <ChevronUpDownIcon
@@ -53,9 +63,9 @@ const SelectMenu = forwardRef<Ref, SelectMenuProps>(
                 leaveTo="opacity-0"
               >
                 <Listbox.Options className=" absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-white py-1 text-[15px] shadow-lg focus:outline-none sm:text-sm">
-                  {hours.map((hour) => (
+                  {props.items.map((item) => (
                     <Listbox.Option
-                      key={hour}
+                      key={item}
                       className={({ active }) =>
                         cn(
                           active
@@ -64,7 +74,7 @@ const SelectMenu = forwardRef<Ref, SelectMenuProps>(
                           'relative cursor-default select-none py-2 pl-3 pr-9',
                         )
                       }
-                      value={hour}
+                      value={item}
                     >
                       {({ selected, active }) => (
                         <>
@@ -74,7 +84,7 @@ const SelectMenu = forwardRef<Ref, SelectMenuProps>(
                               'block truncate',
                             )}
                           >
-                            {hour}
+                            {item}
                           </span>
 
                           {selected ? (
