@@ -27,7 +27,7 @@ export default function EventForm({ event, action }: EventFormProps) {
   const navigate = useNavigate()
   const {
     control,
-    getValues,
+    // getValues,
     setValue,
     register,
     handleSubmit,
@@ -120,7 +120,11 @@ export default function EventForm({ event, action }: EventFormProps) {
             disabled={isDisabled}
           />
           <div className="self-end">
-            <SelectMenu label="Duration" disabled={isDisabled} />
+            <SelectMenu
+              label="Duration"
+              disabled={isDisabled}
+              items={[1, 2, 3, 4, 5, 6]}
+            />
           </div>
         </div>
       </div>
