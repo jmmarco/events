@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import Button from '../buttons/Button'
 import Input from '../inputs/Input'
 import Textarea from '../inputs/Textarea'
@@ -25,6 +25,7 @@ interface EventFormProps {
 export default function EventForm({ event, action }: EventFormProps) {
   const navigate = useNavigate()
   const {
+    control,
     getValues,
     setValue,
     register,
@@ -81,7 +82,6 @@ export default function EventForm({ event, action }: EventFormProps) {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-y-12 py-14"
     >
-      <pre>{JSON.stringify(getValues(), null, 2)}</pre>
       <div className="space-y-2">
         <Input
           type="text"
@@ -92,15 +92,20 @@ export default function EventForm({ event, action }: EventFormProps) {
       </div>
       <div className="space-y-2">
         <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
-          <RadioInputGroup
-            disabled={action === 'view'}
-            selectedLocation={event?.location}
-            callback={(location: string) => {
-              console.log('firedddd')
-
-              setValue('eventLocation', location)
-            }}
-            {...register('eventLocation')}
+          <Controller
+            render={({ field }) => (
+              <RadioInputGroup
+                {...field}
+                disabled={isDisabled}
+                onChange={(name) => {
+                  field.onChange(name)
+                  setValue('eventLocation', name)
+                }}
+              />
+            )}
+            control={control}
+            name="eventLocation"
+            defaultValue="Virtual"
           />
         </div>
       </div>

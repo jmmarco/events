@@ -20,16 +20,20 @@ const possibleLocations = [
 
 interface RadioInputGroupProps {
   disabled: boolean
-  callback: (location: string) => void
-  selectedLocation: string | undefined
+  callback?: (location: string) => void
+  selectedLocation?: string | undefined
+  value: string
+  onChange: (location: string) => void
 }
 
 export type Ref = HTMLInputElement
 
 const RadioInputGroup = forwardRef<Ref, RadioInputGroupProps>(
-  ({ disabled, selectedLocation, callback }, ref) => {
+  ({ disabled, selectedLocation, callback, ...props }, ref) => {
+    console.log('props', props)
+
     const selectedLocationObject = possibleLocations.find(
-      (location) => location.title === selectedLocation,
+      (location) => location.title === props.value,
     )
     useEffect(() => {
       setSelectedLocations(selectedLocationObject)
@@ -52,7 +56,8 @@ const RadioInputGroup = forwardRef<Ref, RadioInputGroupProps>(
         <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 ">
           {possibleLocations.map((location) => (
             <RadioGroup.Option
-              onClick={() => callback(location.title)}
+              // onClick={() => callback(location.title)}
+              onClick={() => props.onChange(location.title)}
               key={location.id}
               value={location}
               className={({ active }) =>
