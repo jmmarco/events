@@ -13,11 +13,13 @@ Here you will find the reasoning and logic for choosing packages/patterns for th
 - Class Variance Authority
 - tailwind-merge
 - clsx
+- json-server (used to mock API endpoints)
 
 ## How to run
 
 - Clone or download the project
 - From the root project folder run the command `npm install`
+- Rename the `.env.example` file to `.env` and set `http://localhost:4000` as the value for `VITE_API_URL`
 - Launch the development server using `npm run dev`
 - Alternatively you can create a build using `npm run build`
 - Open a browser window and navigate to `localhost:3000`

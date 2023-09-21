@@ -2,26 +2,73 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import Button from '../buttons/Button'
 import Input from '../inputs/Input'
 import Textarea from '../inputs/Textarea'
+import { EventProps } from '../../types/events'
+import { useCallback, useEffect } from 'react'
+import { useNavigate } from 'react-router'
 
 type FormValues = {
   eventName: string
   eventLocation: string
   eventDateAndTime: string
-  eventDuration: string
+  eventDuration: number
   eventDescription: string
   eventDomain: string
   eventUrl: string
 }
 
-export default function EventForm() {
-  const { register, handleSubmit } = useForm<FormValues>()
+interface EventFormProps {
+  event?: EventProps | null
+  action: 'create' | 'edit' | 'view'
+}
+
+export default function EventForm({ event, action }: EventFormProps) {
+  const navigate = useNavigate()
+  const {
+    getValues,
+    register,
+    handleSubmit,
+    reset,
+    // formState: { errors },
+  } = useForm<FormValues>()
+
+  const getEventObject = useCallback(
+    (event: EventProps) => ({
+      eventName: event.name,
+      eventLocation: event.location,
+      eventDateAndTime: event.dateAndTime,
+      eventDuration: event.duration,
+      eventDescription: event.description,
+      eventUrl: event.customUrl,
+    }),
+
+    [],
+  )
+
+  useEffect(() => {
+    if (event) {
+      reset({ ...getEventObject(event) })
+    }
+    return () => {
+      reset({})
+    }
+  }, [event, getEventObject, reset])
+
   const onSubmit: SubmitHandler<FormValues> = (data: unknown) =>
-    console.log(data)
+    console.log('onSubmit', data)
 
   const possibleLocations = [
     { id: 'virtual', title: 'Virtual' },
     { id: 'inPerson', title: 'In Person' },
   ]
+
+  const buttonText =
+    action === 'edit'
+      ? 'Save Event'
+      : action === 'create'
+      ? 'Create Event'
+      : 'Edit Event'
+
+  const isDisabled = action === 'view'
 
   return (
     <form
@@ -29,7 +76,12 @@ export default function EventForm() {
       className="flex flex-col gap-y-12 py-14"
     >
       <div className="space-y-2">
-        <Input type="text" label="Event Name" {...register('eventName')} />
+        <Input
+          type="text"
+          label="Event Name"
+          {...register('eventName')}
+          disabled={isDisabled}
+        />
       </div>
       <div className="space-y-2">
         <h2 className="text-[20px] font-semibold tracking-[0.3px]">Where</h2>
@@ -38,10 +90,11 @@ export default function EventForm() {
             <div key={location.id} className="flex items-center">
               <input
                 id={location.id}
-                name="location"
                 type="radio"
-                defaultChecked={location.id === 'virtual'}
-                className="h-4 w-4 border-gray-300 text-circle-blue-900 focus:ring-circle-blue-900"
+                defaultChecked={getValues('eventLocation') === location.title}
+                className="disabled:ring-gray-200 h-4 w-4 border-gray-300 text-circle-blue-900 focus:ring-circle-blue-900 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
+                disabled={isDisabled}
+                {...register('eventLocation')}
               />
               <label
                 htmlFor={location.id}
@@ -60,6 +113,7 @@ export default function EventForm() {
             type="date"
             label="Set date and time"
             {...register('eventDateAndTime')}
+            disabled={isDisabled}
           />
           <div className="self-end">
             <label className="sr-only block">Duration (hours)</label>
@@ -67,6 +121,7 @@ export default function EventForm() {
               className="placeholder:text-input placeholder:text-grey-shade-placeholder block w-full rounded-md border border-secondary px-3 py-2.5 font-normal text-circle-grey-shade-medium placeholder:font-normal"
               placeholder="Duration"
               {...register('eventDuration')}
+              disabled={isDisabled}
             >
               <option value="">Duration (hours)</option>
               {Array.from({ length: 6 }, (_, i) => (
@@ -84,6 +139,7 @@ export default function EventForm() {
           placeholder="Write a summary about your event"
           className="h-40 resize-none"
           {...register('eventDescription')}
+          disabled={isDisabled}
         />
       </div>
       <fieldset>
@@ -108,12 +164,28 @@ export default function EventForm() {
             placeholder="custom URL"
             grow
             {...register('eventUrl')}
+            disabled={isDisabled}
           />
         </div>
       </fieldset>
-      <Button className="place-self-start" type="submit">
-        Create event
-      </Button>
+
+      <div className="inline-flex gap-x-2">
+        <Button
+          className="place-self-start capitalize"
+          type="submit"
+          disabled={action !== 'edit' && action !== 'create'}
+        >
+          {buttonText}
+        </Button>
+
+        <Button
+          className="place-self-start capitalize"
+          onClick={() => navigate(0)}
+          type="button"
+        >
+          cancel
+        </Button>
+      </div>
     </form>
   )
 }

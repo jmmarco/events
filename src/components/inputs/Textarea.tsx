@@ -13,6 +13,7 @@ interface TextareaProps {
   placeholder?: string
   size?: 'small' | 'medium'
   value?: string
+  disabled?: boolean
 }
 
 export type Ref = HTMLTextAreaElement

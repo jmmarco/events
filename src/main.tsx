@@ -5,6 +5,9 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Layout from './components/MainLayout'
 import ErrorPage from './components/ErrorPage'
 import NewEvent from './pages/NewEvent'
+import Event from './components/events/Event'
+import Events from './pages/Events'
+import Index from './pages/Index'
 
 const router = createBrowserRouter([
   {
@@ -14,11 +17,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <div>Welcome!</div>,
+        element: <Index />,
       },
       {
         path: '/events',
-        element: <div>Events</div>,
+        element: <Events />,
       },
       {
         path: `/events/new`,
@@ -26,7 +29,7 @@ const router = createBrowserRouter([
       },
       {
         path: `/events/:eventId`,
-        element: <div>Event Details</div>,
+        element: <Event />,
       },
     ],
   },
