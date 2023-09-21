@@ -1,4 +1,4 @@
-import { Fragment, forwardRef, useEffect, useState } from 'react'
+import { Fragment, forwardRef } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { cn } from '../../helpers/utils'
@@ -16,16 +16,10 @@ export type Ref = HTMLSelectElement
 
 const SelectMenu = forwardRef<Ref, SelectMenuProps<number | string>>(
   ({ disabled, ...props }, ref) => {
-    const [selected, setSelected] = useState(props.value)
-
-    useEffect(() => {
-      setSelected(props.value)
-    }, [props.value])
-
     return (
       <Listbox
-        value={selected}
-        onChange={setSelected}
+        value={props.value}
+        onChange={props.onChange}
         ref={ref}
         disabled={disabled}
       >
@@ -47,10 +41,10 @@ const SelectMenu = forwardRef<Ref, SelectMenuProps<number | string>>(
                 <span
                   className={cn(
                     'block truncate',
-                    selected ? 'text-secondary' : 'text-circle-placeholder',
+                    props.value ? 'text-secondary' : 'text-circle-placeholder',
                   )}
                 >
-                  {selected || props.label}
+                  {props.value || props.label}
                 </span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                   <ChevronUpDownIcon
@@ -70,7 +64,6 @@ const SelectMenu = forwardRef<Ref, SelectMenuProps<number | string>>(
                 <Listbox.Options className=" absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-white py-1 text-[15px] shadow-lg focus:outline-none sm:text-sm">
                   {props.items.map((item) => (
                     <Listbox.Option
-                      onClick={() => props.onChange(item)}
                       key={item}
                       className={({ active }) =>
                         cn(
@@ -93,7 +86,7 @@ const SelectMenu = forwardRef<Ref, SelectMenuProps<number | string>>(
                             {item}
                           </span>
 
-                          {selected ? (
+                          {selected && (
                             <span
                               className={cn(
                                 active ? 'text-white' : 'text-circle-blue-900',
@@ -105,7 +98,7 @@ const SelectMenu = forwardRef<Ref, SelectMenuProps<number | string>>(
                                 aria-hidden="true"
                               />
                             </span>
-                          ) : null}
+                          )}
                         </>
                       )}
                     </Listbox.Option>
