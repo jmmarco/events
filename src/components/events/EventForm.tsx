@@ -60,9 +60,6 @@ export default function EventForm({ event, action }: EventFormProps) {
     if (event) {
       reset({ ...getEventObject(event) })
     }
-    return () => {
-      reset({})
-    }
   }, [event, getEventObject, reset])
 
   const onSubmit: SubmitHandler<FormValues> = (data: unknown) =>
