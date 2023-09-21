@@ -6,6 +6,7 @@ import { EventProps } from '../../types/events'
 import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import RadioInputGroup from '../inputs/RadioGroup'
+import SelectMenu from '../inputs/SelectMenu'
 
 type FormValues = {
   eventName: string
@@ -119,20 +120,7 @@ export default function EventForm({ event, action }: EventFormProps) {
             disabled={isDisabled}
           />
           <div className="self-end">
-            <label className="sr-only block">Duration (hours)</label>
-            <select
-              className="placeholder:text-input placeholder:text-grey-shade-placeholder block w-full rounded-md border border-secondary px-3 py-2.5 font-normal text-circle-grey-shade-medium placeholder:font-normal"
-              placeholder="Duration"
-              {...register('eventDuration')}
-              disabled={isDisabled}
-            >
-              <option value="">Duration (hours)</option>
-              {Array.from({ length: 6 }, (_, i) => (
-                <option key={i + 1} value={i + 1}>
-                  {i + 1}
-                </option>
-              ))}
-            </select>
+            <SelectMenu label="Duration" disabled={isDisabled} />
           </div>
         </div>
       </div>
