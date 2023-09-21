@@ -28,8 +28,6 @@ export type Ref = HTMLInputElement
 
 const LocationRadioGroup = forwardRef<Ref, LocationRadioGroupProps>(
   ({ disabled, ...props }, ref) => {
-    console.log('props', props)
-
     const selectedLocationObject = possibleLocations.find(
       (location) => location.title === props.value,
     )
