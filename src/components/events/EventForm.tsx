@@ -5,6 +5,7 @@ import Textarea from '../inputs/Textarea'
 import { EventProps } from '../../types/events'
 import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router'
+import RadioInputGroup from '../inputs/RadioGroup'
 
 type FormValues = {
   eventName: string
@@ -25,11 +26,21 @@ export default function EventForm({ event, action }: EventFormProps) {
   const navigate = useNavigate()
   const {
     getValues,
+    setValue,
     register,
     handleSubmit,
     reset,
     // formState: { errors },
-  } = useForm<FormValues>()
+  } = useForm<FormValues>({
+    defaultValues: {
+      eventName: '',
+      eventLocation: 'Virtual',
+      eventDateAndTime: '',
+      eventDuration: 1,
+      eventDescription: '',
+      eventUrl: '',
+    },
+  })
 
   const getEventObject = useCallback(
     (event: EventProps) => ({
@@ -56,11 +67,6 @@ export default function EventForm({ event, action }: EventFormProps) {
   const onSubmit: SubmitHandler<FormValues> = (data: unknown) =>
     console.log('onSubmit', data)
 
-  const possibleLocations = [
-    { id: 'virtual', title: 'Virtual' },
-    { id: 'inPerson', title: 'In Person' },
-  ]
-
   const buttonText =
     action === 'edit'
       ? 'Save Event'
@@ -75,6 +81,7 @@ export default function EventForm({ event, action }: EventFormProps) {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-y-12 py-14"
     >
+      <pre>{JSON.stringify(getValues(), null, 2)}</pre>
       <div className="space-y-2">
         <Input
           type="text"
@@ -84,30 +91,20 @@ export default function EventForm({ event, action }: EventFormProps) {
         />
       </div>
       <div className="space-y-2">
-        <h2 className="text-[20px] font-semibold tracking-[0.3px]">Where</h2>
         <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
-          {possibleLocations.map((location) => (
-            <div key={location.id} className="flex items-center">
-              <input
-                id={location.id}
-                type="radio"
-                defaultChecked={getValues('eventLocation') === location.title}
-                className="disabled:ring-gray-200 h-4 w-4 border-gray-300 text-circle-blue-900 focus:ring-circle-blue-900 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
-                disabled={isDisabled}
-                {...register('eventLocation')}
-              />
-              <label
-                htmlFor={location.id}
-                className="ml-3 block text-sm font-medium leading-6 text-gray-900"
-              >
-                {location.title}
-              </label>
-            </div>
-          ))}
+          <RadioInputGroup
+            disabled={action === 'view'}
+            selectedLocation={event?.location}
+            callback={(location: string) => {
+              console.log('firedddd')
+
+              setValue('eventLocation', location)
+            }}
+            {...register('eventLocation')}
+          />
         </div>
       </div>
       <div className="space-y-2">
-        <h2 className="text-[20px] font-semibold tracking-[0.3px]">When</h2>
         <div className="grid grid-cols-2 gap-x-2">
           <Input
             type="date"
