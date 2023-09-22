@@ -9,7 +9,7 @@ export default function EventCardList({ events }: EventCardListProps) {
   const navigate = useNavigate()
 
   return (
-    <ul className="flex justify-between gap-4 py-20">
+    <ul className="flex flex-col gap-4 py-20 md:flex-row md:flex-wrap md:justify-between">
       {events?.map((event) => {
         const imgSrc =
           event.location === 'Virtual'
@@ -18,7 +18,7 @@ export default function EventCardList({ events }: EventCardListProps) {
         return (
           <li
             key={event.id}
-            className="flex max-w-xs cursor-pointer items-center space-x-4 rounded-xl bg-white p-6 shadow-lg"
+            className="flex w-64 min-w-full max-w-xs cursor-pointer items-center space-x-4 rounded-xl bg-white p-6 shadow-lg md:min-w-fit"
             onClick={() => {
               navigate(`/events/${event.id}`)
             }}

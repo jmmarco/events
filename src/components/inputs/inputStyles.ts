@@ -31,7 +31,7 @@ const inputStyles = cva(
       },
       size: {
         small: ['text-sm', 'py-2', 'px-8'],
-        medium: ['text-[15px]', 'px-3', 'py-2.5', 'pr-10'],
+        medium: ['text-[15px]', 'px-3', 'py-2.5'],
       },
     },
 

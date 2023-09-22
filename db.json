@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Rails Intro",
       "location": "Virtual",
-      "dateAndTime": "",
+      "dateAndTime": "2019-05-03",
       "duration": 4,
       "description": "DHH shows us how to install Rails",
       "customUrl": "something/something.html"
@@ -13,7 +13,7 @@
       "id": 2,
       "name": "Redis Intro",
       "location": "Virtual",
-      "dateAndTime": "",
+      "dateAndTime": "2020-07-12",
       "duration": 2,
       "description": "DHH shows us how to use Redis",
       "customUrl": "something/something.html"
@@ -22,7 +22,7 @@
       "id": 3,
       "name": "RailsConf",
       "location": "In Person",
-      "dateAndTime": "",
+      "dateAndTime": "2023-01-22",
       "duration": 6,
       "description": "DHH shows us updates on Rails",
       "customUrl": "something/something.html"

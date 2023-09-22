@@ -1,10 +1,12 @@
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import Button from '../buttons/Button'
 import Input from '../inputs/Input'
 import Textarea from '../inputs/Textarea'
 import { EventProps } from '../../types/events'
 import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router'
+import LocationRadioGroup from '../inputs/LocationRadioGroup'
+import SelectMenu from '../inputs/SelectMenu'
 
 type FormValues = {
   eventName: string
@@ -24,12 +26,22 @@ interface EventFormProps {
 export default function EventForm({ event, action }: EventFormProps) {
   const navigate = useNavigate()
   const {
-    getValues,
+    control,
+    // getValues,
     register,
     handleSubmit,
     reset,
     // formState: { errors },
-  } = useForm<FormValues>()
+  } = useForm<FormValues>({
+    defaultValues: {
+      eventName: '',
+      eventLocation: 'Virtual',
+      eventDateAndTime: '',
+      eventDuration: 1,
+      eventDescription: '',
+      eventUrl: '',
+    },
+  })
 
   const getEventObject = useCallback(
     (event: EventProps) => ({
@@ -56,11 +68,6 @@ export default function EventForm({ event, action }: EventFormProps) {
   const onSubmit: SubmitHandler<FormValues> = (data: unknown) =>
     console.log('onSubmit', data)
 
-  const possibleLocations = [
-    { id: 'virtual', title: 'Virtual' },
-    { id: 'inPerson', title: 'In Person' },
-  ]
-
   const buttonText =
     action === 'edit'
       ? 'Save Event'
@@ -84,26 +91,14 @@ export default function EventForm({ event, action }: EventFormProps) {
         />
       </div>
       <div className="space-y-2">
-        <h2 className="text-[20px] font-semibold tracking-[0.3px]">Where</h2>
         <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
-          {possibleLocations.map((location) => (
-            <div key={location.id} className="flex items-center">
-              <input
-                id={location.id}
-                type="radio"
-                defaultChecked={getValues('eventLocation') === location.title}
-                className="disabled:ring-gray-200 h-4 w-4 border-gray-300 text-circle-blue-900 focus:ring-circle-blue-900 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
-                disabled={isDisabled}
-                {...register('eventLocation')}
-              />
-              <label
-                htmlFor={location.id}
-                className="ml-3 block text-sm font-medium leading-6 text-gray-900"
-              >
-                {location.title}
-              </label>
-            </div>
-          ))}
+          <Controller
+            render={({ field }) => (
+              <LocationRadioGroup {...field} disabled={isDisabled} />
+            )}
+            control={control}
+            name="eventLocation"
+          />
         </div>
       </div>
       <div className="space-y-2">
@@ -116,20 +111,18 @@ export default function EventForm({ event, action }: EventFormProps) {
             disabled={isDisabled}
           />
           <div className="self-end">
-            <label className="sr-only block">Duration (hours)</label>
-            <select
-              className="placeholder:text-input placeholder:text-grey-shade-placeholder block w-full rounded-md border border-secondary px-3 py-2.5 font-normal text-circle-grey-shade-medium placeholder:font-normal"
-              placeholder="Duration"
-              {...register('eventDuration')}
-              disabled={isDisabled}
-            >
-              <option value="">Duration (hours)</option>
-              {Array.from({ length: 6 }, (_, i) => (
-                <option key={i + 1} value={i + 1}>
-                  {i + 1}
-                </option>
-              ))}
-            </select>
+            <Controller
+              render={({ field }) => (
+                <SelectMenu
+                  {...field}
+                  label="Duration"
+                  disabled={isDisabled}
+                  items={[1, 2, 3, 4, 5, 6]}
+                />
+              )}
+              control={control}
+              name="eventDuration"
+            />
           </div>
         </div>
       </div>
@@ -177,10 +170,10 @@ export default function EventForm({ event, action }: EventFormProps) {
         >
           {buttonText}
         </Button>
-
         <Button
           className="place-self-start capitalize"
           onClick={() => navigate(0)}
+          intent="secondary"
           type="button"
         >
           cancel
