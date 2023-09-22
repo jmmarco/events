@@ -18,9 +18,9 @@ const SelectMenu = forwardRef<Ref, SelectMenuProps<number | string>>(
   ({ disabled, ...props }, ref) => {
     return (
       <Listbox
+        ref={ref}
         value={props.value}
         onChange={props.onChange}
-        ref={ref}
         disabled={disabled}
       >
         {({ open }) => (
@@ -85,7 +85,6 @@ const SelectMenu = forwardRef<Ref, SelectMenuProps<number | string>>(
                           >
                             {item}
                           </span>
-
                           {selected && (
                             <span
                               className={cn(
