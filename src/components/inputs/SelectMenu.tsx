@@ -35,8 +35,8 @@ const SelectMenu = forwardRef<Ref, SelectMenuProps<number | string>>(
             </Listbox.Label>
             <div className="relative mt-2">
               <Listbox.Button
-                className="disabled:ring-gray-200 relative w-full cursor-default rounded-md border border-secondary bg-white px-3 py-2.5 text-left focus:ring-2 focus:ring-inset focus:ring-circle-blue-900
-    disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
+                className="relative w-full cursor-default rounded-md border border-secondary bg-white px-3 py-2.5 text-left focus:ring-2 focus:ring-inset focus:ring-circle-blue-900 disabled:cursor-not-allowed
+    disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200"
               >
                 <span
                   className={cn(

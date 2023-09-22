@@ -52,7 +52,7 @@ export const Input = forwardRef<Ref, InputProps>(
         )}
       </div>
       {props.error && (
-        <p className="text-circle-alert-color mt-2 text-[12px]">
+        <p className="mt-2 text-[12px] text-circle-alert-color">
           {props.error.message}
         </p>
       )}
