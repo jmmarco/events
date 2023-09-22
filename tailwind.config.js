@@ -2,7 +2,7 @@
 
 const circle = {
   alert: {
-    text: '#D72C0D',
+    color: '#D72C0D',
     border: '#DC462A',
     background: '#FFF4F4',
   },
