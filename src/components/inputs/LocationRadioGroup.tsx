@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
 import { cn } from '../../helpers/utils'
@@ -28,24 +28,11 @@ export type Ref = HTMLInputElement
 
 const LocationRadioGroup = forwardRef<Ref, LocationRadioGroupProps>(
   ({ disabled, ...props }, ref) => {
-    const selectedLocationObject = possibleLocations.find(
+    const selectedValueObject = possibleLocations.find(
       (location) => location.title === props.value,
     )
-    useEffect(() => {
-      setSelectedLocations(selectedLocationObject)
-    }, [selectedLocationObject])
-
-    const [selectedLocations, setSelectedLocations] = useState(
-      selectedLocationObject,
-    )
-
     return (
-      <RadioGroup
-        value={selectedLocations}
-        onChange={setSelectedLocations}
-        disabled={disabled}
-        ref={ref}
-      >
+      <RadioGroup disabled={disabled} ref={ref} value={selectedValueObject}>
         <RadioGroup.Label className="text-[20px] font-semibold tracking-[0.3px]">
           Where
         </RadioGroup.Label>
