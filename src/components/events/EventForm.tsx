@@ -31,7 +31,7 @@ export default function EventForm({ event, action }: EventFormProps) {
     register,
     handleSubmit,
     reset,
-    // formState: { errors },
+    formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
       eventName: '',
@@ -83,8 +83,10 @@ export default function EventForm({ event, action }: EventFormProps) {
         <Input
           type="text"
           label="Event Name"
-          {...register('eventName')}
+          {...register('eventName', { required: 'Event name is required' })}
+          error={errors?.eventName}
           disabled={isDisabled}
+          intent={errors?.eventName && 'error'}
         />
       </div>
       <div className="space-y-2">
