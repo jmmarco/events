@@ -28,6 +28,17 @@ const inputStyles = cva(
           'border-secondary',
           'hover:bg-gray-100',
         ],
+        error: [
+          'bg-circle-alert-background',
+          'ring-red-300',
+          'focus:ring-red-500',
+          'text-red-900',
+          'ring-1',
+          'ring-inset',
+          'placeholder:text-red-300',
+          'focus:ring-inset',
+          'border-0',
+        ],
       },
       size: {
         small: ['text-sm', 'py-2', 'px-8'],
