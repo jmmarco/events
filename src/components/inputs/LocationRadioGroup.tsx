@@ -32,14 +32,20 @@ const LocationRadioGroup = forwardRef<Ref, LocationRadioGroupProps>(
       (location) => location.title === props.value,
     )
     return (
-      <RadioGroup disabled={disabled} ref={ref} value={selectedValueObject}>
+      <RadioGroup
+        ref={ref}
+        value={selectedValueObject}
+        onChange={(v) => {
+          props.onChange(v.title)
+        }}
+        disabled={disabled}
+      >
         <RadioGroup.Label className="text-[20px] font-semibold tracking-[0.3px]">
           Where
         </RadioGroup.Label>
         <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4 ">
           {possibleLocations.map((location) => (
             <RadioGroup.Option
-              onClick={() => props.onChange(location.title)}
               key={location.id}
               value={location}
               className={({ active }) =>
@@ -88,7 +94,6 @@ const LocationRadioGroup = forwardRef<Ref, LocationRadioGroupProps>(
                       </RadioGroup.Description>
                     </span>
                   </span>
-
                   <span
                     className={cn(
                       active ? 'border' : 'border-2',
