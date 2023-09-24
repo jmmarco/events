@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import LoaderContext from '../components/LoaderContext'
 
 interface UseFetchProps<T> {
   url: string
@@ -6,9 +7,9 @@ interface UseFetchProps<T> {
 }
 
 export default function useFetch<T>({ url, initialState }: UseFetchProps<T>) {
+  const { loading, setLoading } = useContext(LoaderContext)
   const [data, setData] = useState(initialState)
   const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setLoading(true)
@@ -24,7 +25,7 @@ export default function useFetch<T>({ url, initialState }: UseFetchProps<T>) {
       })
       .catch((error) => setError(error))
       .finally(() => setLoading(false))
-  }, [url])
+  }, [url, setLoading])
 
   return {
     data,
