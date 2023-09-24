@@ -3,20 +3,17 @@ import { useEffect, useState } from 'react'
 import EventHeader from '../components/events/EventHeader'
 import EventMain from '../components/events/EventMain'
 import { EventProps } from '../types/events'
-import api from '../helpers/api'
 import { VITE_API_URL } from '../constants'
 import EventCardList from '../components/cards/EventCardList'
+import useFetch from '../hooks/useFetch'
 
 export default function Events() {
-  const [events, setEvent] = useState<EventProps[] | null>(null)
+  const eventsEndpointUrl = `${VITE_API_URL}/events`
 
-  useEffect(() => {
-    const eventsEndpointUrl = `${VITE_API_URL}/events`
-
-    api(eventsEndpointUrl).then((data) => {
-      setEvent(data as EventProps[])
-    })
-  }, [])
+  const { data: events } = useFetch<EventProps[] | null>({
+    url: eventsEndpointUrl,
+    initialState: null,
+  })
 
   return (
     <div className="h-full bg-circle-grey-background">

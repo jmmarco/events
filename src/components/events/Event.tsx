@@ -2,26 +2,22 @@ import { useNavigate, useParams } from 'react-router'
 import EventForm from './EventForm'
 import EventHeader from './EventHeader'
 import EventMain from './EventMain'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { EventProps } from '../../types/events'
-import api from '../../helpers/api'
 import { VITE_API_URL } from '../../constants'
+import useFetch from '../../hooks/useFetch'
 
 type ActionProps = 'create' | 'edit' | 'view'
 
 export default function Event() {
   const { eventId } = useParams()
   const navigate = useNavigate()
-  const [event, setEvent] = useState<EventProps | null>(null)
   const [action, setAction] = useState<ActionProps>('view')
-
-  useEffect(() => {
-    const singleEventEndpointUrl = `${VITE_API_URL}/events/${eventId}`
-
-    api(singleEventEndpointUrl).then((data) => {
-      setEvent(data as EventProps)
-    })
-  }, [eventId])
+  const singleEventEndpointUrl = `${VITE_API_URL}/events/${eventId}`
+  const { data: event } = useFetch<EventProps | null>({
+    url: singleEventEndpointUrl,
+    initialState: null,
+  })
 
   const title = action === 'edit' ? 'Edit Event' : 'Event Details'
 
