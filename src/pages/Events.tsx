@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 import EventHeader from '../components/events/EventHeader'
 import EventMain from '../components/events/EventMain'
 import { EventProps } from '../types/events'
