@@ -18,16 +18,18 @@ export default function EventCardList({ events }: EventCardListProps) {
         return (
           <li
             key={event.id}
-            className="flex w-64 min-w-full cursor-pointer items-center space-x-4 rounded-xl bg-white p-6 shadow-lg md:min-w-min "
+            className="flex w-64 min-w-full cursor-pointer items-center rounded-md  bg-white p-8 shadow-lg md:min-w-min"
             onClick={() => {
               navigate(`/events/${event.id}`)
             }}
           >
-            <div className="shrink-0">
+            <div className="mr-4 shrink-0">
               <img className="h-12 w-12" src={imgSrc} alt="Event Logo" />
             </div>
             <div>
-              <p className="text-xl font-medium text-black">{event.name}</p>
+              <p className="w-36 overflow-hidden truncate text-xl font-medium">
+                {event.name}
+              </p>
               <p className="text-slate-500">{event.duration} hours</p>
             </div>
           </li>
