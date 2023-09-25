@@ -2,9 +2,9 @@
 
 const circle = {
   alert: {
-    text: '#D72C0D',
+    color: '#D72C0D',
     border: '#DC462A',
-    background: 'FFF4F4',
+    background: '#FFF4F4',
   },
   blue: {
     900: '#506CF0',
@@ -48,9 +48,9 @@ export default {
         secondary: '#404F5E',
         circle,
       },
-    },
-    ringColor: {
-      circle,
+      ringColor: {
+        circle,
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],

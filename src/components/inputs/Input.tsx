@@ -3,14 +3,15 @@ import { ExclamationCircleIcon } from '@heroicons/react/20/solid'
 import { forwardRef } from 'react'
 import { cn } from '../../helpers/utils'
 import { inputStyles } from './inputStyles'
+import { FieldError } from 'react-hook-form'
 
 interface InputProps {
   className?: string
   disabled?: boolean
-  error?: string
+  error?: FieldError
   grow?: boolean
   hideLabel?: boolean
-  intent?: 'primary' | 'secondary' | null | undefined
+  intent?: 'primary' | 'secondary' | 'error' | null | undefined
   label: string
   name: string
   placeholder?: string
@@ -51,7 +52,9 @@ export const Input = forwardRef<Ref, InputProps>(
         )}
       </div>
       {props.error && (
-        <p className="mt-2 text-sm text-red-600">{props.error}</p>
+        <p className="mt-2 text-[12px] text-circle-alert-color">
+          {props.error.message}
+        </p>
       )}
     </div>
   ),

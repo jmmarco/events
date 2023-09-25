@@ -2,6 +2,7 @@ import { forwardRef } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
 import { cn } from '../../helpers/utils'
+import { FieldError } from 'react-hook-form'
 
 const possibleLocations = [
   {
@@ -22,21 +23,23 @@ interface LocationRadioGroupProps {
   disabled: boolean
   value: string
   onChange: (location: string) => void
+  error?: FieldError
 }
 
 export type Ref = HTMLInputElement
 
 const LocationRadioGroup = forwardRef<Ref, LocationRadioGroupProps>(
   ({ disabled, ...props }, ref) => {
-    const selectedValueObject = possibleLocations.find(
-      (location) => location.title === props.value,
-    )
+    const selectedValueObject =
+      possibleLocations.find((location) => location.title === props.value) || ''
     return (
       <RadioGroup
         ref={ref}
         value={selectedValueObject}
         onChange={(v) => {
-          props.onChange(v.title)
+          if (typeof v === 'object') {
+            props.onChange(v.title)
+          }
         }}
         disabled={disabled}
       >
@@ -107,6 +110,11 @@ const LocationRadioGroup = forwardRef<Ref, LocationRadioGroupProps>(
             </RadioGroup.Option>
           ))}
         </div>
+        {props.error && (
+          <p className="mt-4 text-[12px] text-circle-alert-color">
+            {props.error.message}
+          </p>
+        )}
       </RadioGroup>
     )
   },
