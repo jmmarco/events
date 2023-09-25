@@ -7,15 +7,17 @@ import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import LocationRadioGroup from '../inputs/LocationRadioGroup'
 import SelectMenu from '../inputs/SelectMenu'
+import { VITE_API_URL } from '../../constants'
+import { useErrorBoundary } from 'react-error-boundary'
 
 type FormValues = {
-  eventName: string
-  eventLocation: string
-  eventDateAndTime: string
-  eventDuration: number
-  eventDescription: string
-  eventDomain: string
-  eventUrl: string
+  name: string
+  location: string
+  dateAndTime: string
+  duration: number
+  description: string
+  domain: string
+  customUrl: string
 }
 
 interface EventFormProps {
@@ -25,6 +27,7 @@ interface EventFormProps {
 
 export default function EventForm({ event, action }: EventFormProps) {
   const navigate = useNavigate()
+  const { showBoundary } = useErrorBoundary()
   const {
     control,
     // getValues,
@@ -34,23 +37,23 @@ export default function EventForm({ event, action }: EventFormProps) {
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      eventName: '',
-      eventLocation: '',
-      eventDateAndTime: '',
-      eventDuration: 1,
-      eventDescription: '',
-      eventUrl: '',
+      name: '',
+      location: '',
+      dateAndTime: '',
+      duration: 1,
+      description: '',
+      customUrl: '',
     },
   })
 
   const getEventObject = useCallback(
     (event: EventProps) => ({
-      eventName: event.name,
-      eventLocation: event.location,
-      eventDateAndTime: event.dateAndTime,
-      eventDuration: event.duration,
-      eventDescription: event.description,
-      eventUrl: event.customUrl,
+      name: event.name,
+      location: event.location,
+      dateAndTime: event.dateAndTime,
+      duration: event.duration,
+      description: event.description,
+      customUrl: event.customUrl,
     }),
 
     [],
@@ -62,8 +65,24 @@ export default function EventForm({ event, action }: EventFormProps) {
     }
   }, [event, getEventObject, reset])
 
-  const onSubmit: SubmitHandler<FormValues> = (data: unknown) =>
-    console.log('onSubmit', data)
+  const onSubmit: SubmitHandler<FormValues> = async (formData) => {
+    const createEventEndpointUrl = `${VITE_API_URL}/events`
+    try {
+      const response = await fetch(createEventEndpointUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+      console.info('data', data)
+    } catch (error) {
+      console.error(error)
+      showBoundary(error)
+    }
+  }
 
   const buttonText =
     action === 'edit'
@@ -83,10 +102,10 @@ export default function EventForm({ event, action }: EventFormProps) {
         <Input
           type="text"
           label="Event Name"
-          {...register('eventName', { required: 'Event name is required' })}
-          error={errors?.eventName}
+          {...register('name', { required: 'Event name is required' })}
+          error={errors?.name}
           disabled={isDisabled}
-          intent={errors?.eventName && 'error'}
+          intent={errors?.name && 'error'}
         />
       </div>
       <div className="space-y-2">
@@ -96,11 +115,11 @@ export default function EventForm({ event, action }: EventFormProps) {
               <LocationRadioGroup
                 {...field}
                 disabled={isDisabled}
-                error={errors?.eventLocation}
+                error={errors?.location}
               />
             )}
             control={control}
-            name="eventLocation"
+            name="location"
             rules={{
               required: 'Where is required',
             }}
@@ -113,7 +132,7 @@ export default function EventForm({ event, action }: EventFormProps) {
           <Input
             type="date"
             label="Set date and time"
-            {...register('eventDateAndTime')}
+            {...register('dateAndTime')}
             disabled={isDisabled}
           />
           <div className="self-end">
@@ -127,7 +146,7 @@ export default function EventForm({ event, action }: EventFormProps) {
                 />
               )}
               control={control}
-              name="eventDuration"
+              name="duration"
             />
           </div>
         </div>
@@ -137,7 +156,7 @@ export default function EventForm({ event, action }: EventFormProps) {
           label="Event Description"
           placeholder="Write a summary about your event"
           className="h-40 resize-none"
-          {...register('eventDescription')}
+          {...register('description')}
           disabled={isDisabled}
         />
       </div>
@@ -153,7 +172,7 @@ export default function EventForm({ event, action }: EventFormProps) {
             disabled
             value="yourdomain.com"
             className="basis-1/4 rounded-r-none"
-            {...register('eventDomain')}
+            {...register('domain')}
           />
           <Input
             type="text"
@@ -162,7 +181,7 @@ export default function EventForm({ event, action }: EventFormProps) {
             className="basis-3/4 rounded-l-none"
             placeholder="custom URL"
             grow
-            {...register('eventUrl')}
+            {...register('customUrl')}
             disabled={isDisabled}
           />
         </div>
