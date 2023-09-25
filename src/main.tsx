@@ -5,7 +5,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Layout from './components/MainLayout'
 import ErrorPage from './components/ErrorPage'
 import NewEvent from './pages/NewEvent'
-import Event from './components/events/Event'
+import Event from './pages/Event'
 import Events from './pages/Events'
 import Index from './pages/Index'
 

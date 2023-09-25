@@ -1,12 +1,13 @@
 import { useNavigate, useParams } from 'react-router'
-import EventForm from './EventForm'
-import EventHeader from './EventHeader'
-import EventMain from './EventMain'
+import EventForm from '../components/events/EventForm'
+import EventHeader from '../components/events/EventHeader'
+import EventMain from '../components/events/EventMain'
 import { useState } from 'react'
-import { EventProps } from '../../types/events'
-import { VITE_API_URL } from '../../constants'
-import useFetch from '../../hooks/useFetch'
+import { EventProps } from '../types/events'
+import { VITE_API_URL } from '../constants'
+import useFetch from '../hooks/useFetch'
 import { useErrorBoundary } from 'react-error-boundary'
+import useSetDocumentTitle from '../hooks/useSetDocumentTitle'
 
 type ActionProps = 'create' | 'edit' | 'view'
 
@@ -26,6 +27,8 @@ export default function Event() {
   if (error) {
     showBoundary(error)
   }
+
+  useSetDocumentTitle(`Event: ${event?.name}`)
 
   return (
     <div className="bg-circle-grey-background">
