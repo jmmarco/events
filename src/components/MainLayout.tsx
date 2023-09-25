@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router'
 import { ChildrenProps } from '../types/global'
 import Loader from './Loader'
-import LoaderContext from './LoaderContext'
+import LoaderContext from '../context/LoaderContext'
 import useLoading from '../hooks/useLoading'
 import { ErrorBoundary } from 'react-error-boundary'
 import ErrorPage from './ErrorPage'

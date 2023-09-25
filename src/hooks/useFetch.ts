@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import LoaderContext from '../components/LoaderContext'
+import LoaderContext from '../context/LoaderContext'
 
 interface UseFetchProps<T> {
   url: string
