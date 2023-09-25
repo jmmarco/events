@@ -1,12 +1,11 @@
 import { Outlet } from 'react-router'
-import { ChildrenProps } from '../types/global'
-import Loader from './Loader'
+import Loader from './loaders/Loader'
 import LoaderContext from '../context/LoaderContext'
 import useLoading from '../hooks/useLoading'
 import { ErrorBoundary } from 'react-error-boundary'
-import ErrorPage from './ErrorPage'
+import ErrorPage from './errors/ErrorPage'
 
-export default function Layout({ children }: ChildrenProps) {
+export default function App() {
   const value = useLoading()
 
   return (
@@ -16,13 +15,10 @@ export default function Layout({ children }: ChildrenProps) {
         console.log(`[Boundary]`, error, info)
       }}
     >
-      <div className="relative h-full text-circle-grey-shade-dark">
-        <LoaderContext.Provider value={value}>
-          {children}
-          <Outlet />
-          <Loader />
-        </LoaderContext.Provider>
-      </div>
+      <LoaderContext.Provider value={value}>
+        <Outlet />
+        <Loader />
+      </LoaderContext.Provider>
     </ErrorBoundary>
   )
 }

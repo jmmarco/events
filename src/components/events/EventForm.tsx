@@ -69,6 +69,7 @@ export default function EventForm({ event, action }: EventFormProps) {
   }, [event, getEventObject, reset])
 
   const onSubmit: SubmitHandler<FormValues> = async (formData) => {
+    console.log('submitting')
     const createEventEndpointUrl = `${VITE_API_URL}/events`
     const editEventEndpointUrl = `${VITE_API_URL}/events/${event?.id}`
 
@@ -95,16 +96,15 @@ export default function EventForm({ event, action }: EventFormProps) {
 
       const data = await response.json()
       setSuccess(true)
-      setTimeout(() => {
-        setSuccess(false)
-        // Reload or navigate based on action
-        action === 'edit' && navigate(0)
-        action === 'create' && navigate(`/events/${data.id}`)
-      }, NAVIGATE_TIMEOUT_MS)
+
+      // Reload or navigate based on action
+      action === 'edit' && navigate(0)
+      action === 'create' && navigate(`/events/${data.id}`)
     } catch (error) {
       console.error(error)
       showBoundary(error)
     }
+    setSuccess(false)
   }
 
   const buttonText =

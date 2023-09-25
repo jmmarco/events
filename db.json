@@ -1,13 +1,13 @@
 {
   "events": [
     {
-      "id": 1,
       "name": "Rails Intro",
-      "location": "Virtual",
+      "location": "In Person",
       "dateAndTime": "2019-05-03",
       "duration": 4,
       "description": "DHH shows us how to install Rails",
-      "customUrl": "something/something.html"
+      "customUrl": "something/rails/something.html",
+      "id": 1
     },
     {
       "id": 2,
