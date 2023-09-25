@@ -5,8 +5,10 @@ import { VITE_API_URL } from '../constants'
 import EventCardList from '../components/cards/EventCardList'
 import useFetch from '../hooks/useFetch'
 import { useErrorBoundary } from 'react-error-boundary'
+import useSetDocumentTitle from '../hooks/useSetDocumentTitle'
 
 export default function Events() {
+  useSetDocumentTitle('Events')
   const { showBoundary } = useErrorBoundary()
   const eventsEndpointUrl = `${VITE_API_URL}/events`
 
