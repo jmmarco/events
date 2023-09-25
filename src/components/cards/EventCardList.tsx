@@ -18,7 +18,7 @@ export default function EventCardList({ events }: EventCardListProps) {
         return (
           <li
             key={event.id}
-            className="flex w-64 min-w-full max-w-xs cursor-pointer items-center space-x-4 rounded-xl bg-white p-6 shadow-lg md:min-w-fit"
+            className="flex w-64 min-w-full cursor-pointer items-center space-x-4 rounded-xl bg-white p-6 shadow-lg md:min-w-min "
             onClick={() => {
               navigate(`/events/${event.id}`)
             }}
