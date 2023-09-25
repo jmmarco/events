@@ -3,12 +3,13 @@ import Button from '../buttons/Button'
 import Input from '../inputs/Input'
 import Textarea from '../inputs/Textarea'
 import { EventProps } from '../../types/events'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import LocationRadioGroup from '../inputs/LocationRadioGroup'
 import SelectMenu from '../inputs/SelectMenu'
 import { VITE_API_URL } from '../../constants'
 import { useErrorBoundary } from 'react-error-boundary'
+import Notification from '../notifications/Notification'
 
 type FormValues = {
   name: string
@@ -28,13 +29,15 @@ interface EventFormProps {
 export default function EventForm({ event, action }: EventFormProps) {
   const navigate = useNavigate()
   const { showBoundary } = useErrorBoundary()
+  const [success, setSuccess] = useState(false)
+  const NAVIGATE_TIMEOUT_MS = 2000 // Allows user to see success notification
   const {
     control,
     // getValues,
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm<FormValues>({
     defaultValues: {
       name: '',
@@ -67,17 +70,37 @@ export default function EventForm({ event, action }: EventFormProps) {
 
   const onSubmit: SubmitHandler<FormValues> = async (formData) => {
     const createEventEndpointUrl = `${VITE_API_URL}/events`
+    const editEventEndpointUrl = `${VITE_API_URL}/events/${event?.id}`
+
+    const url =
+      action === 'edit'
+        ? editEventEndpointUrl
+        : action === 'create'
+        ? createEventEndpointUrl
+        : ''
+    const method = action === 'edit' ? 'PUT' : action === 'create' ? 'POST' : ''
+
     try {
-      const response = await fetch(createEventEndpointUrl, {
-        method: 'POST',
+      const response = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       })
 
+      if (!response.ok) {
+        throw new Error(response.statusText)
+      }
+
       const data = await response.json()
-      console.info('data', data)
+      setSuccess(true)
+      setTimeout(() => {
+        setSuccess(false)
+        // Reload or navigate based on action
+        action === 'edit' && navigate(0)
+        action === 'create' && navigate(`/events/${data.id}`)
+      }, NAVIGATE_TIMEOUT_MS)
     } catch (error) {
       console.error(error)
       showBoundary(error)
@@ -96,7 +119,7 @@ export default function EventForm({ event, action }: EventFormProps) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-y-12 py-14"
+      className="relative flex flex-col gap-y-12 py-14"
     >
       <div className="space-y-2">
         <Input
@@ -186,12 +209,13 @@ export default function EventForm({ event, action }: EventFormProps) {
           />
         </div>
       </fieldset>
-
       <div className="inline-flex gap-x-2">
         <Button
           className="place-self-start capitalize"
           type="submit"
-          disabled={action !== 'edit' && action !== 'create'}
+          disabled={
+            (action !== 'edit' && action !== 'create') || !isDirty || !isValid
+          }
         >
           {buttonText}
         </Button>
@@ -204,6 +228,7 @@ export default function EventForm({ event, action }: EventFormProps) {
           cancel
         </Button>
       </div>
+      <Notification show={success} setShow={setSuccess} />
     </form>
   )
 }
