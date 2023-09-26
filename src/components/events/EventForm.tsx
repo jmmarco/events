@@ -3,14 +3,14 @@ import Button from '../buttons/Button'
 import Input from '../inputs/Input'
 import Textarea from '../inputs/Textarea'
 import { EventProps } from '../../types/events'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import LocationRadioGroup from '../inputs/LocationRadioGroup'
 import SelectMenu from '../inputs/SelectMenu'
 import { VITE_API_URL } from '../../constants'
 import { useErrorBoundary } from 'react-error-boundary'
-import Notification from '../notifications/Notification'
 import LoaderContext from '../../context/LoaderContext'
+import NotificationContext from '../../context/NotificationContext'
 
 type FormValues = {
   name: string
@@ -30,9 +30,10 @@ interface EventFormProps {
 export default function EventForm({ event, action }: EventFormProps) {
   const navigate = useNavigate()
   const { setLoading } = useContext(LoaderContext)
-  const [success, setSuccess] = useState(false)
+  const { setShow, setNotificationType } = useContext(NotificationContext)
   const { showBoundary } = useErrorBoundary()
   const SIMULATED_NETWORK_DELAY = 2500
+
   const {
     control,
     // getValues,
@@ -71,10 +72,8 @@ export default function EventForm({ event, action }: EventFormProps) {
   }, [event, getEventObject, reset])
 
   const onSubmit: SubmitHandler<FormValues> = async (formData) => {
-    console.log('submitting')
     const createEventEndpointUrl = `${VITE_API_URL}/events`
     const editEventEndpointUrl = `${VITE_API_URL}/events/${event?.id}`
-
     const url =
       action === 'edit'
         ? editEventEndpointUrl
@@ -98,12 +97,12 @@ export default function EventForm({ event, action }: EventFormProps) {
       }
 
       const data = await response.json()
-
-      setSuccess(true)
+      setNotificationType('success')
+      setShow(true)
       // setTimeout is emulating a network delay. In a production app this would be removed
       setTimeout(() => {
         setLoading(false)
-        setSuccess(false)
+        setShow(false)
         // Reload or navigate based on action
         action === 'edit' && navigate(0)
         action === 'create' &&
@@ -236,7 +235,6 @@ export default function EventForm({ event, action }: EventFormProps) {
           cancel
         </Button>
       </div>
-      <Notification show={success} setShow={setSuccess} />
     </form>
   )
 }

@@ -4,9 +4,13 @@ import LoaderContext from '../context/LoaderContext'
 import useLoading from '../hooks/useLoading'
 import { ErrorBoundary } from 'react-error-boundary'
 import ErrorPage from './errors/ErrorPage'
+import NotificationContext from '../context/NotificationContext'
+import useNotification from '../hooks/useNotification'
+import Notification from './notifications/Notification'
 
 export default function App() {
-  const value = useLoading()
+  const loadingValue = useLoading()
+  const notificationValue = useNotification()
 
   return (
     <ErrorBoundary
@@ -15,10 +19,13 @@ export default function App() {
         console.log(`[Boundary]`, error, info)
       }}
     >
-      <LoaderContext.Provider value={value}>
-        <Outlet />
-        <Loader />
-      </LoaderContext.Provider>
+      <NotificationContext.Provider value={notificationValue}>
+        <LoaderContext.Provider value={loadingValue}>
+          <Outlet />
+          <Loader />
+          <Notification />
+        </LoaderContext.Provider>
+      </NotificationContext.Provider>
     </ErrorBoundary>
   )
 }

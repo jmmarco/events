@@ -1,14 +1,38 @@
-import { Dispatch, Fragment, SetStateAction } from 'react'
+import { Fragment, useContext } from 'react'
 import { Transition } from '@headlessui/react'
-import { CheckCircleIcon } from '@heroicons/react/24/outline'
-import { XMarkIcon } from '@heroicons/react/20/solid'
+import {
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+  XMarkIcon,
+} from '@heroicons/react/24/outline'
+import NotificationContext from '../../context/NotificationContext'
 
-interface NotificationProps {
-  show: boolean
-  setShow: Dispatch<SetStateAction<boolean>>
-}
+export default function Notification() {
+  const { show, setShow, type } = useContext(NotificationContext)
+  let defaultIcon = null
+  switch (type) {
+    case 'error':
+      defaultIcon = (
+        <XMarkIcon className="h-6 w-6 text-red-400" aria-hidden="true" />
+      )
+      break
+    case 'warning':
+      defaultIcon = (
+        <ExclamationCircleIcon
+          className="h-6 w-6 text-yellow-400"
+          aria-hidden="true"
+        />
+      )
+      break
+    default:
+      defaultIcon = (
+        <CheckCircleIcon
+          className="h-6 w-6 text-green-400"
+          aria-hidden="true"
+        />
+      )
+  }
 
-export default function Notification({ show, setShow }: NotificationProps) {
   return (
     <>
       {/* Global notification live region, render this permanently at the end of the document */}
@@ -31,12 +55,7 @@ export default function Notification({ show, setShow }: NotificationProps) {
             <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
               <div className="p-4">
                 <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <CheckCircleIcon
-                      className="h-6 w-6 text-green-400"
-                      aria-hidden="true"
-                    />
-                  </div>
+                  <div className="flex-shrink-0">{defaultIcon}</div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
                     <p className="text-sm font-medium text-gray-900">
                       Event successfully saved!
