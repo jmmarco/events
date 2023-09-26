@@ -9,13 +9,13 @@ import useFetch from '../hooks/useFetch'
 import { useErrorBoundary } from 'react-error-boundary'
 import useSetDocumentTitle from '../hooks/useSetDocumentTitle'
 
-type ActionProps = 'create' | 'edit' | 'view'
+export type EventActionProps = 'create' | 'edit' | 'view'
 
 export default function Event() {
   const { eventId } = useParams()
   const { showBoundary } = useErrorBoundary()
   const navigate = useNavigate()
-  const [action, setAction] = useState<ActionProps>('view')
+  const [action, setAction] = useState<EventActionProps>('view')
   const singleEventEndpointUrl = `${VITE_API_URL}/events/${eventId}`
   const title = action === 'edit' ? 'Edit Event' : 'Event Details'
 
@@ -34,7 +34,7 @@ export default function Event() {
     <>
       <EventHeader
         headingTitle={title}
-        buttonActionText={action}
+        buttonActionText={action === 'view' ? 'edit' : undefined}
         buttonActionHandleClick={() => setAction('edit')}
         buttonCloseHandleClick={() => navigate('/events')}
       />

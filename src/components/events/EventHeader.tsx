@@ -1,9 +1,10 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import Button from '../buttons/Button'
+import { EventActionProps } from '../../pages/Event'
 
 interface EventHeaderProps {
   headingTitle: string
-  buttonActionText?: string
+  buttonActionText?: EventActionProps
   buttonCloseHandleClick?: () => void
   buttonActionHandleClick?: () => void
 }
@@ -33,14 +34,15 @@ export default function EventHeader({
       <div className="mx-auto max-w-2xl sm:px-6 lg:px-8">
         <div className="mx-auto flex h-[165px] max-w-3xl items-center justify-between shadow-none">
           <h1 className="text-[40px] font-bold">{headingTitle}</h1>
-          {buttonActionText === 'view' && (
+          {buttonActionText && (
             <Button
               onClick={buttonActionHandleClick}
+              className="capitalize"
               type="button"
               intent="secondary"
               size="small"
             >
-              Edit
+              {buttonActionText}
             </Button>
           )}
         </div>
