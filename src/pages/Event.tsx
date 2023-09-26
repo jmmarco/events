@@ -31,7 +31,7 @@ export default function Event() {
   useSetDocumentTitle(`Event: ${event?.name}`)
 
   return (
-    <div className="bg-circle-grey-background">
+    <>
       <EventHeader
         headingTitle={title}
         buttonActionText={action}
@@ -41,6 +41,6 @@ export default function Event() {
       <EventMain>
         <EventForm event={event} action={action} />
       </EventMain>
-    </div>
+    </>
   )
 }
