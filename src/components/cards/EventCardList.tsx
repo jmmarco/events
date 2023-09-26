@@ -27,7 +27,10 @@ export default function EventCardList({ events }: EventCardListProps) {
               <img className="h-12 w-12" src={imgSrc} alt="Event Logo" />
             </div>
             <div>
-              <p className="w-36 overflow-hidden truncate text-xl font-medium">
+              <p
+                className="w-36 overflow-hidden truncate text-xl font-medium"
+                title={event.name}
+              >
                 {event.name}
               </p>
               <p className="text-slate-500">{event.duration} hours</p>
