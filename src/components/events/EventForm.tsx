@@ -34,10 +34,12 @@ export default function EventForm({ event, action }: EventFormProps) {
     useContext(NotificationContext)
   const { showBoundary } = useErrorBoundary()
   const SIMULATED_NETWORK_DELAY = 2500
+  const isEdit = action === 'edit'
+  const isView = action === 'view'
+  const isCreate = action === 'create'
 
   const {
     control,
-    // getValues,
     register,
     handleSubmit,
     reset,
@@ -73,15 +75,17 @@ export default function EventForm({ event, action }: EventFormProps) {
   }, [event, getEventObject, reset])
 
   const onSubmit: SubmitHandler<FormValues> = async (formData) => {
+    // Create and Edit API Endpoints
     const createEventEndpointUrl = `${VITE_API_URL}/events`
     const editEventEndpointUrl = `${VITE_API_URL}/events/${event?.id}`
-    const url =
-      action === 'edit'
-        ? editEventEndpointUrl
-        : action === 'create'
-        ? createEventEndpointUrl
-        : ''
-    const method = action === 'edit' ? 'PUT' : action === 'create' ? 'POST' : ''
+
+    // Fetch parameters
+    const url = isEdit
+      ? editEventEndpointUrl
+      : isCreate
+      ? createEventEndpointUrl
+      : ''
+    const method = isEdit ? 'PUT' : isCreate ? 'POST' : ''
 
     setLoading(true)
     try {
@@ -106,9 +110,8 @@ export default function EventForm({ event, action }: EventFormProps) {
         setLoading(false)
         setShow(false)
         // Reload or navigate based on action
-        action === 'edit' && navigate(0)
-        action === 'create' &&
-          navigate(`/events/${data.id}`, { preventScrollReset: true })
+        isEdit && navigate(0)
+        isCreate && navigate(`/events/${data.id}`, { preventScrollReset: true })
       }, SIMULATED_NETWORK_DELAY)
     } catch (error) {
       console.error(error)
@@ -116,14 +119,10 @@ export default function EventForm({ event, action }: EventFormProps) {
     }
   }
 
-  const buttonText =
-    action === 'edit'
-      ? 'Save Event'
-      : action === 'create'
-      ? 'Create Event'
-      : 'Edit Event'
+  const buttonText = isEdit ? 'Save Event' : isCreate && 'Create Event'
 
-  const isDisabled = action === 'view'
+  // Boolean used to disable form elements when viewing an event
+  const isDisabled = isView
 
   return (
     <form
