@@ -34,6 +34,7 @@ export default function EventForm({ event, action }: EventFormProps) {
     useContext(NotificationContext)
   const { showBoundary } = useErrorBoundary()
   const SIMULATED_NETWORK_DELAY = 2500
+  // Conditional actions
   const isEdit = action === 'edit'
   const isView = action === 'view'
   const isCreate = action === 'create'
@@ -119,7 +120,11 @@ export default function EventForm({ event, action }: EventFormProps) {
     }
   }
 
-  const buttonText = isEdit ? 'Save Event' : isCreate && 'Create Event'
+  const buttonText = isEdit
+    ? 'Save Event'
+    : isCreate
+    ? 'Create Event'
+    : 'Save Event'
 
   // Boolean used to disable form elements when viewing an event
   const isDisabled = isView
