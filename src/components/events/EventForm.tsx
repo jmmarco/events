@@ -161,7 +161,7 @@ export default function EventForm({ event, action }: EventFormProps) {
         <h2 className="text-[20px] font-semibold tracking-[0.3px]">When</h2>
         <div className="grid grid-cols-2 gap-x-2">
           <Input
-            type="date"
+            type="datetime-local"
             label="Set date and time"
             {...register('dateAndTime')}
             disabled={isDisabled}

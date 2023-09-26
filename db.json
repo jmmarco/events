@@ -3,29 +3,29 @@
     {
       "name": "Rails Intro",
       "location": "In Person",
-      "dateAndTime": "2019-05-03",
+      "dateAndTime": "2023-11-15T16:00",
       "duration": 4,
       "description": "DHH shows us how to install Rails",
       "customUrl": "something/rails/something.html",
       "id": 1
     },
     {
-      "id": 2,
-      "name": "Redis Intro",
+      "name": "Redis Intro Course",
       "location": "Virtual",
-      "dateAndTime": "2020-07-12",
+      "dateAndTime": "2023-09-30T19:45",
       "duration": 2,
       "description": "DHH shows us how to use Redis",
-      "customUrl": "something/something.html"
+      "customUrl": "something/something.html",
+      "id": 2
     },
     {
-      "id": 3,
       "name": "RailsConf",
       "location": "In Person",
-      "dateAndTime": "2023-01-22",
+      "dateAndTime": "2024-12-02T19:00",
       "duration": 6,
       "description": "DHH shows us updates on Rails",
-      "customUrl": "something/something.html"
+      "customUrl": "something/something.html",
+      "id": 3
     }
   ]
 }
