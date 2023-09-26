@@ -7,7 +7,7 @@ export default function Loader() {
   if (loading) {
     return (
       <div
-        className="absolute inset-0 z-20 m-auto flex items-center justify-center overflow-y-hidden bg-white opacity-80"
+        className="fixed inset-0 z-20 m-auto flex items-center justify-center overflow-y-hidden bg-white opacity-80"
         onClick={(e) => e.stopPropagation()}
       >
         <svg
@@ -15,7 +15,7 @@ export default function Loader() {
           height="44"
           viewBox="0 0 44 44"
           xmlns="http://www.w3.org/2000/svg"
-          className=" h-24 w-24 stroke-blue-300"
+          className=" h-24 w-24 stroke-circle-blue-800"
         >
           <g fill="none" fillRule="evenodd" strokeWidth="2">
             <circle cx="22" cy="22" r="1">
