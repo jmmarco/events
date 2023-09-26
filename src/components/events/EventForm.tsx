@@ -30,7 +30,8 @@ interface EventFormProps {
 export default function EventForm({ event, action }: EventFormProps) {
   const navigate = useNavigate()
   const { setLoading } = useContext(LoaderContext)
-  const { setShow, setNotificationType } = useContext(NotificationContext)
+  const { setShow, setNotificationType, setNotificationText } =
+    useContext(NotificationContext)
   const { showBoundary } = useErrorBoundary()
   const SIMULATED_NETWORK_DELAY = 2500
 
@@ -98,6 +99,7 @@ export default function EventForm({ event, action }: EventFormProps) {
 
       const data = await response.json()
       setNotificationType('success')
+      setNotificationText('Event created successfully!')
       setShow(true)
       // setTimeout is emulating a network delay. In a production app this would be removed
       setTimeout(() => {

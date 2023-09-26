@@ -4,16 +4,20 @@ export type NotificationType = 'success' | 'error' | 'warning'
 
 export default function useNotification() {
   const [show, setShow] = useState(false)
-  const [type, setNotificationType] = useState<NotificationType>('warning')
+  const [notificationType, setNotificationType] =
+    useState<NotificationType>('warning')
+  const [notificationText, setNotificationText] = useState('')
 
   const value = useMemo(
     () => ({
       show,
       setShow,
+      notificationText,
+      setNotificationText,
+      notificationType,
       setNotificationType,
-      type,
     }),
-    [show, type],
+    [show, notificationText, notificationType],
   )
 
   return value

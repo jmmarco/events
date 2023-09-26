@@ -8,9 +8,10 @@ import {
 import NotificationContext from '../../context/NotificationContext'
 
 export default function Notification() {
-  const { show, setShow, type } = useContext(NotificationContext)
+  const { show, setShow, notificationType, notificationText } =
+    useContext(NotificationContext)
   let defaultIcon = null
-  switch (type) {
+  switch (notificationType) {
     case 'error':
       defaultIcon = (
         <XMarkIcon className="h-6 w-6 text-red-400" aria-hidden="true" />
@@ -58,7 +59,7 @@ export default function Notification() {
                   <div className="flex-shrink-0">{defaultIcon}</div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
                     <p className="text-sm font-medium text-gray-900">
-                      Event successfully saved!
+                      {notificationText}
                     </p>
                   </div>
                   <div className="ml-4 flex flex-shrink-0">

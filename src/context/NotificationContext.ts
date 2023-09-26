@@ -4,15 +4,18 @@ import { NotificationType } from '../hooks/useNotification'
 type NotificationContextProps = {
   show: boolean
   setShow: React.Dispatch<React.SetStateAction<boolean>>
-  type?: 'success' | 'error' | 'warning'
+  notificationText?: string
+  setNotificationText: React.Dispatch<React.SetStateAction<string>>
+  notificationType?: 'success' | 'error' | 'warning'
   setNotificationType: React.Dispatch<React.SetStateAction<NotificationType>>
 }
 
 const NotificationContext = createContext<NotificationContextProps>({
   show: false,
   setShow: () => {},
+  setNotificationText: () => {},
+  notificationType: 'warning',
   setNotificationType: () => {},
-  type: 'warning',
 })
 
 export default NotificationContext
