@@ -49,7 +49,7 @@ A button component can be rendered the following way:
 <Button type="button">Click Here!</Button>
 ```
 
-Without providing further props, the default "intent" for this button is 'primary' as is defined in the `buttonStyles` file so it will render just fine with the primary defined styles.
+Without providing further props, the default "intent" for this button is `primary` as is defined in the `buttonStyles` file so it will render just fine with the primary defined styles.
 
 Alternatively, you could pass additional classes to override the default styles or even override another "intent" that was previously configured. Like so:
 
@@ -59,6 +59,14 @@ Alternatively, you could pass additional classes to override the default styles 
   className="place-self-start bg-yellow-400 capitalize"
 >
   Click Here!
+</Button>
+```
+
+A button with a `secondary` "intent" can be rendered like so:
+
+```
+<Button intent="secondary" type="button">
+  Go Back!
 </Button>
 ```
 
