@@ -21,8 +21,8 @@ Here you will find the reasoning and logic for choosing packages/patterns for th
 - Clone or download the project
 - From the root project folder run the command `npm install`
 - Rename the `.env.example` file to `.env`
-- set `http://localhost:4000` as the value for `VITE_API_URL`
-- set `Circle` as the value for `VITE_APP_NAME`
+  - set `http://localhost:4000` as the value for `VITE_API_URL`
+  - set `Circle` as the value for `VITE_APP_NAME`
 - Launch the development server using `npm run dev`
 - Alternatively you can create a build using `npm run build`
 - Open a browser window and navigate to `localhost:3000`
