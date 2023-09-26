@@ -3,13 +3,14 @@ import Button from '../buttons/Button'
 import Input from '../inputs/Input'
 import Textarea from '../inputs/Textarea'
 import { EventProps } from '../../types/events'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import LocationRadioGroup from '../inputs/LocationRadioGroup'
 import SelectMenu from '../inputs/SelectMenu'
 import { VITE_API_URL } from '../../constants'
 import { useErrorBoundary } from 'react-error-boundary'
 import Notification from '../notifications/Notification'
+import LoaderContext from '../../context/LoaderContext'
 
 type FormValues = {
   name: string
@@ -28,9 +29,10 @@ interface EventFormProps {
 
 export default function EventForm({ event, action }: EventFormProps) {
   const navigate = useNavigate()
-  const { showBoundary } = useErrorBoundary()
+  const { setLoading } = useContext(LoaderContext)
   const [success, setSuccess] = useState(false)
-  const NAVIGATE_TIMEOUT_MS = 2000 // Allows user to see success notification
+  const { showBoundary } = useErrorBoundary()
+  const SIMULATED_NETWORK_DELAY = 2500
   const {
     control,
     // getValues,
@@ -81,6 +83,7 @@ export default function EventForm({ event, action }: EventFormProps) {
         : ''
     const method = action === 'edit' ? 'PUT' : action === 'create' ? 'POST' : ''
 
+    setLoading(true)
     try {
       const response = await fetch(url, {
         method,
@@ -95,16 +98,21 @@ export default function EventForm({ event, action }: EventFormProps) {
       }
 
       const data = await response.json()
-      setSuccess(true)
 
-      // Reload or navigate based on action
-      action === 'edit' && navigate(0)
-      action === 'create' && navigate(`/events/${data.id}`)
+      setSuccess(true)
+      // setTimeout is emulating a network delay. In a production app this would be removed
+      setTimeout(() => {
+        setLoading(false)
+        setSuccess(false)
+        // Reload or navigate based on action
+        action === 'edit' && navigate(0)
+        action === 'create' &&
+          navigate(`/events/${data.id}`, { preventScrollReset: true })
+      }, SIMULATED_NETWORK_DELAY)
     } catch (error) {
       console.error(error)
       showBoundary(error)
     }
-    setSuccess(false)
   }
 
   const buttonText =
