@@ -6,11 +6,11 @@ import useSetDocumentTitle from '../hooks/useSetDocumentTitle'
 export default function NewEvent() {
   useSetDocumentTitle('New Event')
   return (
-    <div className="bg-circle-grey-background">
+    <>
       <EventHeader headingTitle="New Event" />
       <EventMain>
         <EventForm action="create" />
       </EventMain>
-    </div>
+    </>
   )
 }

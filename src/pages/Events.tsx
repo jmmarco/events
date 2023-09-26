@@ -29,7 +29,7 @@ export default function Events() {
   }
 
   return (
-    <div className="h-full bg-circle-grey-background">
+    <>
       <EventHeader
         headingTitle="Events"
         buttonActionText="create"
@@ -38,6 +38,6 @@ export default function Events() {
       <EventMain>
         <EventCardList events={events} />
       </EventMain>
-    </div>
+    </>
   )
 }
