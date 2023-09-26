@@ -6,11 +6,18 @@ import EventCardList from '../components/cards/EventCardList'
 import useFetch from '../hooks/useFetch'
 import { useErrorBoundary } from 'react-error-boundary'
 import useSetDocumentTitle from '../hooks/useSetDocumentTitle'
+import { useNavigate } from 'react-router'
 
 export default function Events() {
   useSetDocumentTitle('Events')
+  const navigate = useNavigate()
   const { showBoundary } = useErrorBoundary()
   const eventsEndpointUrl = `${VITE_API_URL}/events`
+
+  const navigateNewEvent = () => {
+    const newEventRoute = `/events/new`
+    navigate(newEventRoute)
+  }
 
   const { data: events, error } = useFetch<EventProps[] | null>({
     url: eventsEndpointUrl,
@@ -23,7 +30,11 @@ export default function Events() {
 
   return (
     <div className="h-full bg-circle-grey-background">
-      <EventHeader headingTitle="Events" />
+      <EventHeader
+        headingTitle="Events"
+        buttonActionText="create"
+        buttonActionHandleClick={navigateNewEvent}
+      />
       <EventMain>
         <EventCardList events={events} />
       </EventMain>
