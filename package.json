@@ -10,7 +10,8 @@
     "eslint:fix": "eslint . --ext ts,tsx",
     "prettier": "prettier --check \"./src/**/*.{ts,tsx}\"",
     "prettier:fix": "prettier --write \"./src/**/*.{ts,tsx}\"",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "npx playwright test"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
