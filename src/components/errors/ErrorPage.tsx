@@ -17,7 +17,10 @@ export default function ErrorPage({ error }: ErrorPageProps) {
   console.error(errorMessage)
 
   return (
-    <div className="absolute inset-0 m-auto max-h-fit max-w-2xl rounded-md bg-red-50 p-4 shadow-lg">
+    <div
+      className="absolute inset-0 m-auto max-h-fit max-w-2xl rounded-md bg-red-50 p-4 shadow-lg"
+      role="alert"
+    >
       <div className="flex">
         <div className="flex-shrink-0">
           <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
