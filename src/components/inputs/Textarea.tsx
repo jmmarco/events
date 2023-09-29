@@ -30,6 +30,7 @@ export const Textarea = forwardRef<Ref, TextareaProps>(
       <div className="relative mt-2">
         <textarea
           {...props}
+          id={props.name}
           className={cn(inputStyles({ intent, size, className }))}
           placeholder={props.placeholder || props.label}
           ref={ref}
