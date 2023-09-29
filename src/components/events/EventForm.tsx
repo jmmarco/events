@@ -204,7 +204,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
           />
           <Input
             type="text"
-            label="Event URL"
+            label="Custom URL"
             hideLabel
             className="basis-3/4 rounded-l-none"
             placeholder="custom URL"
