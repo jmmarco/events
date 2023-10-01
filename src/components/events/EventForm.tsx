@@ -75,12 +75,8 @@ export default function EventForm({ event, action }: EventFormProps) {
     const editEventEndpointUrl = `${VITE_API_URL}/events/${event?.id}`
 
     // Fetch parameters
-    const url = isEdit
-      ? editEventEndpointUrl
-      : isCreate
-      ? createEventEndpointUrl
-      : ''
-    const method = isEdit ? 'PUT' : isCreate ? 'POST' : ''
+    const url = isEdit ? editEventEndpointUrl : createEventEndpointUrl
+    const method = isEdit ? 'PUT' : 'POST'
 
     setLoading(true)
     try {
@@ -114,11 +110,7 @@ export default function EventForm({ event, action }: EventFormProps) {
     }
   }
 
-  const buttonText = isEdit
-    ? 'Save Event'
-    : isCreate
-    ? 'Create Event'
-    : 'Save Event'
+  const buttonText = isEdit ? 'Save Event' : 'Create Event'
 
   // Boolean used to disable form elements when viewing an event
   const isDisabled = isView
@@ -217,23 +209,27 @@ export default function EventForm({ event, action }: EventFormProps) {
         </div>
       </fieldset>
       <div className="inline-flex gap-x-2">
-        <Button
-          className="place-self-start capitalize"
-          type="submit"
-          disabled={
-            (action !== 'edit' && action !== 'create') || !isDirty || !isValid
-          }
-        >
-          {buttonText}
-        </Button>
-        <Button
-          className="place-self-start capitalize"
-          onClick={() => navigate(0)}
-          intent="secondary"
-          type="button"
-        >
-          cancel
-        </Button>
+        {isCreate ||
+          (isEdit && (
+            <>
+              <Button
+                className="place-self-start capitalize"
+                type="submit"
+                disabled={!isDirty || !isValid}
+              >
+                {buttonText}
+              </Button>
+
+              <Button
+                className="place-self-start capitalize"
+                onClick={() => navigate(0)}
+                intent="secondary"
+                type="button"
+              >
+                cancel
+              </Button>
+            </>
+          ))}
       </div>
     </form>
   )
