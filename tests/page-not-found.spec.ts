@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:3000/something-that-does-not-exist')
+  await page.goto('/something-that-does-not-exist')
 })
 
 test.describe('Navigating to unknown page', () => {
