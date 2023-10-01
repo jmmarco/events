@@ -12,19 +12,13 @@ import { useErrorBoundary } from 'react-error-boundary'
 import LoaderContext from '../../context/LoaderContext'
 import NotificationContext from '../../context/NotificationContext'
 
-type FormValues = {
-  name: string
-  location: string
-  dateAndTime: string
-  duration: number
-  description: string
-  domain: string
-  customUrl: string
-}
-
 interface EventFormProps {
   event?: EventProps | null
   action: 'create' | 'edit' | 'view'
+}
+
+interface FormValues extends EventProps {
+  domain: string // Domain is part of the form, but not used at this time (disabled)
 }
 
 export default function EventForm({ event, action }: EventFormProps) {
