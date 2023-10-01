@@ -212,27 +212,25 @@ export default function EventForm({ event, action }: EventFormProps) {
         </div>
       </fieldset>
       <div className="inline-flex gap-x-2">
-        {isCreate ||
-          (isEdit && (
-            <>
-              <Button
-                className="place-self-start capitalize"
-                type="submit"
-                disabled={!isDirty || !isValid}
-              >
-                {buttonText}
-              </Button>
-
-              <Button
-                className="place-self-start capitalize"
-                onClick={() => navigate(0)}
-                intent="secondary"
-                type="button"
-              >
-                cancel
-              </Button>
-            </>
-          ))}
+        {(isCreate || isEdit) && (
+          <>
+            <Button
+              className="place-self-start capitalize"
+              type="submit"
+              disabled={!isDirty || !isValid}
+            >
+              {buttonText}
+            </Button>
+            <Button
+              className="place-self-start capitalize"
+              onClick={() => navigate(0)}
+              intent="secondary"
+              type="button"
+            >
+              cancel
+            </Button>
+          </>
+        )}
       </div>
     </form>
   )
