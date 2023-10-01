@@ -121,7 +121,7 @@ export default function EventForm({ event, action }: EventFormProps) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="relative flex flex-col gap-y-12 py-14"
+      className="flex flex-col gap-y-12 py-14"
     >
       <div className="space-y-2">
         <Input
