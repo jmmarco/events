@@ -17,6 +17,8 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'no-unneeded-ternary': 'error',
+    'no-nested-ternary': 'error',
   },
   settings: {
     react: {
