@@ -77,6 +77,9 @@ export default function EventForm({ event, action }: EventFormProps) {
     // Fetch parameters
     const url = isEdit ? editEventEndpointUrl : createEventEndpointUrl
     const method = isEdit ? 'PUT' : 'POST'
+    const notificationText = isEdit
+      ? 'Event saved successfully!'
+      : 'Event created successfully!'
 
     setLoading(true)
     try {
@@ -94,7 +97,7 @@ export default function EventForm({ event, action }: EventFormProps) {
 
       const data = await response.json()
       setNotificationType('success')
-      setNotificationText('Event created successfully!')
+      setNotificationText(notificationText)
       setShow(true)
       // setTimeout is emulating a network delay. In a production app this would be removed
       setTimeout(() => {
