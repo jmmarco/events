@@ -9,5 +9,4 @@ export default function useSetDocumentTitle(title: string) {
       document.title = VITE_APP_NAME
     }
   }, [title])
-  return null
 }
