@@ -6,7 +6,7 @@ type NotificationContextProps = {
   setShow: React.Dispatch<React.SetStateAction<boolean>>
   notificationText?: string
   setNotificationText: React.Dispatch<React.SetStateAction<string>>
-  notificationType?: 'success' | 'error' | 'warning'
+  notificationType?: NotificationType
   setNotificationType: React.Dispatch<React.SetStateAction<NotificationType>>
 }
 
