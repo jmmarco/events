@@ -5,12 +5,19 @@ interface ErrorPageProps {
   error?: Error
 }
 
+interface RouteError {
+  error: Error
+  statusText: string
+  status: number
+}
+
 export default function ErrorPage({ error }: ErrorPageProps) {
-  const routerError: unknown = useRouteError()
-  console.error(error || routerError)
+  const routerError = useRouteError() as RouteError
+  const errorMessage = error?.message || routerError?.error?.message
+  console.error(errorMessage)
 
   return (
-    <div className="mx-auto mt-10 max-w-2xl rounded-md bg-red-50 p-4">
+    <div className="absolute inset-0 m-auto max-h-fit max-w-2xl rounded-md bg-red-50 p-4 shadow-lg">
       <div className="flex">
         <div className="flex-shrink-0">
           <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
@@ -20,10 +27,7 @@ export default function ErrorPage({ error }: ErrorPageProps) {
             Sorry, an unexpected error has occurred.
           </h3>
           <div className="mt-2 text-sm text-yellow-700">
-            <p>
-              {(error || (routerError as Error))?.message ||
-                (routerError as { statusText?: string })?.statusText}
-            </p>
+            <p>{errorMessage}</p>
           </div>
         </div>
       </div>
