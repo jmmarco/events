@@ -16,7 +16,7 @@ interface InputProps {
   name: string
   placeholder?: string
   size?: 'small' | 'medium'
-  type: 'text' | 'email' | 'date'
+  type: 'text' | 'email' | 'date' | 'datetime-local'
   value?: string
 }
 

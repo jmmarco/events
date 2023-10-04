@@ -2,17 +2,17 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import Layout from './components/MainLayout'
-import ErrorPage from './components/ErrorPage'
+import App from './components/App'
+import ErrorPage from './components/errors/ErrorPage'
 import NewEvent from './pages/NewEvent'
-import Event from './components/events/Event'
+import Event from './pages/Event'
 import Events from './pages/Events'
 import Index from './pages/Index'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
