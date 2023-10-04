@@ -9,22 +9,28 @@ interface UseFetchProps<T> {
 export default function useFetch<T>({ url, initialState }: UseFetchProps<T>) {
   const { loading, setLoading } = useContext(LoaderContext)
   const [data, setData] = useState(initialState)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
-    setLoading(true)
-    fetch(url)
-      .then((response) => {
+    const fetchData = async () => {
+      setLoading(true)
+      try {
+        const response = await fetch(url)
+
         if (!response.ok) {
           throw new Error(response.statusText)
         }
-        return response.json() as Promise<T>
-      })
-      .then((data) => {
+
+        const data = await response.json()
         setData(data)
-      })
-      .catch((error) => setError(error))
-      .finally(() => setLoading(false))
+      } catch (error) {
+        setError(error as Error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
   }, [url, setLoading])
 
   return {
