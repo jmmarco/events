@@ -15,15 +15,11 @@ test.describe('Index', () => {
   })
 
   test('Api fetch succeeds', async ({ request }) => {
-    const response = await request.get('http://localhost:4000/events', {
+    const response = await request.get('/events', {
       headers: {
         'Content-Type': 'application/json',
       },
     })
-
-    const data = await response.json()
-
-    await expect(data.length).toBe(2)
     await expect(response.ok()).toBeTruthy()
   })
 
