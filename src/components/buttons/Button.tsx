@@ -6,7 +6,7 @@ interface ButtonProps {
   className?: string
   children: React.ReactNode
   disabled?: boolean
-  intent?: 'primary' | 'secondary' | null | undefined
+  intent?: 'primary' | 'secondary'
   size?: 'small' | 'medium'
   type: 'submit' | 'button' | 'reset'
   onClick?: (() => void) | undefined
