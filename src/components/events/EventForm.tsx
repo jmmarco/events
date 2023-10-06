@@ -38,7 +38,7 @@ export default function EventForm({ event, action }: EventFormProps) {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isDirty, isValid },
+    formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
       name: '',
@@ -68,6 +68,18 @@ export default function EventForm({ event, action }: EventFormProps) {
       reset({ ...getEventObject(event) })
     }
   }, [event, getEventObject, reset])
+
+  const handleValidate = (value: string) => {
+    const dateTimeValue = new Date(value)
+    const today = new Date()
+
+    if (dateTimeValue < today) {
+      console.log('is it past?')
+      return 'Cannot be in the past'
+    }
+
+    return true
+  }
 
   const onSubmit: SubmitHandler<FormValues> = async (formData) => {
     // Create and Edit API Endpoints
@@ -157,10 +169,15 @@ export default function EventForm({ event, action }: EventFormProps) {
           <Input
             type="datetime-local"
             label="Set date and time"
-            {...register('dateAndTime')}
+            {...register('dateAndTime', {
+              required: 'Date and time cannot be empty',
+              validate: handleValidate,
+            })}
+            error={errors?.dateAndTime}
+            intent={errors?.name && 'error'}
             disabled={isDisabled}
           />
-          <div className="self-end">
+          <div>
             <Controller
               render={({ field }) => (
                 <SelectMenu
@@ -214,11 +231,7 @@ export default function EventForm({ event, action }: EventFormProps) {
       <div className="inline-flex gap-x-2">
         {(isCreate || isEdit) && (
           <>
-            <Button
-              className="place-self-start capitalize"
-              type="submit"
-              disabled={!isDirty || !isValid}
-            >
+            <Button className="place-self-start capitalize" type="submit">
               {buttonText}
             </Button>
             <Button
