@@ -11,7 +11,7 @@ interface InputProps {
   error?: FieldError
   grow?: boolean
   hideLabel?: boolean
-  intent?: 'primary' | 'secondary' | 'error' | null | undefined
+  intent?: 'primary' | 'secondary' | 'error'
   label: string
   name: string
   placeholder?: string
