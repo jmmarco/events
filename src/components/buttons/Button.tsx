@@ -1,15 +1,10 @@
-import { forwardRef } from 'react'
+import { ButtonHTMLAttributes, forwardRef } from 'react'
 import { cn } from '../../helpers/utils'
 import { buttonStyles } from './buttonStyles'
 
-interface ButtonProps {
-  className?: string
-  children: React.ReactNode
-  disabled?: boolean
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   intent?: 'primary' | 'secondary'
   size?: 'small' | 'medium'
-  type: 'submit' | 'button' | 'reset'
-  onClick?: (() => void) | undefined
 }
 
 export type Ref = HTMLButtonElement
