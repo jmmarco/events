@@ -1,23 +1,19 @@
 import { ExclamationCircleIcon } from '@heroicons/react/20/solid'
 
-import { forwardRef } from 'react'
+import { InputHTMLAttributes, forwardRef } from 'react'
 import { cn } from '../../helpers/utils'
 import { inputStyles } from './inputStyles'
 import { FieldError } from 'react-hook-form'
 
-interface InputProps {
-  className?: string
-  disabled?: boolean
+interface InputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  size?: 'small' | 'medium' | number | undefined
   error?: FieldError
   grow?: boolean
   hideLabel?: boolean
-  intent?: 'primary' | 'secondary' | 'error'
   label: string
-  name: string
-  placeholder?: string
-  size?: 'small' | 'medium'
+  intent?: 'primary' | 'secondary' | 'error'
   type: 'text' | 'email' | 'date' | 'datetime-local'
-  value?: string
 }
 
 export type Ref = HTMLInputElement
@@ -61,5 +57,4 @@ export const Input = forwardRef<Ref, InputProps>(
 )
 
 Input.displayName = 'Input'
-
 export default Input
