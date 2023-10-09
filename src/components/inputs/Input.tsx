@@ -7,7 +7,7 @@ import { FieldError } from 'react-hook-form'
 
 interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  size?: 'small' | 'medium' | number | undefined
+  size?: 'small' | 'medium'
   error?: FieldError
   grow?: boolean
   hideLabel?: boolean
