@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
-import axiosInstance from '../api/axiosInstance'
-import { EventProps } from '../types/events'
-import LoaderContext from '../context/LoaderContext'
+import axiosInstance from '../../../../api/axiosInstance'
+import { EventProps } from '../../../../types/events'
+import LoaderContext from '../../../../context/LoaderContext'
 import { AxiosError } from 'axios'
 
 interface UseGetAllEventsResponse {
