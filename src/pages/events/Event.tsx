@@ -1,13 +1,11 @@
 import { useNavigate, useParams } from 'react-router'
-import EventForm from '../components/events/EventForm'
-import EventHeader from '../components/events/EventHeader'
-import EventMain from '../components/events/EventMain'
+import EventForm from '../../components/events/EventForm'
+import EventHeader from '../../components/events/EventHeader'
+import EventMain from '../../components/events/EventMain'
 import { useState } from 'react'
-import { EventProps } from '../types/events'
-import { VITE_API_URL } from '../constants'
-import useFetch from '../hooks/useFetch'
 import { useErrorBoundary } from 'react-error-boundary'
-import useSetDocumentTitle from '../hooks/useSetDocumentTitle'
+import useSetDocumentTitle from '../../hooks/useSetDocumentTitle'
+import { useGetEvent } from './hooks/queries/useGetEvent'
 
 export type EventActionProps = 'create' | 'edit' | 'view'
 
@@ -16,13 +14,13 @@ export default function Event() {
   const { showBoundary } = useErrorBoundary()
   const navigate = useNavigate()
   const [action, setAction] = useState<EventActionProps>('view')
-  const singleEventEndpointUrl = `${VITE_API_URL}/events/${eventId}`
   const title = action === 'edit' ? 'Edit Event' : 'Event Details'
 
-  const { data: event, error } = useFetch<EventProps | null>({
-    url: singleEventEndpointUrl,
-    initialState: null,
-  })
+  if (!eventId) {
+    throw new Error('Event ID is required')
+  }
+
+  const { data: event, error } = useGetEvent(eventId)
 
   if (error) {
     showBoundary(error)
