@@ -4,9 +4,9 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import App from './components/App'
 import ErrorPage from './components/errors/ErrorPage'
-import NewEvent from './pages/NewEvent'
-import Event from './pages/Event'
-import Events from './pages/Events'
+import NewEvent from './pages/events/NewEvent'
+import Event from './pages/events/Event'
+import Events from './pages/events/Events'
 import Index from './pages/Index'
 
 const router = createBrowserRouter([

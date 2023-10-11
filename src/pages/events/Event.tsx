@@ -7,13 +7,13 @@ import { useErrorBoundary } from 'react-error-boundary'
 import useSetDocumentTitle from '../../hooks/useSetDocumentTitle'
 import { useGetEvent } from './hooks/queries/useGetEvent'
 
-export type EventActionProps = 'create' | 'edit' | 'view'
+export type EventActionType = 'create' | 'edit' | 'view' | null
 
 export default function Event() {
   const { eventId } = useParams()
   const { showBoundary } = useErrorBoundary()
   const navigate = useNavigate()
-  const [action, setAction] = useState<EventActionProps>('view')
+  const [action, setAction] = useState<EventActionType>('view')
   const title = action === 'edit' ? 'Edit Event' : 'Event Details'
 
   if (!eventId) {
@@ -32,7 +32,7 @@ export default function Event() {
     <>
       <EventHeader
         headingTitle={title}
-        buttonActionText={action === 'view' ? 'edit' : undefined}
+        buttonActionText={action === 'view' ? 'edit' : null}
         buttonActionHandleClick={() => setAction('edit')}
         buttonCloseHandleClick={() => navigate('/events')}
       />

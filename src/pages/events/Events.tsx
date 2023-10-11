@@ -1,10 +1,10 @@
-import EventHeader from '../components/events/EventHeader'
-import EventMain from '../components/events/EventMain'
-import EventCardList from '../components/cards/EventCardList'
+import EventHeader from '../../components/events/EventHeader'
+import EventMain from '../../components/events/EventMain'
+import EventCardList from '../../components/cards/EventCardList'
 import { useErrorBoundary } from 'react-error-boundary'
-import useSetDocumentTitle from '../hooks/useSetDocumentTitle'
+import useSetDocumentTitle from '../../hooks/useSetDocumentTitle'
 import { useNavigate } from 'react-router'
-import { useGetAllEvents } from '../hooks/useGetallEvents'
+import { useGetAllEvents } from './hooks/queries/useGetAllEvents'
 
 export default function Events() {
   useSetDocumentTitle('Events')
