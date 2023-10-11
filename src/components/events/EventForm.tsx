@@ -11,10 +11,11 @@ import { VITE_API_URL } from '../../constants'
 import { useErrorBoundary } from 'react-error-boundary'
 import LoaderContext from '../../context/LoaderContext'
 import NotificationContext from '../../context/NotificationContext'
+import { EventActionType } from '../../pages/events/Event'
 
 interface EventFormProps {
   event?: EventProps | null
-  action: 'create' | 'edit' | 'view'
+  action: EventActionType
 }
 
 interface FormValues extends EventProps {
