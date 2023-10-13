@@ -5,7 +5,6 @@ type ActionState = EventActionType
 
 export type Action = { type: 'SET_ACTION'; payload: ActionState }
 
-// Create the reducer function
 const actionReducer: Reducer<ActionState, Action> = (state, action) => {
   switch (action.type) {
     case 'SET_ACTION':
