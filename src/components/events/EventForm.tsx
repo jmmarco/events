@@ -11,7 +11,6 @@ import { useErrorBoundary } from 'react-error-boundary'
 import NotificationContext from '../../context/NotificationContext'
 import { useCreateEvent } from '../../pages/events/hooks/mutations/useCreateEvent'
 import { useEditEvent } from '../../pages/events/hooks/mutations/useEditEvent'
-import LoaderContext from '../../context/LoaderContext'
 import { Action } from '../../reducers/actionReducer'
 
 interface EventFormProps {
@@ -31,9 +30,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
   const { mutate: editEventMutation, error: editEventError } = useEditEvent()
   const { setShow, setNotificationType, setNotificationText } =
     useContext(NotificationContext)
-  const { setLoading } = useContext(LoaderContext)
   const { showBoundary } = useErrorBoundary()
-  const SIMULATED_NETWORK_DELAY = 2500
   // Conditional actions
   const isEdit = action === 'edit'
   const isView = action === 'view'
@@ -89,7 +86,6 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
   }
 
   const onSubmit: SubmitHandler<FormValues> = async (formData) => {
-    setLoading(true)
     if (isEdit) {
       editEventMutation(formData).then(() => {
         setShow(true)
@@ -106,11 +102,6 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
         dispatch({ type: 'SET_ACTION', payload: 'view' })
       })
     }
-    // Simulate a slight delay for better UX
-    setTimeout(() => {
-      setShow(false)
-      setLoading(false)
-    }, SIMULATED_NETWORK_DELAY)
   }
 
   const buttonText = isEdit ? 'Save Event' : 'Create Event'
