@@ -6,13 +6,14 @@ import { apiService } from '../../../../api/apiService'
 
 interface UseGetAllEventsResponse {
   data: EventProps | null
+  loading: boolean
   error: Error | null
 }
 
 export const useGetEvent = (id: string): UseGetAllEventsResponse => {
   const [data, setData] = useState<EventProps | null>(null)
   const [error, setError] = useState<Error | null>(null)
-  const { setLoading } = useContext(LoaderContext)
+  const { loading, setLoading } = useContext(LoaderContext)
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -30,5 +31,5 @@ export const useGetEvent = (id: string): UseGetAllEventsResponse => {
     fetchEvent()
   }, [id, setLoading])
 
-  return { data, error }
+  return { data, loading, error }
 }

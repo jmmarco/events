@@ -1,10 +1,13 @@
 import { EventProps } from '../../../../types/events'
 import { AxiosError } from 'axios'
 import { apiService } from '../../../../api/apiService'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { sleep } from '../../../../helpers/utils'
+import LoaderContext from '../../../../context/LoaderContext'
 
 interface UseCreateEventResponse {
   data: EventProps | null
+  loading: boolean
   error: Error | null
   mutate: (event: EventProps) => Promise<EventProps | null>
 }
@@ -12,18 +15,24 @@ interface UseCreateEventResponse {
 export const useCreateEvent = (): UseCreateEventResponse => {
   const [data, setData] = useState<EventProps | null>(null)
   const [error, setError] = useState<Error | null>(null)
+  const { loading, setLoading } = useContext(LoaderContext)
+  const SIMULATED_NETWORK_DELAY = 2500
 
   const createEvent = async (event: EventProps) => {
+    setLoading(true)
     try {
       const response = await apiService.createEvent(event)
       setData(response.data)
+      await sleep(SIMULATED_NETWORK_DELAY)
+      setLoading(false)
       return response.data
     } catch (error) {
       const axiosError = error as AxiosError
       setError(axiosError)
+      setLoading(false)
       return null
     }
   }
 
-  return { mutate: createEvent, data, error }
+  return { mutate: createEvent, data, loading, error }
 }
