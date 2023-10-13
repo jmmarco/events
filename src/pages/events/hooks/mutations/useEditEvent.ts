@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { EventProps } from '../../../../types/events'
 import { AxiosError } from 'axios'
 import { apiService } from '../../../../api/apiService'
