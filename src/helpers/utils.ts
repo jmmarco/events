@@ -6,6 +6,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function sleep(delay = 500) {
-  console.log('this fires?', delay)
   return new Promise((res) => setTimeout(res, delay))
 }

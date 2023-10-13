@@ -78,7 +78,6 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
     const today = new Date()
 
     if (dateTimeValue < today) {
-      console.log('is it past?')
       return 'Cannot be in the past'
     }
 
