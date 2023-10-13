@@ -2,18 +2,19 @@ import { useNavigate, useParams } from 'react-router'
 import EventForm from '../../components/events/EventForm'
 import EventHeader from '../../components/events/EventHeader'
 import EventMain from '../../components/events/EventMain'
-import { useState } from 'react'
+import { useReducer } from 'react'
 import { useErrorBoundary } from 'react-error-boundary'
 import useSetDocumentTitle from '../../hooks/useSetDocumentTitle'
 import { useGetEvent } from './hooks/queries/useGetEvent'
+import actionReducer from '../../reducers/actionReducer'
 
-export type EventActionType = 'create' | 'edit' | 'view' | null
+export type EventActionType = 'create' | 'edit' | 'view'
 
 export default function Event() {
   const { eventId } = useParams()
   const { showBoundary } = useErrorBoundary()
   const navigate = useNavigate()
-  const [action, setAction] = useState<EventActionType>('view')
+  const [action, dispatch] = useReducer(actionReducer, 'view')
   const title = action === 'edit' ? 'Edit Event' : 'Event Details'
 
   if (!eventId) {
@@ -32,12 +33,14 @@ export default function Event() {
     <>
       <EventHeader
         headingTitle={title}
-        buttonActionText={action === 'view' ? 'edit' : null}
-        buttonActionHandleClick={() => setAction('edit')}
+        buttonActionText={action === 'view' ? 'edit' : undefined}
+        buttonActionHandleClick={() =>
+          dispatch({ type: 'SET_ACTION', payload: 'edit' })
+        }
         buttonCloseHandleClick={() => navigate('/events')}
       />
       <EventMain>
-        <EventForm event={event} action={action} />
+        <EventForm event={event} action={action} dispatch={dispatch} />
       </EventMain>
     </>
   )
