@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
-import axiosInstance from '../api/axiosInstance'
-import { EventProps } from '../types/events'
-import LoaderContext from '../context/LoaderContext'
+import { EventProps } from '../../../../types/events'
+import LoaderContext from '../../../../context/LoaderContext'
 import { AxiosError } from 'axios'
+import { apiService } from '../../../../api/apiService'
 
 interface UseGetAllEventsResponse {
   data: EventProps[] | null
@@ -18,7 +18,7 @@ export const useGetAllEvents = (): UseGetAllEventsResponse => {
     const fetchData = async () => {
       setLoading(true)
       try {
-        const response = await axiosInstance.get('/events')
+        const response = await apiService.getEvents()
         setData(response.data)
       } catch (error) {
         const axiosError = error as AxiosError

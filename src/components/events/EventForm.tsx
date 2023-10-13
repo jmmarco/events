@@ -7,27 +7,30 @@ import { useCallback, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import LocationRadioGroup from '../inputs/LocationRadioGroup'
 import SelectMenu from '../inputs/SelectMenu'
-import { VITE_API_URL } from '../../constants'
 import { useErrorBoundary } from 'react-error-boundary'
-import LoaderContext from '../../context/LoaderContext'
 import NotificationContext from '../../context/NotificationContext'
+import { useCreateEvent } from '../../pages/events/hooks/mutations/useCreateEvent'
+import { useEditEvent } from '../../pages/events/hooks/mutations/useEditEvent'
+import { Action } from '../../reducers/actionReducer'
 
 interface EventFormProps {
   event?: EventProps | null
-  action: 'create' | 'edit' | 'view'
+  action: string
+  dispatch: React.Dispatch<Action>
 }
 
 interface FormValues extends EventProps {
   domain: string // Domain is part of the form, but not used at this time (disabled)
 }
 
-export default function EventForm({ event, action }: EventFormProps) {
+export default function EventForm({ event, action, dispatch }: EventFormProps) {
   const navigate = useNavigate()
-  const { setLoading } = useContext(LoaderContext)
+  const { mutate: createEventMutation, error: createEventError } =
+    useCreateEvent()
+  const { mutate: editEventMutation, error: editEventError } = useEditEvent()
   const { setShow, setNotificationType, setNotificationText } =
     useContext(NotificationContext)
   const { showBoundary } = useErrorBoundary()
-  const SIMULATED_NETWORK_DELAY = 2500
   // Conditional actions
   const isEdit = action === 'edit'
   const isView = action === 'view'
@@ -52,6 +55,7 @@ export default function EventForm({ event, action }: EventFormProps) {
 
   const getEventObject = useCallback(
     (event: EventProps) => ({
+      id: event.id,
       name: event.name,
       location: event.location,
       dateAndTime: event.dateAndTime,
@@ -74,7 +78,6 @@ export default function EventForm({ event, action }: EventFormProps) {
     const today = new Date()
 
     if (dateTimeValue < today) {
-      console.log('is it past?')
       return 'Cannot be in the past'
     }
 
@@ -82,46 +85,21 @@ export default function EventForm({ event, action }: EventFormProps) {
   }
 
   const onSubmit: SubmitHandler<FormValues> = async (formData) => {
-    // Create and Edit API Endpoints
-    const createEventEndpointUrl = `${VITE_API_URL}/events`
-    const editEventEndpointUrl = `${VITE_API_URL}/events/${event?.id}`
-
-    // Fetch parameters
-    const url = isEdit ? editEventEndpointUrl : createEventEndpointUrl
-    const method = isEdit ? 'PUT' : 'POST'
-    const notificationText = isEdit
-      ? 'Event saved successfully!'
-      : 'Event created successfully!'
-
-    setLoading(true)
-    try {
-      const response = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+    if (isEdit) {
+      editEventMutation(formData).then(() => {
+        setShow(true)
+        setNotificationType('success')
+        setNotificationText('Event edited successfully')
+        dispatch({ type: 'SET_ACTION', payload: 'view' })
       })
-
-      if (!response.ok) {
-        throw new Error(response.statusText)
-      }
-
-      const data = await response.json()
-      setNotificationType('success')
-      setNotificationText(notificationText)
-      setShow(true)
-      // setTimeout is emulating a network delay. In a production app this would be removed
-      setTimeout(() => {
-        setLoading(false)
-        setShow(false)
-        // Reload or navigate based on action
-        isEdit && navigate(0)
-        isCreate && navigate(`/events/${data.id}`, { preventScrollReset: true })
-      }, SIMULATED_NETWORK_DELAY)
-    } catch (error) {
-      console.error(error)
-      showBoundary(error)
+    } else {
+      createEventMutation(formData).then((data) => {
+        console.log('is data actually there?', data)
+        setShow(true)
+        setNotificationType('success')
+        setNotificationText('Event created successfully')
+        dispatch({ type: 'SET_ACTION', payload: 'view' })
+      })
     }
   }
 
@@ -129,6 +107,14 @@ export default function EventForm({ event, action }: EventFormProps) {
 
   // Boolean used to disable form elements when viewing an event
   const isDisabled = isView
+
+  if (createEventError) {
+    showBoundary(createEventError)
+  }
+
+  if (editEventError) {
+    showBoundary(editEventError)
+  }
 
   return (
     <form

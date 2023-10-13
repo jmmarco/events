@@ -1,10 +1,10 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import Button from '../buttons/Button'
-import { EventActionProps } from '../../pages/Event'
+import { EventActionType } from '../../pages/events/Event'
 
 interface EventHeaderProps {
   headingTitle: string
-  buttonActionText?: EventActionProps
+  buttonActionText?: EventActionType
   buttonCloseHandleClick?: () => void
   buttonActionHandleClick?: () => void
 }
