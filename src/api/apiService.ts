@@ -9,5 +9,5 @@ export const apiService = {
   createEvent: (event: EventProps) =>
     axiosInstance.post(`/${EVENTS_PATH}`, event),
   editEvent: (id: string, event: EventProps) =>
-    axiosInstance.put(`/${EVENTS_PATH}zzz/${id}`, event),
+    axiosInstance.put(`/${EVENTS_PATH}/${id}`, event),
 }
