@@ -5,7 +5,6 @@ import { cn } from '../../helpers/utils'
 import { inputStyles } from './inputStyles'
 
 
-
 interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   size?: 'small' | 'medium'

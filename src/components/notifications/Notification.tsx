@@ -8,7 +8,6 @@ import { Fragment, useContext } from 'react'
 import NotificationContext from '../../context/NotificationContext'
 
 
-
 export default function Notification() {
   const { show, setShow, notificationType, notificationText } =
     useContext(NotificationContext)

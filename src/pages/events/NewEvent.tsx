@@ -1,4 +1,3 @@
-
 import { useReducer } from 'react'
 import EventForm from '../../components/events/EventForm'
 import EventHeader from '../../components/events/EventHeader'

@@ -1,5 +1,4 @@
 import './index.css'
-
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider,createBrowserRouter } from 'react-router-dom'
@@ -9,7 +8,6 @@ import Event from './pages/events/Event'
 import NewEvent from './pages/events/NewEvent'
 import Events from '@pages/events/Events'
 import Index from '@pages/Index'
-
 
 
 const router = createBrowserRouter([

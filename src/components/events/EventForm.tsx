@@ -14,7 +14,6 @@ import { useEditEvent } from '@hooks/events/mutations/useEditEvent'
 import { Action } from '@reducers/actionReducer'
 
 
-
 interface EventFormProps {
   event?: EventProps | null
   action: string

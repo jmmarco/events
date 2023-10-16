@@ -5,7 +5,6 @@ import { FieldError } from 'react-hook-form'
 import { cn } from '../../helpers/utils'
 
 
-
 const possibleLocations = [
   {
     id: 'virtual',
