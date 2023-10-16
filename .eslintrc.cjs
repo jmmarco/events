@@ -15,7 +15,7 @@ module.exports = {
   plugins: ['import', 'react', 'react-refresh'],
   rules: {
     'import/no-unresolved': 'error',
-    'import/newline-after-import': ['error', { 'count': 2 }],
+    'import/newline-after-import': ['error', { count: 2}],
     'no-unneeded-ternary': 'error',
     'no-nested-ternary': 'error',
     'no-multi-spaces': 'error',
