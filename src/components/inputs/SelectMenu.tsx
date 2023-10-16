@@ -13,9 +13,7 @@ interface SelectMenuProps<T> {
   value?: number | string
 }
 
-export type Ref = HTMLSelectElement
-
-const SelectMenu = forwardRef<Ref, SelectMenuProps<number | string>>(
+const SelectMenu = forwardRef<HTMLSelectElement, SelectMenuProps<number | string>>(
   ({ disabled, ...props }, ref) => {
     return (
       <Listbox

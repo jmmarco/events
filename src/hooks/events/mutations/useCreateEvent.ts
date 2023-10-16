@@ -1,7 +1,7 @@
 
 import { useContext, useState } from 'react'
 import { AxiosError } from 'axios'
-import { EventProps } from '@customTypes/events'
+import { EventProps } from '@customTypes/events/EventProps'
 import LoaderContext from '@context/LoaderContext'
 import { apiService } from '@api/apiService'
 import { sleep } from '@helpers/utils'

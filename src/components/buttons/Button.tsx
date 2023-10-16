@@ -1,6 +1,8 @@
 import { ButtonHTMLAttributes, forwardRef } from 'react'
-import { cn } from '../../helpers/utils'
 import { buttonStyles } from './buttonStyles'
+import { cn } from '@helpers/utils'
+
+
 
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -8,9 +10,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'small' | 'medium'
 }
 
-export type Ref = HTMLButtonElement
-
-export const Button = forwardRef<Ref, ButtonProps>(
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, size, intent, ...props }, ref) => (
     <button
       {...props}

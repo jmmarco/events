@@ -1,12 +1,12 @@
 import { Reducer } from 'react'
-import { EventActionType } from '../pages/events/Event'
+import { EventActionType } from '@customTypes/events/EventActionType';
 
 
 type ActionState = EventActionType
 
-export type Action = { type: 'SET_ACTION'; payload: ActionState }
+export type SetActionType = { type: 'SET_ACTION'; payload: ActionState }
 
-const actionReducer: Reducer<ActionState, Action> = (state, action) => {
+const actionReducer: Reducer<ActionState, SetActionType> = (state, action) => {
   switch (action.type) {
     case 'SET_ACTION':
       return action.payload

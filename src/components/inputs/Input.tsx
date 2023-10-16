@@ -16,9 +16,7 @@ interface InputProps
   type: 'text' | 'email' | 'date' | 'datetime-local'
 }
 
-export type Ref = HTMLInputElement
-
-export const Input = forwardRef<Ref, InputProps>(
+export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, grow, hideLabel, intent, size, ...props }, ref) => (
     <div className={cn(grow && 'grow')}>
       <label

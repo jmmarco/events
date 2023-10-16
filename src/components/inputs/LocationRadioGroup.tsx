@@ -27,9 +27,7 @@ interface LocationRadioGroupProps {
   error?: FieldError
 }
 
-export type Ref = HTMLInputElement
-
-const LocationRadioGroup = forwardRef<Ref, LocationRadioGroupProps>(
+const LocationRadioGroup = forwardRef<HTMLInputElement, LocationRadioGroupProps>(
   ({ disabled, ...props }, ref) => {
     const selectedValueObject =
       possibleLocations.find((location) => location.title === props.value) || ''
