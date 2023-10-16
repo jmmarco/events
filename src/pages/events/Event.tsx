@@ -5,8 +5,9 @@ import EventMain from '../../components/events/EventMain'
 import { useReducer } from 'react'
 import { useErrorBoundary } from 'react-error-boundary'
 import useSetDocumentTitle from '../../hooks/useSetDocumentTitle'
-import { useGetEvent } from './hooks/queries/useGetEvent'
+
 import actionReducer from '../../reducers/actionReducer'
+import { useGetEvent } from '@hooks/events/queries/useGetEvent'
 
 export type EventActionType = 'create' | 'edit' | 'view'
 
