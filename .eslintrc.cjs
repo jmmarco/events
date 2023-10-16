@@ -7,12 +7,14 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
+    'plugin:import/typescript',
     'prettier',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react', 'react-refresh'],
+  plugins: ['import', 'react', 'react-refresh'],
   rules: {
+    'import/no-unresolved': 'error',
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
@@ -21,8 +23,17 @@ module.exports = {
     'no-nested-ternary': 'error',
   },
   settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx']
+    },
     react: {
       version: 'detect',
     },
+    "import/resolver": {
+      "typescript": true,
+      "node": true
+    }
   },
+
+
 }
