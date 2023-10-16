@@ -1,4 +1,5 @@
 import { createContext } from 'react'
+
 import { NotificationType } from '../hooks/useNotification'
 
 type NotificationContextProps = {

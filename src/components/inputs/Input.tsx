@@ -1,9 +1,9 @@
 import { ExclamationCircleIcon } from '@heroicons/react/20/solid'
+import { forwardRef,InputHTMLAttributes } from 'react'
+import { FieldError } from 'react-hook-form'
 
-import { InputHTMLAttributes, forwardRef } from 'react'
 import { cn } from '../../helpers/utils'
 import { inputStyles } from './inputStyles'
-import { FieldError } from 'react-hook-form'
 
 interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {

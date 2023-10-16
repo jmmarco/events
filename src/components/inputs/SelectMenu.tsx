@@ -1,6 +1,7 @@
-import { Fragment, forwardRef } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { forwardRef,Fragment } from 'react'
+
 import { cn } from '../../helpers/utils'
 
 interface SelectMenuProps<T> {

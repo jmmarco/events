@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router'
+
 import { EventProps } from '../../types/events'
 
 interface EventCardListProps {

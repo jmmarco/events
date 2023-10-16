@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+
 import { VITE_APP_NAME } from '../constants'
 
 export default function useSetDocumentTitle(title: string) {

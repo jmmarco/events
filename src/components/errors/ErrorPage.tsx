@@ -1,5 +1,5 @@
-import { useRouteError } from 'react-router-dom'
 import { XCircleIcon } from '@heroicons/react/20/solid'
+import { useRouteError } from 'react-router-dom'
 
 interface ErrorPageProps {
   error?: Error

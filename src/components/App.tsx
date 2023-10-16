@@ -1,11 +1,12 @@
-import { Outlet } from 'react-router'
-import Loader from './loaders/Loader'
-import LoaderContext from '../context/LoaderContext'
-import useLoading from '../hooks/useLoading'
 import { ErrorBoundary } from 'react-error-boundary'
-import ErrorPage from './errors/ErrorPage'
+import { Outlet } from 'react-router'
+
+import LoaderContext from '../context/LoaderContext'
 import NotificationContext from '../context/NotificationContext'
+import useLoading from '../hooks/useLoading'
 import useNotification from '../hooks/useNotification'
+import ErrorPage from './errors/ErrorPage'
+import Loader from './loaders/Loader'
 import Notification from './notifications/Notification'
 
 export default function App() {

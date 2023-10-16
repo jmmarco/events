@@ -1,9 +1,10 @@
-import { EventProps } from '../../../types/events'
 import { AxiosError } from 'axios'
-import { apiService } from '../../../api/apiService'
 import { useContext, useState } from 'react'
-import { sleep } from '../../../helpers/utils'
+
+import { apiService } from '../../../api/apiService'
 import LoaderContext from '../../../context/LoaderContext'
+import { sleep } from '../../../helpers/utils'
+import { EventProps } from '../../../types/events'
 
 interface UseCreateEventResponse {
   data: EventProps | null

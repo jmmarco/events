@@ -1,4 +1,5 @@
 import { Reducer } from 'react'
+
 import { EventActionType } from '../pages/events/Event'
 
 type ActionState = EventActionType
