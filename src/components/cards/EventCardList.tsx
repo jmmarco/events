@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router'
 import { EventProps } from '@customTypes/events/EventProps'
 
 
-
 interface EventCardListProps {
   events: EventProps[] | null
 }

@@ -1,4 +1,3 @@
-
 import axiosInstance from './axiosInstance'
 import { EventProps } from '@customTypes/events/EventProps'
 

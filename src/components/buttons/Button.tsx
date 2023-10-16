@@ -3,8 +3,6 @@ import { buttonStyles } from './buttonStyles'
 import { cn } from '@helpers/utils'
 
 
-
-
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   intent?: 'primary' | 'secondary'
   size?: 'small' | 'medium'
