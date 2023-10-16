@@ -1,6 +1,7 @@
 import { EventProps } from '../types/events'
 import axiosInstance from './axiosInstance'
 
+
 const EVENTS_PATH = 'events'
 
 export const apiService = {

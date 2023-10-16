@@ -1,10 +1,11 @@
-import { AxiosError } from 'axios'
-import { useContext, useState } from 'react'
 
+import { useContext, useState } from 'react'
+import { AxiosError } from 'axios'
 import { apiService } from '../../../api/apiService'
 import LoaderContext from '../../../context/LoaderContext'
 import { sleep } from '../../../helpers/utils'
 import { EventProps } from '../../../types/events'
+
 
 interface UseCreateEventResponse {
   data: EventProps | null
