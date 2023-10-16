@@ -12,15 +12,17 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['import', 'react', 'react-refresh'],
+  plugins: ['import', 'react', 'react-refresh', 'simple-import-sort'],
   rules: {
     'import/no-unresolved': 'error',
+    'no-unneeded-ternary': 'error',
+    'no-nested-ternary': 'error',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
-    'no-unneeded-ternary': 'error',
-    'no-nested-ternary': 'error',
   },
   settings: {
     'import/parsers': {
