@@ -6,8 +6,9 @@ import App from './components/App'
 import ErrorPage from './components/errors/ErrorPage'
 import NewEvent from './pages/events/NewEvent'
 import Event from './pages/events/Event'
-import Events from './pages/events/Events'
-import Index from './pages/Index'
+import Index from '@pages/Index'
+import Events from '@pages/events/Events'
+
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
         path: '/events',
         element: <Events />,
       },
-      {
+       {
         path: `/events/new`,
         element: <NewEvent />,
       },

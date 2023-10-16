@@ -4,7 +4,8 @@ import EventCardList from '../../components/cards/EventCardList'
 import { useErrorBoundary } from 'react-error-boundary'
 import useSetDocumentTitle from '../../hooks/useSetDocumentTitle'
 import { useNavigate } from 'react-router'
-import { useGetAllEvents } from './hooks/queries/useGetAllEvents'
+import { useGetAllEvents } from '@hooks/events/queries/useGetAllEvents'
+
 
 export default function Events() {
   useSetDocumentTitle('Events')

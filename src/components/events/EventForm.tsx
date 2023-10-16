@@ -9,9 +9,10 @@ import LocationRadioGroup from '../inputs/LocationRadioGroup'
 import SelectMenu from '../inputs/SelectMenu'
 import { useErrorBoundary } from 'react-error-boundary'
 import NotificationContext from '../../context/NotificationContext'
-import { useCreateEvent } from '../../pages/events/hooks/mutations/useCreateEvent'
-import { useEditEvent } from '../../pages/events/hooks/mutations/useEditEvent'
-import { Action } from '../../reducers/actionReducer'
+
+import { useCreateEvent } from '@hooks/events/mutations/useCreateEvent'
+import { useEditEvent } from '@hooks/events/mutations/useEditEvent'
+import { Action } from '@reducers/actionReducer'
 
 interface EventFormProps {
   event?: EventProps | null
