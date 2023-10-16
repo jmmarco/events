@@ -12,17 +12,23 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['import', 'react', 'react-refresh', 'simple-import-sort'],
+  plugins: ['import', 'react', 'react-refresh'],
   rules: {
     'import/no-unresolved': 'error',
+    'import/newline-after-import': ['error', { 'count': 2 }],
     'no-unneeded-ternary': 'error',
     'no-nested-ternary': 'error',
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
+    'no-multi-spaces': 'error',
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "parent", "sibling", "index"]
+      }
+    ]
   },
   settings: {
     'import/parsers': {
