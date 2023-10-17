@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from 'react-router'
-import EventForm from '../../components/events/EventForm'
-import EventHeader from '../../components/events/EventHeader'
-import EventMain from '../../components/events/EventMain'
 import { useReducer } from 'react'
 import { useErrorBoundary } from 'react-error-boundary'
-import useSetDocumentTitle from '../../hooks/useSetDocumentTitle'
-import { useGetEvent } from './hooks/queries/useGetEvent'
-import actionReducer from '../../reducers/actionReducer'
+import actionReducer from '@reducers/actionReducer'
+import { useGetEvent } from '@hooks/events/queries/useGetEvent'
+import useSetDocumentTitle from '@hooks/useSetDocumentTitle'
+import EventHeader from '@components/events/EventHeader'
+import EventMain from '@components/events/EventMain'
+import EventForm from '@components/events/EventForm'
 
 export type EventActionType = 'create' | 'edit' | 'view'
 

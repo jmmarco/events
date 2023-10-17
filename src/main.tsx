@@ -2,12 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import App from './components/App'
-import ErrorPage from './components/errors/ErrorPage'
-import NewEvent from './pages/events/NewEvent'
-import Event from './pages/events/Event'
-import Events from './pages/events/Events'
-import Index from './pages/Index'
+import Event from '@pages/events/Event'
+import Events from '@pages/events/Events'
+import Index from '@pages/Index'
+import NewEvent from '@pages/events/NewEvent'
+import ErrorPage from '@components/errors/ErrorPage'
+import App from '@components/App'
 
 const router = createBrowserRouter([
   {

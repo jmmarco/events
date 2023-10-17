@@ -1,6 +1,7 @@
+import Button from '@components/buttons/Button'
 import { XMarkIcon } from '@heroicons/react/20/solid'
-import Button from '../buttons/Button'
-import { EventActionType } from '../../pages/events/Event'
+import { EventActionType } from '@pages/events/Event'
+
 
 interface EventHeaderProps {
   headingTitle: string

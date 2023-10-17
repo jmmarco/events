@@ -1,22 +1,22 @@
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import Button from '../buttons/Button'
-import Input from '../inputs/Input'
-import Textarea from '../inputs/Textarea'
-import { EventProps } from '../../types/events'
+import Input from '@components/inputs/Input'
+import Button from '@components/buttons/Button'
 import { useCallback, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import LocationRadioGroup from '../inputs/LocationRadioGroup'
-import SelectMenu from '../inputs/SelectMenu'
 import { useErrorBoundary } from 'react-error-boundary'
-import NotificationContext from '../../context/NotificationContext'
-import { useCreateEvent } from '../../pages/events/hooks/mutations/useCreateEvent'
-import { useEditEvent } from '../../pages/events/hooks/mutations/useEditEvent'
-import { Action } from '../../reducers/actionReducer'
+import Textarea from '@components/inputs/Textarea'
+import SelectMenu from '@components/inputs/SelectMenu'
+import { useCreateEvent } from '@hooks/events/mutations/useCreateEvent'
+import { useEditEvent } from '@hooks/events/mutations/useEditEvent'
+import { SetActionType } from '@reducers/actionReducer'
+import NotificationContext from '@context/NotificationContext'
+import LocationRadioGroup from '@components/inputs/LocationRadioGroup'
+import { EventProps } from '@customTypes/events/EventProps'
 
 interface EventFormProps {
   event?: EventProps | null
   action: string
-  dispatch: React.Dispatch<Action>
+  dispatch: React.Dispatch<SetActionType>
 }
 
 interface FormValues extends EventProps {
