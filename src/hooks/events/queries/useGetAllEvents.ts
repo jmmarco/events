@@ -4,7 +4,6 @@ import { apiService } from '@api/apiService'
 import { EventProps } from '@customTypes/events/EventProps'
 import LoaderContext from '@context/LoaderContext'
 
-
 interface UseGetAllEventsResponse {
   data: EventProps[] | null
   error: Error | null

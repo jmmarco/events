@@ -5,7 +5,6 @@ import useSetDocumentTitle from '@hooks/useSetDocumentTitle'
 import actionReducer from '@reducers/actionReducer'
 import { useReducer } from 'react'
 
-
 export default function NewEvent() {
   const [action, dispatch] = useReducer(actionReducer, 'create')
 
