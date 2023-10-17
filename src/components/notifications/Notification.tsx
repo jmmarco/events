@@ -5,7 +5,8 @@ import {
   ExclamationCircleIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
-import NotificationContext from '../../context/NotificationContext'
+import NotificationContext from '@context/NotificationContext'
+
 
 export default function Notification() {
   const { show, setShow, notificationType, notificationText } =

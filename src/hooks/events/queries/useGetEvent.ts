@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
-import { EventProps } from '../../../../types/events'
-import LoaderContext from '../../../../context/LoaderContext'
 import { AxiosError } from 'axios'
-import { apiService } from '../../../../api/apiService'
+import { EventProps } from '@customTypes/events/EventProps'
+import LoaderContext from '@context/LoaderContext'
+import { apiService } from '@api/apiService'
 
 interface UseGetAllEventsResponse {
   data: EventProps | null

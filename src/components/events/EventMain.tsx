@@ -1,4 +1,5 @@
-import { cn } from '../../helpers/utils'
+import { cn } from "@helpers/utils"
+
 
 export interface EventMainProps {
   children?: React.ReactNode
