@@ -1,5 +1,6 @@
-import { EventProps } from '../types/events'
 import axiosInstance from './axiosInstance'
+import { EventProps } from '@customTypes/events/EventProps'
+
 
 const EVENTS_PATH = 'events'
 

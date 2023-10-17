@@ -1,8 +1,8 @@
 import { ExclamationCircleIcon } from '@heroicons/react/20/solid'
-
 import { forwardRef } from 'react'
 import { cn } from '../../helpers/utils'
 import { inputStyles } from './inputStyles'
+
 
 interface TextareaProps {
   className?: string
@@ -16,9 +16,7 @@ interface TextareaProps {
   disabled?: boolean
 }
 
-export type Ref = HTMLTextAreaElement
-
-export const Textarea = forwardRef<Ref, TextareaProps>(
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, intent, size, ...props }, ref) => (
     <div>
       <label

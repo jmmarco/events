@@ -1,8 +1,9 @@
-import { forwardRef } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
-import { cn } from '../../helpers/utils'
+import { forwardRef } from 'react'
 import { FieldError } from 'react-hook-form'
+import { cn } from '../../helpers/utils'
+
 
 const possibleLocations = [
   {
@@ -26,9 +27,7 @@ interface LocationRadioGroupProps {
   error?: FieldError
 }
 
-export type Ref = HTMLInputElement
-
-const LocationRadioGroup = forwardRef<Ref, LocationRadioGroupProps>(
+const LocationRadioGroup = forwardRef<HTMLInputElement, LocationRadioGroupProps>(
   ({ disabled, ...props }, ref) => {
     const selectedValueObject =
       possibleLocations.find((location) => location.title === props.value) || ''

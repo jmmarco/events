@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
-
-export type NotificationType = 'success' | 'error' | 'warning'
+import { NotificationType } from '@customTypes/events/NotificationType'
 
 /**
  * Hook for managing pop up notifications.

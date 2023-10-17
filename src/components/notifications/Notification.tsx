@@ -1,11 +1,12 @@
-import { Fragment, useContext } from 'react'
 import { Transition } from '@headlessui/react'
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
+import { Fragment, useContext } from 'react'
 import NotificationContext from '../../context/NotificationContext'
+
 
 export default function Notification() {
   const { show, setShow, notificationType, notificationText } =

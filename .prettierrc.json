@@ -7,5 +7,14 @@
   "semi": false,
   "singleQuote": true,
   "tabWidth": 2,
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "env": { "es6": true },
+  "plugins": ["import", "prettier-plugin-tailwindcss"],
+  "rules": {
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error"
+  }
 }

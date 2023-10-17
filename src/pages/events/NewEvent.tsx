@@ -5,6 +5,7 @@ import EventMain from '../../components/events/EventMain'
 import useSetDocumentTitle from '../../hooks/useSetDocumentTitle'
 import actionReducer from '../../reducers/actionReducer'
 
+
 export default function NewEvent() {
   const [action, dispatch] = useReducer(actionReducer, 'create')
 

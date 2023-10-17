@@ -1,7 +1,8 @@
-import { Fragment, forwardRef } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { Fragment,forwardRef } from 'react'
 import { cn } from '../../helpers/utils'
+
 
 interface SelectMenuProps<T> {
   disabled?: boolean
@@ -12,9 +13,7 @@ interface SelectMenuProps<T> {
   value?: number | string
 }
 
-export type Ref = HTMLSelectElement
-
-const SelectMenu = forwardRef<Ref, SelectMenuProps<number | string>>(
+const SelectMenu = forwardRef<HTMLSelectElement, SelectMenuProps<number | string>>(
   ({ disabled, ...props }, ref) => {
     return (
       <Listbox

@@ -1,5 +1,7 @@
 import { createContext } from 'react'
-import { NotificationType } from '../hooks/useNotification'
+import { NotificationType } from '@customTypes/events/NotificationType'
+
+
 
 type NotificationContextProps = {
   show: boolean

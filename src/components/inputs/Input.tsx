@@ -1,9 +1,9 @@
 import { ExclamationCircleIcon } from '@heroicons/react/20/solid'
-
-import { InputHTMLAttributes, forwardRef } from 'react'
+import { InputHTMLAttributes,forwardRef } from 'react'
+import { FieldError } from 'react-hook-form'
 import { cn } from '../../helpers/utils'
 import { inputStyles } from './inputStyles'
-import { FieldError } from 'react-hook-form'
+
 
 interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -16,9 +16,7 @@ interface InputProps
   type: 'text' | 'email' | 'date' | 'datetime-local'
 }
 
-export type Ref = HTMLInputElement
-
-export const Input = forwardRef<Ref, InputProps>(
+export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, grow, hideLabel, intent, size, ...props }, ref) => (
     <div className={cn(grow && 'grow')}>
       <label
