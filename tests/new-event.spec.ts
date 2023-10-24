@@ -4,7 +4,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/events/new')
 })
 
-test.describe('New Event Page', () => {
+test.describe('New event page', () => {
   test('Page title is accurate', async ({ page }) => {
     await expect(page).toHaveTitle('New Event | Circle')
   })
@@ -69,7 +69,7 @@ test.describe('New Event Page', () => {
       name: 'Create Event',
     })
     await expect(createButton).toBeVisible()
-    await expect(createButton).toBeDisabled()
+    await expect(createButton).toBeEnabled()
   })
   test('Cancel button is visible and enabled', async ({ page }) => {
     const cancelButton = page.getByRole('button', {
