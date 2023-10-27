@@ -1,6 +1,10 @@
 import { test, expect } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
+  page.route('**', (route, request) => {
+    console.log(request.url())
+    route.continue()
+  })
   await page.goto('/events/1')
 
   const editButton = page.getByRole('button', {
