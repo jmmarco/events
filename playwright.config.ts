@@ -75,7 +75,6 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     command: 'npm run dev',
-    ignoreHTTPSErrors: true, // In case your certificate isn't properly signed
     url: BASE_URL,
     reuseExistingServer: !process.env.CI,
   },
