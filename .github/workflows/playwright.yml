@@ -4,7 +4,6 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
-
 jobs:
   test:
     timeout-minutes: 60
@@ -21,8 +20,8 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
         env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
-          VITE_APP_NAME: ${{ secrets.VITE_APP_NAME }}
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          VITE_APP_NAME: ${{ vars.VITE_APP_NAME }}
       - uses: actions/upload-artifact@v3
         if: always()
         with:
