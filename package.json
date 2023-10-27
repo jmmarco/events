@@ -10,7 +10,8 @@
     "eslint:fix": "eslint . --ext ts,tsx",
     "prettier": "prettier --check \"./src/**/*.{ts,tsx}\"",
     "prettier:fix": "prettier --write \"./src/**/*.{ts,tsx}\"",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "npx playwright test"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
@@ -29,7 +30,9 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.38.1",
     "@tailwindcss/forms": "^0.5.6",
+    "@types/node": "^20.7.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

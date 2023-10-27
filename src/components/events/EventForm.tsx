@@ -181,7 +181,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
       </div>
       <div className="space-y-2">
         <Textarea
-          label="Event Description"
+          label="Description"
           placeholder="Write a summary about your event"
           className="h-40 resize-none"
           {...register('description')}
@@ -204,7 +204,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
           />
           <Input
             type="text"
-            label="Event URL"
+            label="Custom URL"
             hideLabel
             className="basis-3/4 rounded-l-none"
             placeholder="custom URL"
