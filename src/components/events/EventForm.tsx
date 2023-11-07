@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import Input from '@components/inputs/Input'
 import Button from '@components/buttons/Button'
-import { useCallback, useContext, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { useErrorBoundary } from 'react-error-boundary'
 import Textarea from '@components/inputs/Textarea'
@@ -9,9 +9,9 @@ import SelectMenu from '@components/inputs/SelectMenu'
 import { useCreateEvent } from '@hooks/events/mutations/useCreateEvent'
 import { useEditEvent } from '@hooks/events/mutations/useEditEvent'
 import { SetActionType } from '@reducers/actionReducer'
-import NotificationContext from '@context/NotificationContext'
 import LocationRadioGroup from '@components/inputs/LocationRadioGroup'
 import { EventProps } from '@customTypes/events/EventProps'
+import useNotification from '@hooks/useNotification'
 
 interface EventFormProps {
   event?: EventProps | null
@@ -28,8 +28,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
   const { mutate: createEventMutation, error: createEventError } =
     useCreateEvent()
   const { mutate: editEventMutation, error: editEventError } = useEditEvent()
-  const { setShow, setNotificationType, setNotificationText } =
-    useContext(NotificationContext)
+  const { dispatchNotification } = useNotification()
   const { showBoundary } = useErrorBoundary()
   // Conditional actions
   const isEdit = action === 'edit'
@@ -87,17 +86,27 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
   const onSubmit: SubmitHandler<FormValues> = async (formData) => {
     if (isEdit) {
       editEventMutation(formData).then(() => {
-        setShow(true)
-        setNotificationType('success')
-        setNotificationText('Event edited successfully')
+        dispatchNotification({
+          type: 'SHOW',
+          payload: {
+            text: 'Event edited successfully',
+            notificationType: 'success',
+            show: true,
+          },
+        })
         dispatch({ type: 'SET_ACTION', payload: 'view' })
       })
     } else {
       createEventMutation(formData).then((data) => {
         console.log('is data actually there?', data)
-        setShow(true)
-        setNotificationType('success')
-        setNotificationText('Event created successfully')
+        dispatchNotification({
+          type: 'SHOW',
+          payload: {
+            text: 'Event created successfully',
+            notificationType: 'success',
+            show: true,
+          },
+        })
         dispatch({ type: 'SET_ACTION', payload: 'view' })
       })
     }
