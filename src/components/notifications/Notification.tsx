@@ -11,19 +11,20 @@ const NOTIFICATION_TIMEOUT = 3000
 
 export default function Notification() {
   const { notificationState, dispatchNotification } = useNotification()
+  const { notificationType, show, text } = notificationState
 
   useEffect(() => {
-    if (notificationState.show) {
+    if (show) {
       setTimeout(() => {
         dispatchNotification({
           type: 'HIDE',
         })
       }, NOTIFICATION_TIMEOUT)
     }
-  }, [notificationState.show, dispatchNotification])
+  }, [show, dispatchNotification])
 
   let defaultIcon = null
-  switch (notificationState.notificationType) {
+  switch (notificationType) {
     case 'error':
       defaultIcon = (
         <XMarkIcon className="h-6 w-6 text-red-400" aria-hidden="true" />
@@ -56,7 +57,7 @@ export default function Notification() {
         <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
           {/* Notification panel, dynamically insert this into the live region when it needs to be displayed */}
           <Transition
-            show={notificationState.show}
+            show={show}
             as={Fragment}
             enter="transform ease-out duration-300 transition"
             enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
@@ -70,9 +71,7 @@ export default function Notification() {
                 <div className="flex items-start">
                   <div className="flex-shrink-0">{defaultIcon}</div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
-                    <p className="text-sm font-medium text-gray-900">
-                      {notificationState.text}
-                    </p>
+                    <p className="text-sm font-medium text-gray-900">{text}</p>
                   </div>
                   <div className="ml-4 flex flex-shrink-0">
                     <button
