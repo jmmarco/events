@@ -7,21 +7,20 @@ import {
 } from '@heroicons/react/24/outline'
 import useNotification from '@hooks/useNotification'
 
+const NOTIFICATION_TIMEOUT = 3000
+
 export default function Notification() {
   const { notificationState, dispatchNotification } = useNotification()
 
   useEffect(() => {
     if (notificationState.show) {
-      console.log('should fire')
       setTimeout(() => {
-        console.log('should fire')
         dispatchNotification({
           type: 'HIDE',
-          payload: { ...notificationState, show: false },
         })
-      }, 5000)
+      }, NOTIFICATION_TIMEOUT)
     }
-  }, [notificationState, dispatchNotification])
+  }, [notificationState.show, dispatchNotification])
 
   let defaultIcon = null
   switch (notificationState.notificationType) {

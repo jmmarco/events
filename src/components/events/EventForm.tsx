@@ -91,7 +91,6 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
           payload: {
             text: 'Event edited successfully',
             notificationType: 'success',
-            show: true,
           },
         })
         dispatch({ type: 'SET_ACTION', payload: 'view' })
@@ -104,7 +103,6 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
           payload: {
             text: 'Event created successfully',
             notificationType: 'success',
-            show: true,
           },
         })
         dispatch({ type: 'SET_ACTION', payload: 'view' })
