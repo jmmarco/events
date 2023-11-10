@@ -97,7 +97,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
       })
     } else {
       createEventMutation(formData).then((data) => {
-        console.log('is data actually there?', data)
+        console.info('is data actually there?', data)
         dispatchNotification({
           type: 'SHOW',
           payload: {
