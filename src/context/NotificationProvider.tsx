@@ -1,9 +1,6 @@
 import { useReducer } from 'react'
 import NotificationContext from './NotificationContext'
-import notificationReducer, {
-  NotificationActionType,
-  NotificationState,
-} from '@reducers/notificationReducer'
+import notificationReducer from '@reducers/notificationReducer'
 
 interface NotificationProviderProps {
   children: React.ReactNode
@@ -12,9 +9,10 @@ interface NotificationProviderProps {
 export default function NotificationProvider({
   children,
 }: NotificationProviderProps) {
-  const [notificationState, dispatchNotification] = useReducer<
-    React.Reducer<NotificationState, NotificationActionType>
-  >(notificationReducer, { show: false, text: '', notificationType: 'warning' })
+  const [notificationState, dispatchNotification] = useReducer(
+    notificationReducer,
+    { show: false, text: '', notificationType: 'warning' },
+  )
 
   return (
     <NotificationContext.Provider
