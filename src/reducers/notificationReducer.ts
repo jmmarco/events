@@ -15,7 +15,6 @@ const notificationReducer: Reducer<
   NotificationState,
   NotificationActionType
 > = (state, action) => {
-  console.log('Aha')
   switch (action.type) {
     case 'SHOW':
       return { ...state, ...action.payload, show: true }
