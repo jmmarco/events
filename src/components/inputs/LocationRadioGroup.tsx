@@ -1,8 +1,8 @@
 import { forwardRef } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
-import { cn } from '../../helpers/utils'
 import { FieldError } from 'react-hook-form'
+import { cn } from '@helpers/utils'
 
 const possibleLocations = [
   {
