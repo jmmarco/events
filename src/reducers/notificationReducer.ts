@@ -2,19 +2,23 @@ import { Reducer } from 'react'
 
 type NotificationType = 'warning' | 'success' | 'error'
 
-type NotificationState = {
+export type NotificationState = {
   show: boolean
   text: string
   notificationType: NotificationType
 }
 
-export type NotificationActionType = {
-  type: 'SHOW' | 'HIDE'
-  payload: {
-    text: string
-    notificationType: NotificationType
-  }
-}
+export type NotificationActionType =
+  | {
+      type: 'SHOW'
+      payload?: {
+        text: string
+        notificationType: NotificationType
+      }
+    }
+  | {
+      type: 'HIDE'
+    }
 
 const notificationReducer: Reducer<
   NotificationState,
@@ -23,9 +27,8 @@ const notificationReducer: Reducer<
   switch (action.type) {
     case 'SHOW':
       return { ...state, ...action.payload, show: true }
-
     case 'HIDE':
-      return { ...state, ...action.payload, show: false }
+      return { ...state, show: false }
     default:
       return state
   }

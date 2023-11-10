@@ -80,7 +80,6 @@ export default function Notification() {
                       onClick={() =>
                         dispatchNotification({
                           type: 'HIDE',
-                          payload: { ...notificationState, show: false },
                         })
                       }
                     >
