@@ -8,6 +8,7 @@
     "build": "tsc && vite build",
     "eslint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "eslint:fix": "eslint . --ext ts,tsx",
+    "fix": "npm run prettier:fix && npm run eslint:fix",
     "lint": "npm run type-check && npm run eslint && npm run prettier",
     "prettier": "prettier --check \"./src/**/*.{ts,tsx}\"",
     "prettier:fix": "prettier --write \"./src/**/*.{ts,tsx}\"",
