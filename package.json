@@ -8,10 +8,12 @@
     "build": "tsc && vite build",
     "eslint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "eslint:fix": "eslint . --ext ts,tsx",
+    "lint": "npm run type-check && npm run eslint && npm run prettier",
     "prettier": "prettier --check \"./src/**/*.{ts,tsx}\"",
     "prettier:fix": "prettier --write \"./src/**/*.{ts,tsx}\"",
     "preview": "vite preview",
-    "test": "npx playwright test"
+    "test": "npx playwright test",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
