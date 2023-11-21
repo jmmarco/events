@@ -1,43 +1,86 @@
-# Goal
+# Development Notes
 
-Figma: https://www.figma.com/file/etvXd825IzwNOwa2KrFLnh/
+Here you will find the reasoning and logic for choosing packages/patterns for this project.
 
-The aim of this challenge is to build **a standalone web application that can be cloned and run locally**. You can use your favorite build pipeline and tools, set up linting, code formatting and type checking in any way you feel comfortable.
+## Libraries
 
-Note that although it's welcome, **a sophisticated build is not required for the completion of the challenge and the focus while reviewing will be on the code itself**: a balanced architecture that can be extended, but it's not thrown out of the proportion in relation to the subject of the challenge.
+- Vite (React + Typescript)
+- Tailwind CSS
+- React Router (DOM)
+- Headless UI
+- Heroicons
+- React Hook Form
+- Class Variance Authority
+- tailwind-merge
+- clsx
+- json-server (used to mock API endpoints)
+- react-error-boundary
 
-Using the provided designs in the Figma file, please build the page including the form split into multiple steps. The challenge contains required and optional tasks as well as some general requirements, which are all outlined below.
+## How to run
 
-## Required features - Create and edit event
+- Clone or download the project
+- From the root project folder run the command `npm install`
+- Rename the `.env.example` file to `.env`
+  - set `http://localhost:4000` as the value for `VITE_API_URL`
+  - set `Circle` as the value for `VITE_APP_NAME`
+- Launch the development server using `npm run dev`
+- Alternatively you can create a build using `npm run build`
+- Open a browser window and navigate to `localhost:3000`
 
-- Create a reusable full-screen page layout as per the Figma file. It should contain a top header with the close button (you don't need to handle the action in any way) and the page name. The actual content of the page should be limited in width as per the design and stretch to a 100% (with a bit of horizontal padding) on mobile. (You can set up a mobile breakpoint in any way you think it's reasonable - there is no specific value set).
-- Create two pages: **Create event** and **Edit event.** They have to be accessible under different URL routes, Edit event should take an ID URL parameter so that the API can fetch a correct record from the database. No need to mock the API if you don't have the time and resources to do so, just set up the routing.
-- Ideally, the form component and logic should be abstracted out, so it can be reused between create and edit pages.
-- `Name` and `Where` are required, all the other fields are optional. Provide an error handling that will display relevant errors - refer to Figma for the design (`Form validation`).
-- `Date and time` should be a date picker of your choice, `time` is any timespan selector you prefer - the only requirement is that it sets a duration in hours/minutes.
+# Design + Implementation notes
 
-## **Acceptance criteria**
+One of the design goals for this project is to provide:
 
-- The application has to be created using modern ReactJS (functional components, hooks, etc.)
-- The styling and UI can be implemented using any technology you are comfortable with, but it has to provide some degree of customization. The main colors and sizing of the text should be defined in a separate place to provide a single source of truth.
-- **Assume the code you create will be used by people unfamiliar with it at the time of the implementation** - make sure it's clean and well readable.
+- Customization
+- Separate concerns by providing a single source of truth
+- Easy to follow, so future developers can work with ease
 
-## CSS styling
+React as a UI library, unlike Ruby on Rails is not very opinionated on how a project should be structured/organized so it's imperative that some pattern or foundation is established as early as possible to ease developer anxiety and avoid the cognitive of load of having to come up with them later down the line.
 
-- For the styling, use [Tailwind CSS](https://tailwindcss.com/) framework. You can also use [Tailwind UI](https://tailwindui.com/) components as needed (login provided in email), but make sure the React code is clean, and it becomes apparent what each HTML element does for a person unfamiliar with the technology. Tip: See [Tailwind CSS Core Concepts](https://tailwindcss.com/docs) section of its documentation for more information.
-- Provide a basic implementation of type checking for React components. Note: **the goal should be to provide in-context IDE suggestions more than a robust compile-level safety net**.
+In this project I have decided to go with the widely known `components` folder to store all components of the project. Each component has a corresponding descriptive subfolder that should make it easier for other team members to follow.
+There is also a `pages` folder to store all the relevant pages that are eventually imported to the router; as well as a `hooks` and `context` folders to store specific custom hooks and context files necessary for the application.
 
-### General Notes
+Also, specific components folder have a `someComponentStyles` file that contains a single source of truth for styling that particular component with the use of "Class Variance Authority" library. It's goal, is to be able to apply different styles to a given component with the use of variants (each variant is known as an `intent`). This package allows working with Tailwind CSS without issues. We also use the additional libraries `tailwind-merge` and `clsx` to merge and conditionally apply Tailwind classes.
 
-We suggest that you break this project up into multiple GitHub issues (i.e., 'components' of the project), and create a PR for each issue. We propose having a base PR with the foundational elements of the project, and creating subsequent PRs against the base PR. This will make it easier for us to comprehend aspects of the project and ask questions or provide feedback in pull requests.
+Example:
+A button component can be rendered the following way:
 
-Break down the task into smaller features and send PRs for review when ready. Don’t open more than 3 PRs at once and don’t wait for the entire project to be done before sending out the PRs
+```
+<Button type="button">Click Here!</Button>
+```
 
-This is a paid assignment. Upon completion of the assignment, you'll be compensated $1,000 regardless of whether we proceed with an offer.
+Without providing further props, the default "intent" for this button is `primary` as is defined in the `buttonStyles` file so it will render just fine with the primary defined styles.
 
-**Things we're looking for in this project**
+Alternatively, you could pass additional classes to override the default styles or even override another "intent" that was previously configured. Like so:
 
-1. Attention to detail at every level (React, CSS, structure, interactions, performance, etc.)
-2. Ability to scope down a big task into smaller, more manageable chunks
-3. How you perceive and act on feedback
-4. Communication and documentation
+```
+<Button
+  type="button"
+  className="place-self-start bg-yellow-400 capitalize"
+>
+  Click Here!
+</Button>
+```
+
+A button with a `secondary` "intent" can be rendered like so:
+
+```
+<Button intent="secondary" type="button">
+  Go Back!
+</Button>
+```
+
+Errors are rendered by the `ErrorPage` component. Routing errors are handled by React Router and React errors are intercepted by the `react-error-boundary` package that allows the opportunity to provide a fallback UI to display the corresponding error thrown by the app.
+
+The `ErrorBoundary` component wraps the entire app (see `App.tsx`) and takes `ErrorPage` as default fallback component:
+
+```
+<ErrorBoundary
+  FallbackComponent={ErrorPage}
+  onError={(error, info) => {
+    console.log(`[Boundary]`, error, info)
+  }}
+>
+  {/* rest of the app goes here */}
+</ErrorBoundary>
+```
