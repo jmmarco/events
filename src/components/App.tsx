@@ -6,24 +6,29 @@ import Notification from './notifications/Notification'
 import LoaderContext from '@context/LoaderContext'
 import ErrorPage from './errors/ErrorPage'
 import NotificationProvider from '@context/NotificationProvider'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export default function App() {
+  const queryClient = new QueryClient()
+
   const loadingValue = useLoading()
 
   return (
-    <ErrorBoundary
-      FallbackComponent={ErrorPage}
-      onError={(error, info) => {
-        console.log(`[Boundary]`, error, info)
-      }}
-    >
-      <NotificationProvider>
-        <LoaderContext.Provider value={loadingValue}>
-          <Outlet />
-          <Loader />
-          <Notification />
-        </LoaderContext.Provider>
-      </NotificationProvider>
-    </ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <ErrorBoundary
+        FallbackComponent={ErrorPage}
+        onError={(error, info) => {
+          console.log(`[Boundary]`, error, info)
+        }}
+      >
+        <NotificationProvider>
+          <LoaderContext.Provider value={loadingValue}>
+            <Outlet />
+            <Loader />
+            <Notification />
+          </LoaderContext.Provider>
+        </NotificationProvider>
+      </ErrorBoundary>
+    </QueryClientProvider>
   )
 }
