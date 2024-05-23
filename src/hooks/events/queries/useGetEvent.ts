@@ -31,7 +31,8 @@ async function getEvent(id: string) {
 
 export function useGetEvent(id: string) {
   return useQuery({
-    queryKey: eventsQueryKeys.events(),
+    enabled: !!id,
+    queryKey: eventsQueryKeys.event(id),
     queryFn: () => getEvent(id),
     meta: {
       errorMessage: 'Failed to fetch event.',
