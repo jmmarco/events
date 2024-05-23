@@ -1,5 +1,6 @@
 import { apiService } from '@api/apiService'
-import { useQuery } from '@tanstack/react-query'
+import { CircleEvent } from '@customTypes/index'
+import { UseQueryResult, useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { eventsQueryKeys } from 'query-keys/query-key-factory'
 
@@ -29,7 +30,7 @@ async function getEvent(id: string) {
   }
 }
 
-export function useGetEvent(id: string) {
+export function useGetEvent(id: string): UseQueryResult<CircleEvent, Error> {
   return useQuery({
     enabled: !!id,
     queryKey: eventsQueryKeys.event(id),
