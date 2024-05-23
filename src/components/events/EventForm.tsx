@@ -74,6 +74,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
 
   const onSubmit: SubmitHandler<EventProps> = async (formData) => {
     if (isEdit) {
+      console.log('formData:', formData)
       editEvent(formData, {
         onSuccess: () => {
           dispatchNotification({
@@ -120,14 +121,6 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
       className="flex flex-col gap-y-12 py-14"
     >
       <div className="space-y-2">
-        <Input
-          type="text"
-          label="Event Name"
-          {...register('name', { required: 'Event name is required' })}
-          error={errors?.name}
-          disabled={isView}
-          intent={errors?.name && 'error'}
-        />
         <Input
           type="text"
           label="Event Name"
