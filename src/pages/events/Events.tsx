@@ -16,7 +16,7 @@ export default function Events() {
     navigate(newEventRoute)
   }
 
-  const { data: events, error } = useGetAllEvents()
+  const { data: events = [], error } = useGetAllEvents()
 
   if (error) {
     showBoundary(error)
