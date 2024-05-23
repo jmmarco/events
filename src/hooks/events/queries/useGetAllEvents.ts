@@ -1,34 +1,41 @@
-import { useContext, useEffect, useState } from 'react'
-import { AxiosError } from 'axios'
 import { apiService } from '@api/apiService'
-import { EventProps } from '@customTypes/events/EventProps'
-import LoaderContext from '@context/LoaderContext'
+import { useQuery } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
+import { eventsQueryKeys } from 'query-keys/query-key-factory'
 
-interface UseGetAllEventsResponse {
-  data: EventProps[] | null
-  error: Error | null
+async function getAllEvents() {
+  try {
+    const response = await apiService.getEvents()
+
+    if (response.status === 200) {
+      return response.data
+    } else {
+      throw new Error(
+        `Failed to create event: Received status code ${response.status}`,
+      )
+    }
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      // Handle Axios-specific errors
+      throw new Error(
+        `Failed to create event: ${
+          error.response?.data?.message || error.message
+        }`,
+      )
+    } else {
+      // Handle other errors
+      throw new Error('Failed to create event: An unexpected error occurred')
+    }
+  }
 }
 
-export const useGetAllEvents = (): UseGetAllEventsResponse => {
-  const [data, setData] = useState<EventProps[] | null>(null)
-  const [error, setError] = useState<Error | null>(null)
-  const { setLoading } = useContext(LoaderContext)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true)
-      try {
-        const response = await apiService.getEvents()
-        setData(response.data)
-      } catch (error) {
-        const axiosError = error as AxiosError
-        setError(axiosError)
-      }
-      setLoading(false)
-    }
-
-    fetchData()
-  }, [setLoading])
-
-  return { data, error }
+export function useGetAllEvents() {
+  return useQuery({
+    queryKey: eventsQueryKeys.events(),
+    queryFn: () => getAllEvents(),
+    meta: {
+      errorMessage: 'Failed to fetch events.',
+      successMessage: 'Events fetched successfully.',
+    },
+  })
 }
