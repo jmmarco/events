@@ -1,12 +1,12 @@
 import { SetActionType } from '@reducers/actionReducer'
 
 export interface EventFormProps {
-  event?: EventProps | null
+  event?: CircleEvent | null
   action: 'edit' | 'view' | 'create'
   dispatch: React.Dispatch<SetActionType>
 }
 
-export interface EventProps {
+export interface CircleEvent {
   id: number
   name: string
   location: string

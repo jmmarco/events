@@ -1,5 +1,6 @@
 import { apiService } from '@api/apiService'
-import { useQuery } from '@tanstack/react-query'
+import { CircleEvent } from '@customTypes/index'
+import { UseQueryResult, useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { eventsQueryKeys } from 'query-keys/query-key-factory'
 
@@ -29,10 +30,11 @@ async function getAllEvents() {
   }
 }
 
-export function useGetAllEvents() {
+export function useGetAllEvents(): UseQueryResult<CircleEvent[], Error> {
   return useQuery({
     queryKey: eventsQueryKeys.events(),
     queryFn: () => getAllEvents(),
+    staleTime: 1000 * 60 * 5, // 5 minutes
     meta: {
       errorMessage: 'Failed to fetch events.',
       successMessage: 'Events fetched successfully.',

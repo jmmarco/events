@@ -9,7 +9,7 @@ import SelectMenu from '@components/inputs/SelectMenu'
 import { useEditEvent } from '@hooks/events/mutations/useEditEvent'
 import LocationRadioGroup from '@components/inputs/LocationRadioGroup'
 import useNotification from '@hooks/useNotification'
-import { EventFormProps, EventProps } from '@customTypes/index'
+import { EventFormProps, CircleEvent } from '@customTypes/index'
 import { useCreateEvent } from '@hooks/events/mutations/useCreateEvent'
 
 export default function EventForm({ event, action, dispatch }: EventFormProps) {
@@ -42,7 +42,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
   })
 
   const getEventObject = useCallback(
-    (event: EventProps) => ({
+    (event: CircleEvent) => ({
       id: event.id,
       name: event.name,
       location: event.location,
@@ -72,7 +72,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
     return true
   }
 
-  const onSubmit: SubmitHandler<EventProps> = async (formData) => {
+  const onSubmit: SubmitHandler<CircleEvent> = async (formData) => {
     if (isEdit) {
       console.log('formData:', formData)
       editEvent(formData, {

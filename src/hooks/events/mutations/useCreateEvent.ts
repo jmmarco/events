@@ -1,9 +1,9 @@
 import { apiService } from '@api/apiService'
-import { EventProps } from '@customTypes/index'
+import { CircleEvent } from '@customTypes/index'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
-async function createEvent(payload: EventProps) {
+async function createEvent(payload: CircleEvent) {
   try {
     const response = await apiService.createEvent(payload)
 
@@ -31,7 +31,7 @@ async function createEvent(payload: EventProps) {
 
 export const useCreateEvent = () => {
   return useMutation({
-    mutationFn: (payload: EventProps) => createEvent(payload),
+    mutationFn: (payload: CircleEvent) => createEvent(payload),
     meta: {
       errorMessage: `Failed to create event.`,
       successMessage: `Successfully  created event.`,

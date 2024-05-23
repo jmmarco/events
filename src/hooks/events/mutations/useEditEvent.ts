@@ -1,9 +1,9 @@
 import { AxiosError } from 'axios'
 import { apiService } from '@api/apiService'
 import { useMutation } from '@tanstack/react-query'
-import { EventProps } from '@customTypes/index'
+import { CircleEvent } from '@customTypes/index'
 
-async function editEvent(payload: EventProps) {
+async function editEvent(payload: CircleEvent) {
   try {
     const response = await apiService.editEvent(payload)
 
@@ -31,7 +31,7 @@ async function editEvent(payload: EventProps) {
 
 export const useEditEvent = () => {
   return useMutation({
-    mutationFn: (payload: EventProps) => editEvent(payload),
+    mutationFn: (payload: CircleEvent) => editEvent(payload),
     meta: {
       errorMessage: `Failed to edit event.`,
       successMessage: `Successfully edited event.`,
