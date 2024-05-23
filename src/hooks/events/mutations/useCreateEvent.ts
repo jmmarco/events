@@ -1,5 +1,5 @@
 import { apiService } from '@api/apiService'
-import { EventProps } from '@customTypes/events/EventProps'
+import { EventProps } from '@customTypes/index'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 

@@ -1,8 +1,8 @@
-import { EventProps } from '@customTypes/events/EventProps'
+import { EventProps } from '@customTypes/index'
 import { useNavigate } from 'react-router'
 
 interface EventCardListProps {
-  events: EventProps[] | null
+  events: EventProps[]
 }
 
 export default function EventCardList({ events }: EventCardListProps) {
