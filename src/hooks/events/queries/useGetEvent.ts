@@ -11,20 +11,20 @@ async function getEvent(id: string) {
       return response.data
     } else {
       throw new Error(
-        `Failed to create event: Received status code ${response.status}`,
+        `Failed to get event: Received status code ${response.status}`,
       )
     }
   } catch (error) {
     if (error instanceof AxiosError) {
       // Handle Axios-specific errors
       throw new Error(
-        `Failed to create event: ${
+        `Failed to get event: ${
           error.response?.data?.message || error.message
         }`,
       )
     } else {
       // Handle other errors
-      throw new Error('Failed to create event: An unexpected error occurred')
+      throw new Error('Failed to get event: An unexpected error occurred')
     }
   }
 }
@@ -34,8 +34,8 @@ export function useGetEvent(id: string) {
     queryKey: eventsQueryKeys.events(),
     queryFn: () => getEvent(id),
     meta: {
-      errorMessage: 'Failed to fetch events.',
-      successMessage: 'Events fetched successfully.',
+      errorMessage: 'Failed to fetch event.',
+      successMessage: 'Event fetched successfully.',
     },
   })
 }

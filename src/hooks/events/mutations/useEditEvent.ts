@@ -18,7 +18,7 @@ async function editEvent(payload: EventProps) {
     if (error instanceof AxiosError) {
       // Handle Axios-specific errors
       throw new Error(
-        `Failed to create event: ${
+        `Failed to edit event: ${
           error.response?.data?.message || error.message
         }`,
       )

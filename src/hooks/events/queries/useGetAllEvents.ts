@@ -11,20 +11,20 @@ async function getAllEvents() {
       return response.data
     } else {
       throw new Error(
-        `Failed to create event: Received status code ${response.status}`,
+        `Failed to get events: Received status code ${response.status}`,
       )
     }
   } catch (error) {
     if (error instanceof AxiosError) {
       // Handle Axios-specific errors
       throw new Error(
-        `Failed to create event: ${
+        `Failed to get events: ${
           error.response?.data?.message || error.message
         }`,
       )
     } else {
       // Handle other errors
-      throw new Error('Failed to create event: An unexpected error occurred')
+      throw new Error('Failed to get events: An unexpected error occurred')
     }
   }
 }
