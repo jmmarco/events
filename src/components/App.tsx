@@ -7,6 +7,7 @@ import LoaderContext from '@context/LoaderContext'
 import ErrorPage from './errors/ErrorPage'
 import NotificationProvider from '@context/NotificationProvider'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 export default function App() {
   const queryClient = new QueryClient()
@@ -25,6 +26,7 @@ export default function App() {
           <LoaderContext.Provider value={loadingValue}>
             <Outlet />
             <Loader />
+            <ReactQueryDevtools initialIsOpen={false} />
             <Notification />
           </LoaderContext.Provider>
         </NotificationProvider>
