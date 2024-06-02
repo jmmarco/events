@@ -34,7 +34,7 @@ export function useGetAllEvents(): UseQueryResult<CircleEvent[], Error> {
   return useQuery({
     queryKey: eventsQueryKeys.events(),
     queryFn: () => getAllEvents(),
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: 1000 * 60 * 15, // 15 minutes
     meta: {
       errorMessage: 'Failed to fetch events.',
       successMessage: 'Events fetched successfully.',
