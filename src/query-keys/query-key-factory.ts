@@ -1,4 +1,4 @@
 export const eventsQueryKeys = {
   events: () => ['events'],
-  event: (id: string) => ['event', id],
+  event: (id: string) => ['events', id],
 }
