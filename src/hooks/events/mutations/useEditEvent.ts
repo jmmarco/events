@@ -1,7 +1,8 @@
 import { AxiosError } from 'axios'
 import { apiService } from '@api/apiService'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CircleEvent } from '@customTypes/index'
+import { eventsQueryKeys } from 'query-keys/query-key-factory'
 
 async function editEvent(payload: CircleEvent) {
   try {
@@ -30,8 +31,15 @@ async function editEvent(payload: CircleEvent) {
 }
 
 export const useEditEvent = () => {
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (payload: CircleEvent) => editEvent(payload),
+    onSuccess: (updatedEvent) => {
+      const { id } = updatedEvent
+      queryClient.invalidateQueries({
+        queryKey: eventsQueryKeys.event(id),
+      })
+    },
     meta: {
       errorMessage: `Failed to edit event.`,
       successMessage: `Successfully edited event.`,
