@@ -1,35 +1,44 @@
-import { useContext, useEffect, useState } from 'react'
-import { AxiosError } from 'axios'
-import { EventProps } from '@customTypes/events/EventProps'
-import LoaderContext from '@context/LoaderContext'
 import { apiService } from '@api/apiService'
+import { CircleEvent } from '@customTypes/index'
+import { UseQueryResult, useQuery } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
+import { eventsQueryKeys } from 'query-keys/query-key-factory'
 
-interface UseGetAllEventsResponse {
-  data: EventProps | null
-  loading: boolean
-  error: Error | null
+async function getEvent(id: string) {
+  try {
+    const response = await apiService.getEvent(id)
+
+    if (response.status === 200) {
+      return response.data
+    } else {
+      throw new Error(
+        `Failed to get event: Received status code ${response.status}`,
+      )
+    }
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      // Handle Axios-specific errors
+      throw new Error(
+        `Failed to get event: ${
+          error.response?.data?.message || error.message
+        }`,
+      )
+    } else {
+      // Handle other errors
+      throw new Error('Failed to get event: An unexpected error occurred')
+    }
+  }
 }
 
-export const useGetEvent = (id: string): UseGetAllEventsResponse => {
-  const [data, setData] = useState<EventProps | null>(null)
-  const [error, setError] = useState<Error | null>(null)
-  const { loading, setLoading } = useContext(LoaderContext)
-
-  useEffect(() => {
-    const fetchEvent = async () => {
-      setLoading(true)
-      try {
-        const response = await apiService.getEvent(id)
-        setData(response.data)
-      } catch (error) {
-        const axiosError = error as AxiosError
-        setError(axiosError)
-      }
-      setLoading(false)
-    }
-
-    fetchEvent()
-  }, [id, setLoading])
-
-  return { data, loading, error }
+export function useGetEvent(id: string): UseQueryResult<CircleEvent, Error> {
+  return useQuery({
+    enabled: !!id,
+    queryKey: eventsQueryKeys.event(id),
+    staleTime: 1000 * 60 * 15, // 15 minutes
+    queryFn: () => getEvent(id),
+    meta: {
+      errorMessage: 'Failed to fetch event.',
+      successMessage: 'Event fetched successfully.',
+    },
+  })
 }

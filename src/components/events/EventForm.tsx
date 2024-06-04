@@ -6,28 +6,16 @@ import { useNavigate } from 'react-router'
 import { useErrorBoundary } from 'react-error-boundary'
 import Textarea from '@components/inputs/Textarea'
 import SelectMenu from '@components/inputs/SelectMenu'
-import { useCreateEvent } from '@hooks/events/mutations/useCreateEvent'
 import { useEditEvent } from '@hooks/events/mutations/useEditEvent'
-import { SetActionType } from '@reducers/actionReducer'
 import LocationRadioGroup from '@components/inputs/LocationRadioGroup'
-import { EventProps } from '@customTypes/events/EventProps'
 import useNotification from '@hooks/useNotification'
-
-interface EventFormProps {
-  event?: EventProps | null
-  action: string
-  dispatch: React.Dispatch<SetActionType>
-}
-
-interface FormValues extends EventProps {
-  domain: string // Domain is part of the form, but not used at this time (disabled)
-}
+import { EventFormProps, CircleEvent } from '@customTypes/index'
+import { useCreateEvent } from '@hooks/events/mutations/useCreateEvent'
 
 export default function EventForm({ event, action, dispatch }: EventFormProps) {
   const navigate = useNavigate()
-  const { mutate: createEventMutation, error: createEventError } =
-    useCreateEvent()
-  const { mutate: editEventMutation, error: editEventError } = useEditEvent()
+  const { mutate: editEvent, error: editEventError } = useEditEvent()
+  const { mutate: createEvent, error: createEventError } = useCreateEvent()
   const { dispatchNotification } = useNotification()
   const { showBoundary } = useErrorBoundary()
   // Conditional actions
@@ -41,8 +29,9 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm({
     defaultValues: {
+      id: 0,
       name: '',
       location: '',
       dateAndTime: '',
@@ -53,7 +42,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
   })
 
   const getEventObject = useCallback(
-    (event: EventProps) => ({
+    (event: CircleEvent) => ({
       id: event.id,
       name: event.name,
       location: event.location,
@@ -83,44 +72,46 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
     return true
   }
 
-  const onSubmit: SubmitHandler<FormValues> = async (formData) => {
+  const onSubmit: SubmitHandler<CircleEvent> = async (formData) => {
     if (isEdit) {
-      editEventMutation(formData).then(() => {
-        dispatchNotification({
-          type: 'SHOW',
-          payload: {
-            text: 'Event edited successfully',
-            notificationType: 'success',
-          },
-        })
-        dispatch({ type: 'SET_ACTION', payload: 'view' })
+      editEvent(formData, {
+        onSuccess: () => {
+          dispatchNotification({
+            type: 'SHOW',
+            payload: {
+              text: 'Event edited successfully',
+              notificationType: 'success',
+            },
+          })
+          dispatch({ type: 'SET_ACTION', payload: 'view' })
+        },
       })
-    } else {
-      createEventMutation(formData).then((data) => {
-        console.info('is data actually there?', data)
-        dispatchNotification({
-          type: 'SHOW',
-          payload: {
-            text: 'Event created successfully',
-            notificationType: 'success',
-          },
-        })
-        dispatch({ type: 'SET_ACTION', payload: 'view' })
+    }
+
+    if (isCreate) {
+      createEvent(formData, {
+        onSuccess: () => {
+          dispatchNotification({
+            type: 'SHOW',
+            payload: {
+              text: 'Event created successfully',
+              notificationType: 'success',
+            },
+          })
+          dispatch({ type: 'SET_ACTION', payload: 'view' })
+        },
       })
     }
   }
 
   const buttonText = isEdit ? 'Save Event' : 'Create Event'
 
-  // Boolean used to disable form elements when viewing an event
-  const isDisabled = isView
+  if (editEventError) {
+    showBoundary(editEventError)
+  }
 
   if (createEventError) {
     showBoundary(createEventError)
-  }
-
-  if (editEventError) {
-    showBoundary(editEventError)
   }
 
   return (
@@ -134,7 +125,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
           label="Event Name"
           {...register('name', { required: 'Event name is required' })}
           error={errors?.name}
-          disabled={isDisabled}
+          disabled={isView}
           intent={errors?.name && 'error'}
         />
       </div>
@@ -144,7 +135,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
             render={({ field }) => (
               <LocationRadioGroup
                 {...field}
-                disabled={isDisabled}
+                disabled={isView}
                 error={errors?.location}
               />
             )}
@@ -168,7 +159,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
             })}
             error={errors?.dateAndTime}
             intent={errors?.name && 'error'}
-            disabled={isDisabled}
+            disabled={isView}
           />
           <div>
             <Controller
@@ -176,7 +167,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
                 <SelectMenu
                   {...field}
                   label="Duration"
-                  disabled={isDisabled}
+                  disabled={isView}
                   items={[1, 2, 3, 4, 5, 6]}
                 />
               )}
@@ -192,7 +183,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
           placeholder="Write a summary about your event"
           className="h-40 resize-none"
           {...register('description')}
-          disabled={isDisabled}
+          disabled={isView}
         />
       </div>
       <fieldset>
@@ -207,7 +198,6 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
             disabled
             value="yourdomain.com"
             className="basis-1/4 rounded-r-none"
-            {...register('domain')}
           />
           <Input
             type="text"
@@ -217,7 +207,7 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
             placeholder="custom URL"
             grow
             {...register('customUrl')}
-            disabled={isDisabled}
+            disabled={isView}
           />
         </div>
       </fieldset>

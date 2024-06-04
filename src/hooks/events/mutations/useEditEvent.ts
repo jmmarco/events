@@ -1,40 +1,48 @@
-import { useContext, useState } from 'react'
 import { AxiosError } from 'axios'
 import { apiService } from '@api/apiService'
-import LoaderContext from '@context/LoaderContext'
-import { sleep } from '@helpers/utils'
-import { EventProps } from '@customTypes/events/EventProps'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { CircleEvent } from '@customTypes/index'
+import { eventsQueryKeys } from 'query-keys/query-key-factory'
 
-interface UseEditEventResponse {
-  data: EventProps | null
-  loading: boolean
-  error: Error | null
-  mutate: (event: EventProps) => Promise<EventProps | null>
-}
+async function editEvent(payload: CircleEvent) {
+  try {
+    const response = await apiService.editEvent(payload)
 
-export const useEditEvent = (): UseEditEventResponse => {
-  const [data, setData] = useState<EventProps | null>(null)
-  const [error, setError] = useState<Error | null>(null)
-  const { loading, setLoading } = useContext(LoaderContext)
-
-  const editEvent = async (event: EventProps) => {
-    const { id } = event
-    const SIMULATED_NETWORK_DELAY = 2500
-    setLoading(true)
-    try {
-      const response = await apiService.editEvent(String(id), event)
-      setData(response.data)
-      await sleep(SIMULATED_NETWORK_DELAY)
-      setLoading(false)
+    if (response.status === 200) {
       return response.data
-    } catch (error) {
-      const axiosError = error as AxiosError
-      setError(axiosError)
-      await sleep(SIMULATED_NETWORK_DELAY)
-      setLoading(false)
-      return null
+    } else {
+      throw new Error(
+        `Failed to edit event: Received status code ${response.status}`,
+      )
+    }
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      // Handle Axios-specific errors
+      throw new Error(
+        `Failed to edit event: ${
+          error.response?.data?.message || error.message
+        }`,
+      )
+    } else {
+      // Handle other errors
+      throw new Error('Failed to edit event: An unexpected error occurred')
     }
   }
+}
 
-  return { mutate: editEvent, data, loading, error }
+export const useEditEvent = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: CircleEvent) => editEvent(payload),
+    onSuccess: (updatedEvent) => {
+      const { id } = updatedEvent
+      queryClient.invalidateQueries({
+        queryKey: eventsQueryKeys.event(id),
+      })
+    },
+    meta: {
+      errorMessage: `Failed to edit event.`,
+      successMessage: `Successfully edited event.`,
+    },
+  })
 }

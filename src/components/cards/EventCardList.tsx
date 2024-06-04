@@ -1,8 +1,8 @@
-import { EventProps } from '@customTypes/events/EventProps'
+import { CircleEvent } from '@customTypes/index'
 import { useNavigate } from 'react-router'
 
 interface EventCardListProps {
-  events: EventProps[] | null
+  events: CircleEvent[]
 }
 
 export default function EventCardList({ events }: EventCardListProps) {
@@ -10,7 +10,7 @@ export default function EventCardList({ events }: EventCardListProps) {
 
   return (
     <ul className="flex flex-col gap-4 py-20 md:flex-row md:flex-wrap md:justify-between">
-      {events?.map((event) => {
+      {events.map((event) => {
         const imgSrc =
           event.location === 'Virtual'
             ? '/event-virtual-logo.svg'

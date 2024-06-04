@@ -7,6 +7,7 @@ Here you will find the reasoning and logic for choosing packages/patterns for th
 - Vite (React + Typescript)
 - Tailwind CSS
 - React Router (DOM)
+- Tanstack Query (React Query)
 - Headless UI
 - Heroicons
 - React Hook Form
