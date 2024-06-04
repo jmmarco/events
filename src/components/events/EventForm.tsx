@@ -74,7 +74,6 @@ export default function EventForm({ event, action, dispatch }: EventFormProps) {
 
   const onSubmit: SubmitHandler<CircleEvent> = async (formData) => {
     if (isEdit) {
-      console.log('formData:', formData)
       editEvent(formData, {
         onSuccess: () => {
           dispatchNotification({
